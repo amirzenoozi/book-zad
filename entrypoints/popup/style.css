@@ -231,3 +231,11 @@ input[type='range'] {
   border-color: color-mix(in srgb, var(--accent) 45%, transparent);
   color: var(--accent);
 }
+
+/* User data (page title, url, current host) can be in any script — let each
+   take its direction from its own content. */
+.save__title,
+.save__url,
+.row__value {
+  unicode-bidi: plaintext;
+}

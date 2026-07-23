@@ -6,9 +6,12 @@ import { defineConfig } from 'wxt';
 // See https://wxt.dev/guide/essentials/config/manifest.html
 export default defineConfig({
   manifest: {
-    name: 'BookZad — bookmarks, reimagined',
-    description:
-      'Score, search and de-clutter your bookmarks. On-device nudges suggest a folder when a page matches one you already keep.',
+    // Localised via public/_locales/<lang>/messages.json — the browser picks by
+    // UI language and falls back to default_locale. This also localises the
+    // Chrome Web Store listing's name and short description.
+    default_locale: 'en',
+    name: '__MSG_ext_name__',
+    description: '__MSG_ext_description__',
     icons: {
       16: 'icon/16.png',
       32: 'icon/32.png',
@@ -25,7 +28,7 @@ export default defineConfig({
         48: 'icon/48.png',
         128: 'icon/128.png',
       },
-      default_title: 'BookZad',
+      default_title: '__MSG_app_name__',
     },
     // bookmarks: read/organise the native bookmark tree (source of truth).
     // storage:   our layered metadata (notes, scores, tags), the TF-IDF index

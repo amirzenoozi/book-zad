@@ -34,6 +34,14 @@ import { pickKeeper } from '@/lib/dedupe';
 import { buildBackup, isBackup, applyBackup } from '@/lib/backup';
 import { sendMessage } from '@/lib/messaging';
 import { applyTheme } from '@/lib/theme';
+import {
+  t,
+  plural,
+  localeCode,
+  applyDirection,
+  localizeDom,
+  type MessageKey,
+} from '@/lib/i18n';
 import type { Bookmark, BookmarkMeta, Folder, Settings, Theme } from '@/lib/types';
 import '@/lib/fonts.css';
 import './style.css';
@@ -83,6 +91,8 @@ const newFolderBtn = $<HTMLButtonElement>('#new-folder');
 init();
 
 async function init() {
+  applyDirection();
+  localizeDom();
   settings = await getSettings();
   applyTheme(settings.theme);
   themeSelect.value = settings.theme;
@@ -179,6 +189,8 @@ function renderSearch(q: string) {
 
   grid.replaceChildren(...filtered.map((b) => renderBookmarkCard(b, true)));
   emptyMsg.hidden = filtered.length > 0;
+  // The folder view overwrites this text, so set it back on the way in.
+  emptyMsg.textContent = t('empty_search');
   renderStats(filtered.length);
 }
 
@@ -197,12 +209,12 @@ function renderFolderView() {
   ];
   grid.replaceChildren(...cards);
   emptyMsg.hidden = cards.length > 0;
-  emptyMsg.textContent = 'This folder is empty.';
+  emptyMsg.textContent = t('empty_folder');
   renderStats(items.length);
 }
 
 function renderCrumbs() {
-  const parts: Node[] = [crumb('Home', () => navigate(null), currentFolderId === null)];
+  const parts: Node[] = [crumb(t('home'), () => navigate(null), currentFolderId === null)];
   if (currentFolderId) {
     for (const f of pathChain(currentFolderId)) {
       parts.push(sep(), crumb(f.title, () => navigate(f.id), f.id === currentFolderId));
@@ -251,9 +263,9 @@ function sortInPlace(list: Bookmark[]) {
 
 function renderStats(shown: number) {
   statsEl.replaceChildren(
-    stat(String(bookmarks.length), 'bookmarks'),
-    stat(String(folders.length), 'folders'),
-    stat(String(shown), 'shown'),
+    stat(String(bookmarks.length), t('stat_bookmarks')),
+    stat(String(folders.length), t('stat_folders')),
+    stat(String(shown), t('stat_shown')),
   );
 }
 
@@ -292,20 +304,22 @@ function renderFolderCard(f: Folder): HTMLElement {
   count.className = 'folder__count';
   const nSub = childFolders(f.id).length;
   const nBm = childBookmarks(f.id).length;
-  count.textContent = `${nBm} bookmark${nBm === 1 ? '' : 's'}${nSub ? `, ${nSub} folder${nSub === 1 ? '' : 's'}` : ''}`;
+  count.textContent =
+    plural(nBm, 'count_bookmarks_one', 'count_bookmarks_other') +
+    (nSub ? plural(nSub, 'count_folders_one', 'count_folders_other') : '');
 
   const footer = document.createElement('div');
   footer.className = 'card__footer';
   footer.append(
-    button('Rename', 'btn btn--ghost btn--sm', () => void handleRenameFolder(f)),
-    button('Delete', 'btn btn--danger', () => void handleDeleteFolder(f)),
+    button(t('action_rename'), 'btn btn--ghost btn--sm', () => void handleRenameFolder(f)),
+    button(t('action_delete'), 'btn btn--danger', () => void handleDeleteFolder(f)),
   );
 
   // Folder note — searchable label, and a weighted source for suggestions.
   const fm = meta(f.id);
   const notes = document.createElement('textarea');
   notes.className = 'card__notes';
-  notes.placeholder = 'Folder note — describe it to sharpen suggestions…';
+  notes.placeholder = t('folder_note_placeholder');
   notes.value = fm.notes;
   notes.rows = 2;
   notes.addEventListener('change', async () => {
@@ -325,7 +339,7 @@ function renderFolderCard(f: Folder): HTMLElement {
 function folderMoveControl(f: Folder): HTMLElement {
   const wrap = document.createElement('label');
   wrap.className = 'move';
-  wrap.title = 'Move folder to…';
+  wrap.title = t('move_folder_to');
 
   const select = document.createElement('select');
   select.className = 'move__select';
@@ -388,7 +402,7 @@ function renderBookmarkCard(b: Bookmark, showPath: boolean): HTMLElement {
   // pinned to the bottom via CSS so it aligns across cards despite the rating.
   const notes = document.createElement('textarea');
   notes.className = 'card__notes';
-  notes.placeholder = 'Add a note — also used for suggestions…';
+  notes.placeholder = t('note_placeholder');
   notes.value = m.notes;
   notes.rows = 2;
   notes.addEventListener('change', async () => {
@@ -399,7 +413,7 @@ function renderBookmarkCard(b: Bookmark, showPath: boolean): HTMLElement {
 
   const footer = document.createElement('div');
   footer.className = 'card__footer';
-  footer.append(button('Delete', 'btn btn--danger', () => void handleDeleteBookmark(b)));
+  footer.append(button(t('action_delete'), 'btn btn--danger', () => void handleDeleteBookmark(b)));
   card.append(footer);
 
   return card;
@@ -422,7 +436,7 @@ function tagsEditor(b: Bookmark, m: BookmarkMeta): HTMLElement {
       x.type = 'button';
       x.className = 'tag__x';
       x.textContent = '×';
-      x.title = 'Remove tag';
+      x.title = t('remove_tag');
       x.addEventListener('click', async () => {
         m.tags = m.tags.filter((t) => t !== tag);
         await setMeta(b.id, { tags: m.tags });
@@ -434,7 +448,7 @@ function tagsEditor(b: Bookmark, m: BookmarkMeta): HTMLElement {
 
     const input = document.createElement('input');
     input.className = 'tag__input';
-    input.placeholder = m.tags.length ? '+ tag' : 'add tags…';
+    input.placeholder = m.tags.length ? t('tag_add_more') : t('tag_add_first');
     input.addEventListener('keydown', async (e) => {
       if (e.key !== 'Enter') return;
       e.preventDefault();
@@ -459,7 +473,7 @@ function tagsEditor(b: Bookmark, m: BookmarkMeta): HTMLElement {
 function moveControl(b: Bookmark): HTMLElement {
   const wrap = document.createElement('label');
   wrap.className = 'move';
-  wrap.title = 'Move to folder';
+  wrap.title = t('move_to_folder');
 
   const select = document.createElement('select');
   select.className = 'move__select';
@@ -503,7 +517,7 @@ function scoreRow(b: Bookmark, m: BookmarkMeta): HTMLElement {
     star.type = 'button';
     star.className = 'star' + (i <= filled ? ' star--on' : '');
     star.textContent = '★';
-    star.title = `Set score to ${i * 20}`;
+    star.title = t('set_score_to', String(i * 20));
     star.addEventListener('click', async () => {
       const nextManual = m.manualScore === i * 20 ? null : i * 20;
       await setMeta(b.id, { manualScore: nextManual });
@@ -515,7 +529,8 @@ function scoreRow(b: Bookmark, m: BookmarkMeta): HTMLElement {
 
   const tag = document.createElement('span');
   tag.className = 'score__tag';
-  tag.textContent = m.manualScore != null ? `manual · ${score}` : `auto · ${score}`;
+  tag.textContent =
+    m.manualScore != null ? t('score_manual', String(score)) : t('score_auto', String(score));
 
   row.append(stars, tag);
   return row;
@@ -551,11 +566,13 @@ function renderHygiene() {
   const acc = document.createElement('div');
   acc.className = 'acc';
   acc.append(
-    accSection('hygiene', 'duplicates', 'Duplicates', dupes.length ? `${dupes.length} group(s) · ${extras} removable` : 'none found',
+    accSection('hygiene', 'duplicates', t('acc_duplicates'),
+      dupes.length ? t('dupes_summary', [String(dupes.length), String(extras)]) : t('acc_none_found'),
       (body) => buildDupBody(body, dupes, extras)),
-    accSection('hygiene', 'stale', 'Stale', stale.length ? `${stale.length} never opened` : 'none found',
+    accSection('hygiene', 'stale', t('acc_stale'),
+      stale.length ? t('stale_summary', String(stale.length)) : t('acc_none_found'),
       (body) => buildStaleBody(body, stale)),
-    accSection('hygiene', 'dead', 'Dead links', 'scan on demand', (body) => buildDeadBody(body)),
+    accSection('hygiene', 'dead', t('acc_dead'), t('dead_summary'), (body) => buildDeadBody(body)),
   );
   hygieneBody.append(acc);
 }
@@ -611,12 +628,12 @@ function accSection(
 
 function buildDupBody(body: HTMLElement, dupes: Bookmark[][], extras: number) {
   if (dupes.length === 0) {
-    body.append(accNote('No duplicate URLs ✓'));
+    body.append(accNote(t('dupes_none')));
     return;
   }
   const bar = document.createElement('div');
   bar.className = 'acc__bar';
-  bar.append(button(`Remove all ${extras} duplicates`, 'btn btn--primary btn--sm', () => void handleDedupeAll(dupes)));
+  bar.append(button(t('dupes_remove_all', String(extras)), 'btn btn--primary btn--sm', () => void handleDedupeAll(dupes)));
   body.append(bar);
 
   const list = document.createElement('ul');
@@ -626,10 +643,10 @@ function buildDupBody(body: HTMLElement, dupes: Bookmark[][], extras: number) {
     li.className = 'dupes__item';
     const label = document.createElement('span');
     label.className = 'dupes__label';
-    label.textContent = `${group.length}× ${prettyUrl(group[0]!.url)}`;
+    label.textContent = t('dupes_group_label', [String(group.length), prettyUrl(group[0]!.url)]);
     const keeper = keeperOf(group);
-    const clean = button('Keep best, delete rest', 'btn btn--ghost btn--sm', () => void handleDedupeGroup(group));
-    clean.title = `Keeps “${keeper.title}” (highest score / oldest), deletes ${group.length - 1}`;
+    const clean = button(t('dupes_keep_best'), 'btn btn--ghost btn--sm', () => void handleDedupeGroup(group));
+    clean.title = t('dupes_keep_title', [keeper.title, String(group.length - 1)]);
     li.append(label, clean);
     list.append(li);
   }
@@ -637,9 +654,9 @@ function buildDupBody(body: HTMLElement, dupes: Bookmark[][], extras: number) {
 }
 
 function buildStaleBody(body: HTMLElement, stale: Bookmark[]) {
-  body.append(accNote('Added over 180 days ago and never opened since install.'));
+  body.append(accNote(t('stale_note')));
   if (stale.length === 0) {
-    body.append(accNote('Nothing stale ✓'));
+    body.append(accNote(t('stale_none')));
     return;
   }
   const list = document.createElement('ul');
@@ -650,7 +667,7 @@ function buildStaleBody(body: HTMLElement, stale: Bookmark[]) {
     const label = document.createElement('span');
     label.className = 'dupes__label';
     label.textContent = `${b.title} — ${prettyUrl(b.url)}`;
-    const del = button('Delete', 'btn btn--danger btn--sm', async () => {
+    const del = button(t('action_delete'), 'btn btn--danger btn--sm', async () => {
       await removeBookmark(b.id);
       await deleteMeta(b.id);
       bookmarks = bookmarks.filter((x) => x.id !== b.id);
@@ -664,13 +681,13 @@ function buildStaleBody(body: HTMLElement, stale: Bookmark[]) {
 }
 
 function buildDeadBody(body: HTMLElement) {
-  body.append(accNote('Checks every bookmark still resolves — best-effort, one network request each.'));
+  body.append(accNote(t('dead_note')));
   const bar = document.createElement('div');
   bar.className = 'acc__bar';
   const progress = document.createElement('span');
   progress.className = 'hygiene-line__sub';
   const results = document.createElement('div');
-  const scanBtn = button('Scan for dead links', 'btn btn--ghost btn--sm', () =>
+  const scanBtn = button(t('dead_scan'), 'btn btn--ghost btn--sm', () =>
     void scanDeadLinks(scanBtn, progress, results),
   );
   bar.append(scanBtn, progress);
@@ -709,14 +726,14 @@ async function removeAllBut(keeper: Bookmark, group: Bookmark[]): Promise<number
 
 async function handleDedupeGroup(group: Bookmark[]) {
   const keeper = keeperOf(group);
-  if (!confirm(`Keep “${keeper.title}” and delete ${group.length - 1} duplicate(s)?`)) return;
+  if (!confirm(t('confirm_dedupe_group', [keeper.title, String(group.length - 1)]))) return;
   await removeAllBut(keeper, group);
   await reload();
 }
 
 async function handleDedupeAll(groups: Bookmark[][]) {
   const total = groups.reduce((n, g) => n + (g.length - 1), 0);
-  if (!confirm(`Remove ${total} duplicate bookmark(s) across ${groups.length} group(s)? One copy of each is kept.`))
+  if (!confirm(t('confirm_dedupe_all', [String(total), String(groups.length)])))
     return;
   for (const group of groups) await removeAllBut(keeperOf(group), group);
   await reload();
@@ -748,7 +765,7 @@ async function scanDeadLinks(btn: HTMLButtonElement, progressEl: HTMLElement, re
         /* ignore individual failures */
       }
       done++;
-      progressEl.textContent = `Checking ${done}/${targets.length}…`;
+      progressEl.textContent = t('dead_scanning', [String(done), String(targets.length)]);
     }
   };
   await Promise.all(Array.from({ length: Math.min(6, targets.length) }, worker));
@@ -757,7 +774,7 @@ async function scanDeadLinks(btn: HTMLButtonElement, progressEl: HTMLElement, re
   lastDeadCheck = { checkedAt: Date.now(), deadUrls: dead.map((b) => b.url) };
   await setDeadCheck(lastDeadCheck);
 
-  progressEl.textContent = `Checked ${targets.length}`;
+  progressEl.textContent = t('dead_checked', String(targets.length));
   btn.disabled = false;
   deadScanning = false;
   renderDeadResults(resultsEl, dead, lastDeadCheck.checkedAt);
@@ -765,14 +782,14 @@ async function scanDeadLinks(btn: HTMLButtonElement, progressEl: HTMLElement, re
 
 function renderDeadResults(el: HTMLElement, dead: Bookmark[], checkedAt?: number) {
   el.replaceChildren();
-  if (checkedAt) el.append(accNote(`Last checked ${new Date(checkedAt).toLocaleString()}.`));
+  if (checkedAt) el.append(accNote(t('dead_last_checked', new Date(checkedAt).toLocaleString(localeCode()))));
   if (dead.length === 0) {
-    el.append(accNote('No dead links found ✓'));
+    el.append(accNote(t('dead_none')));
     return;
   }
 
-  const head = hygieneLine(`${dead.length} dead link(s)`, 'no longer resolve — 404 / gone / server error');
-  head.append(button(`Remove all ${dead.length}`, 'btn btn--danger btn--sm', () => void removeDeadLinks(dead)));
+  const head = hygieneLine(t('dead_count', String(dead.length)), t('dead_sub'));
+  head.append(button(t('dead_remove_all', String(dead.length)), 'btn btn--danger btn--sm', () => void removeDeadLinks(dead)));
   el.append(head);
 
   const list = document.createElement('ul');
@@ -783,7 +800,7 @@ function renderDeadResults(el: HTMLElement, dead: Bookmark[], checkedAt?: number
     const label = document.createElement('span');
     label.className = 'dupes__label';
     label.textContent = `${b.title} — ${prettyUrl(b.url)}`;
-    const del = button('Delete', 'btn btn--danger btn--sm', async () => {
+    const del = button(t('action_delete'), 'btn btn--danger btn--sm', async () => {
       await removeBookmark(b.id);
       await deleteMeta(b.id);
       bookmarks = bookmarks.filter((x) => x.id !== b.id);
@@ -797,7 +814,7 @@ function renderDeadResults(el: HTMLElement, dead: Bookmark[], checkedAt?: number
 }
 
 async function removeDeadLinks(dead: Bookmark[]) {
-  if (!confirm(`Remove ${dead.length} dead bookmark(s)?`)) return;
+  if (!confirm(t('confirm_delete_dead', String(dead.length)))) return;
   for (const b of dead) {
     await removeBookmark(b.id);
     await deleteMeta(b.id);
@@ -831,8 +848,8 @@ function renderMuted() {
     accSection(
       'muted',
       'sites',
-      'Muted sites',
-      mutedSites.length ? `${mutedSites.length} site(s)` : 'none muted',
+      t('muted_sites'),
+      mutedSites.length ? t('muted_count', String(mutedSites.length)) : t('muted_none'),
       buildMutedBody,
     ),
   );
@@ -841,11 +858,7 @@ function renderMuted() {
 
 function buildMutedBody(body: HTMLElement) {
   body.append(
-    accNote(
-      'Sites that never get a suggestion — handy for search engines and pages you only ' +
-        'pass through. Toggle a group to mute or unmute it, add a domain by hand, or mute ' +
-        'the site you’re on from the toolbar popup. Muting a domain covers its subdomains too.',
-    ),
+    accNote(t('muted_note')),
   );
 
   // One toggle per preset bundle: it reads as "on" once every site in it is
@@ -855,16 +868,19 @@ function buildMutedBody(body: HTMLElement) {
   presets.className = 'mute__presets';
   for (const preset of PRESETS) {
     const applied = preset.sites.every((s) => mutedSites.includes(s));
+    // Preset keys are data, so these two lookups can't be statically checked.
+    const label = t(`preset_${preset.key}` as MessageKey);
+    const hint = t(`preset_${preset.key}_hint` as MessageKey);
     const b = button(
-      `${applied ? '✓' : '+'} ${preset.label}`,
+      `${applied ? '✓' : '+'} ${label}`,
       `mute__preset${applied ? ' mute__preset--on' : ''}`,
       () =>
         void mutate(applied ? removePresetSites(preset.sites) : addPresetSites(preset.sites)),
     );
     b.setAttribute('aria-pressed', String(applied));
     b.title = applied
-      ? `Unmute all ${preset.sites.length} — ${preset.hint}`
-      : `Mute all ${preset.sites.length} — ${preset.hint}`;
+      ? t('preset_unmute_all', [String(preset.sites.length), hint])
+      : t('preset_mute_all', [String(preset.sites.length), hint]);
     presets.append(b);
   }
 
@@ -873,20 +889,20 @@ function buildMutedBody(body: HTMLElement) {
   const input = document.createElement('input');
   input.type = 'text';
   input.className = 'mute__input';
-  input.placeholder = 'example.com';
+  input.placeholder = t('muted_add_placeholder');
   input.autocomplete = 'off';
   input.spellcheck = false;
   const add = document.createElement('button');
   add.type = 'submit';
   add.className = 'btn';
-  add.textContent = 'Add';
+  add.textContent = t('action_add');
   form.append(input, add);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const host = toHost(input.value);
     if (!host) {
-      input.setCustomValidity('Enter a domain like example.com');
+      input.setCustomValidity(t('muted_invalid'));
       input.reportValidity();
       return;
     }
@@ -900,7 +916,7 @@ function buildMutedBody(body: HTMLElement) {
   if (mutedSites.length === 0) {
     const li = document.createElement('li');
     li.className = 'mute__empty';
-    li.textContent = 'No muted sites — suggestions can appear anywhere.';
+    li.textContent = t('muted_empty');
     list.append(li);
   } else {
     for (const site of mutedSites) {
@@ -909,7 +925,7 @@ function buildMutedBody(body: HTMLElement) {
       const name = document.createElement('span');
       name.textContent = site;
       const x = button('×', 'mute__x', () => void mutate(removeIgnoredSite(site)));
-      x.title = `Unmute ${site}`;
+      x.title = t('muted_unmute_site', site);
       x.setAttribute('aria-label', x.title);
       li.append(name, x);
       list.append(li);
@@ -930,14 +946,14 @@ async function mutate(change: Promise<string[]>, refocus = false) {
 // --- Actions ----------------------------------------------------------------
 
 async function handleDeleteBookmark(b: Bookmark) {
-  if (!confirm(`Delete “${b.title}”? This removes the browser bookmark.`)) return;
+  if (!confirm(t('confirm_delete_bookmark', b.title))) return;
   await removeBookmark(b.id);
   await deleteMeta(b.id);
   await reload();
 }
 
 async function handleRenameFolder(f: Folder) {
-  const name = prompt('Rename folder', f.title);
+  const name = prompt(t('prompt_rename_folder'), f.title);
   if (!name || name.trim() === f.title) return;
   await renameNode(f.id, name.trim());
   await reload();
@@ -948,8 +964,8 @@ async function handleDeleteFolder(f: Folder) {
   const nSub = childFolders(f.id).length;
   const warn =
     nBm || nSub
-      ? `Delete folder “${f.title}” and everything inside it (${nBm} bookmark(s), ${nSub} subfolder(s))?`
-      : `Delete empty folder “${f.title}”?`;
+      ? t('confirm_delete_folder', [f.title, String(nBm), String(nSub)])
+      : t('confirm_delete_folder_empty', f.title);
   if (!confirm(warn)) return;
   // If we're inside the folder being deleted, step out to its parent first.
   if (currentFolderId === f.id) currentFolderId = f.parentId ?? null;
@@ -958,7 +974,7 @@ async function handleDeleteFolder(f: Folder) {
 }
 
 async function handleNewFolder() {
-  const name = prompt('New folder name');
+  const name = prompt(t('prompt_new_folder'));
   if (!name || !name.trim()) return;
 
   // At Home, create under the first top-level folder (usually the bookmarks
@@ -967,7 +983,7 @@ async function handleNewFolder() {
   if (parentId === null) {
     const firstTop = childFolders(null)[0];
     if (!firstTop) {
-      alert('No top-level folder to create in. Open a folder first.');
+      alert(t('alert_no_top_folder'));
       return;
     }
     parentId = firstTop.id;
@@ -1017,19 +1033,19 @@ function wireBackup() {
     try {
       data = JSON.parse(await file.text());
     } catch {
-      alert('That file isn’t valid JSON.');
+      alert(t('backup_invalid_json'));
       return;
     }
     if (!isBackup(data)) {
-      alert('That file isn’t a BookZad backup.');
+      alert(t('backup_invalid'));
       return;
     }
     const res = await applyBackup(data, bookmarks, folders);
     await reload();
-    const parts = [`${res.updated} updated`];
-    if (res.created) parts.push(`${res.created} recreated`);
-    if (res.folders) parts.push(`${res.folders} folder note(s)`);
-    alert(`Restore complete — ${parts.join(', ')}.`);
+    const parts = [t('backup_updated', String(res.updated))];
+    if (res.created) parts.push(t('backup_created', String(res.created)));
+    if (res.folders) parts.push(t('backup_folders', String(res.folders)));
+    alert(t('backup_restored', parts.join(', ')));
   });
 }
 

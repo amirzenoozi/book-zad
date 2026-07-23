@@ -3,6 +3,7 @@ import { getIgnoredSites, isIgnored, addIgnoredSite, unmuteUrl, toHost } from '@
 import { getLastSaveFolder, setLastSaveFolder } from '@/lib/storage';
 import { loadTree, createBookmark, findByUrl } from '@/lib/bookmarks';
 import { applyTheme } from '@/lib/theme';
+import { t, applyDirection, localizeDom } from '@/lib/i18n';
 import { openManager } from '@/lib/manager';
 import type { Folder, Settings, Theme } from '@/lib/types';
 import '@/lib/fonts.css';
@@ -19,6 +20,8 @@ let settings: Settings;
 init();
 
 async function init() {
+  applyDirection();
+  localizeDom();
   settings = await getSettings();
   applyTheme(settings.theme);
 
@@ -97,7 +100,8 @@ async function wireQuickAdd(url: string, title: string) {
 
   const existing = await findByUrl(url);
   if (existing.length > 0) {
-    setStatus(status, `Already saved in “${existing[0]!.folderPath || 'a folder'}”`, 'dup');
+    const where = existing[0]!.folderPath || t('popup_folder_generic');
+    setStatus(status, t('popup_already_saved', where), 'dup');
   }
 
   btn.addEventListener('click', async () => {
@@ -107,11 +111,11 @@ async function wireQuickAdd(url: string, title: string) {
     try {
       await createBookmark(parentId, title || url, url);
       await setLastSaveFolder(parentId);
-      const path = sorted.find((f) => f.id === parentId)?.folderPath ?? 'folder';
-      setStatus(status, `Saved to “${path}” ✓`, 'ok');
-      btn.textContent = 'Saved';
+      const path = sorted.find((f) => f.id === parentId)?.folderPath ?? t('popup_folder_word');
+      setStatus(status, t('popup_save_ok', path), 'ok');
+      btn.textContent = t('popup_saved');
     } catch {
-      setStatus(status, 'Could not save this page.', 'dup');
+      setStatus(status, t('popup_save_error'), 'dup');
       btn.disabled = false;
     }
   });
@@ -134,11 +138,9 @@ async function wireMute(url: string) {
   let sites = await getIgnoredSites();
   const paint = () => {
     const muted = isIgnored(url, sites);
-    btn.textContent = muted ? 'Suggest here again' : 'Don’t suggest here';
+    btn.textContent = muted ? t('popup_unmute') : t('popup_mute');
     btn.classList.toggle('mute__btn--on', muted);
-    hint.textContent = muted
-      ? 'Muted. Manage the full list under “Muted sites” in the manager.'
-      : 'Never nudge me on this site — handy for search engines.';
+    hint.textContent = muted ? t('popup_muted_hint') : t('popup_mute_hint');
   };
   paint();
 

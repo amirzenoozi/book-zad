@@ -1,4 +1,5 @@
 import type { FolderMatch } from './types';
+import { t, isRtl } from './i18n';
 
 // An in-page nudge, shown only when the user enables toasts in settings. It
 // stays until the user acts on it or closes it — it never auto-dismisses.
@@ -37,7 +38,7 @@ export function showToast(match: FolderMatch, actions: ToastActions): void {
       ${fontFace()}
       :host { all: initial; }
       .card {
-        position: fixed; bottom: 20px; right: 20px; width: 330px; z-index: 2147483647;
+        position: fixed; bottom: 20px; inset-inline-end: 20px; width: 330px; z-index: 2147483647;
         font: 13px/1.45 "Vazirmatn", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
         background: #ffffff; color: #10151b; border: 1px solid #dde3ea;
         border-radius: 12px; box-shadow: 0 8px 30px rgba(12, 15, 20, 0.18);
@@ -49,7 +50,7 @@ export function showToast(match: FolderMatch, actions: ToastActions): void {
         .btn { background: #1b2129; color: #e6edf3; border-color: #232b35; }
         .btn--primary { background: #46bea0; color: #04120e; border-color: #46bea0; }
       }
-      .head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding-right: 22px; }
+      .head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding-inline-end: 22px; }
       .dot { width: 8px; height: 8px; border-radius: 50%; background: #46bea0; flex: none;
              box-shadow: 0 0 0 0 rgba(70, 190, 160, 0.6); animation: pulse 2s infinite; }
       @keyframes pulse {
@@ -58,7 +59,7 @@ export function showToast(match: FolderMatch, actions: ToastActions): void {
         100% { box-shadow: 0 0 0 0 rgba(70, 190, 160, 0); }
       }
       .title { font-weight: 600; letter-spacing: 0.2px; }
-      .pct { margin-left: auto; font-size: 11px; opacity: 0.7;
+      .pct { margin-inline-start: auto; font-size: 11px; opacity: 0.7;
              font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
       .path { font-weight: 600; margin: 2px 0 6px; }
       .samples { opacity: 0.75; font-size: 12px; margin-bottom: 12px; }
@@ -72,25 +73,25 @@ export function showToast(match: FolderMatch, actions: ToastActions): void {
       .btn:disabled { opacity: 0.6; cursor: default; }
       .btn--primary { background: #1f9e86; color: #ffffff; border-color: #1f9e86; }
       .close {
-        position: absolute; top: 8px; right: 10px; cursor: pointer;
+        position: absolute; top: 8px; inset-inline-end: 10px; cursor: pointer;
         background: none; border: none; color: inherit; opacity: 0.5; font-size: 16px;
       }
       .close:hover { opacity: 1; }
       .done { color: #1f9e86; font-weight: 600; }
       @media (prefers-color-scheme: dark) { .done { color: #46bea0; } }
     </style>
-    <div class="card" role="status">
-      <button class="close" aria-label="Dismiss">×</button>
+    <div class="card" role="status" dir="${isRtl() ? 'rtl' : 'ltr'}">
+      <button class="close" aria-label="${escapeHtml(t('toast_dismiss'))}">×</button>
       <div class="head">
         <span class="dot"></span>
-        <span class="title">Looks familiar</span>
-        <span class="pct">${pct}% match</span>
+        <span class="title">${escapeHtml(t('toast_title'))}</span>
+        <span class="pct">${escapeHtml(t('toast_match', String(pct)))}</span>
       </div>
       <div class="path">${escapeHtml(match.folderPath)}</div>
       <div class="samples">${samples}</div>
       <div class="actions">
-        <button class="btn btn--primary" data-act="add">+ Add to ${escapeHtml(folderName)}</button>
-        <button class="btn" data-act="open">Open folder</button>
+        <button class="btn btn--primary" data-act="add">${escapeHtml(t('toast_add', folderName))}</button>
+        <button class="btn" data-act="open">${escapeHtml(t('toast_open'))}</button>
       </div>
     </div>`;
 
@@ -105,16 +106,16 @@ export function showToast(match: FolderMatch, actions: ToastActions): void {
   });
   addBtn.addEventListener('click', async () => {
     addBtn.disabled = true;
-    addBtn.textContent = 'Adding…';
+    addBtn.textContent = t('toast_adding');
     const ok = await actions.onAdd();
     if (ok) {
       // Confirm inline, then dismiss shortly after.
       const actionsRow = shadow.querySelector('.actions')!;
-      actionsRow.innerHTML = `<span class="done">✓ Added to ${escapeHtml(folderName)}</span>`;
+      actionsRow.innerHTML = `<span class="done">${escapeHtml(t('toast_added', folderName))}</span>`;
       setTimeout(remove, 2200);
     } else {
       addBtn.disabled = false;
-      addBtn.textContent = 'Retry add';
+      addBtn.textContent = t('toast_retry');
     }
   });
 

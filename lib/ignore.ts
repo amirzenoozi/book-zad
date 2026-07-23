@@ -9,11 +9,10 @@ export const IGNORE_KEY = 'ignoredSites';
  *  doesn't bring it back on the next startup. */
 const SEEDED_KEY = 'ignoreSeeded';
 
-/** A one-click bundle of sites to mute. `sites` are already normalised hosts. */
+/** A one-click bundle of sites to mute. `sites` are already normalised hosts;
+ *  the label and hint are looked up as `preset_<key>` / `preset_<key>_hint`. */
 export interface Preset {
   key: string;
-  label: string;
-  hint: string;
   sites: string[];
 }
 
@@ -26,8 +25,6 @@ export interface Preset {
 export const PRESETS: Preset[] = [
   {
     key: 'search',
-    label: 'Search engines',
-    hint: 'Muted by default — you search from these, you don’t bookmark them.',
     sites: [
       'google.com',
       'bing.com',
@@ -44,8 +41,6 @@ export const PRESETS: Preset[] = [
   },
   {
     key: 'mail',
-    label: 'Mail & messaging',
-    hint: 'Inboxes and chat apps you keep open all day.',
     sites: [
       'mail.google.com',
       'outlook.com',
@@ -62,8 +57,6 @@ export const PRESETS: Preset[] = [
   },
   {
     key: 'social',
-    label: 'Social feeds',
-    hint: 'Endless feeds — mute the site, or leave it on if you file posts.',
     sites: [
       'facebook.com',
       'x.com',

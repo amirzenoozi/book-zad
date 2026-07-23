@@ -9,11 +9,11 @@
     <main class="pop">
       <header class="pop__head">
         <span class="pop__mark"></span>
-        <h1 class="pop__name">BookZad</h1>
+        <h1 class="pop__name" data-i18n="app_name">BookZad</h1>
       </header>
 
       <section class="save" id="save" hidden>
-        <h2 class="pop__h2">Save this page</h2>
+        <h2 class="pop__h2" data-i18n="popup_save_heading">Save this page</h2>
         <div class="save__page">
           <span class="save__mono" id="save-mono">•</span>
           <div class="save__meta">
@@ -23,55 +23,63 @@
         </div>
         <div class="save__row">
           <select id="save-folder" class="row__select save__folder"></select>
-          <button id="save-btn" class="save__btn" type="button">Save</button>
+          <button id="save-btn" class="save__btn" type="button" data-i18n="action_save">Save</button>
         </div>
         <p class="save__status" id="save-status" hidden></p>
       </section>
 
-      <button id="open-manager" class="pop__cta" type="button">Open manager</button>
+      <button id="open-manager" class="pop__cta" type="button" data-i18n="popup_open_manager">
+        Open manager
+      </button>
 
       <section class="pop__section">
-        <h2 class="pop__h2">Suggestions</h2>
+        <h2 class="pop__h2" data-i18n="popup_suggestions">Suggestions</h2>
 
         <label class="row">
-          <span class="row__label">Similarity nudge</span>
+          <span class="row__label" data-i18n="popup_nudge">Similarity nudge</span>
           <input type="checkbox" id="set-nudge" />
         </label>
-        <p class="row__hint">Badge the toolbar icon when a page resembles a folder you keep.</p>
+        <p class="row__hint" data-i18n="popup_nudge_hint">
+          Badge the toolbar icon when a page resembles a folder you keep.
+        </p>
 
         <label class="row">
-          <span class="row__label">In-page toast</span>
+          <span class="row__label" data-i18n="popup_toast">In-page toast</span>
           <input type="checkbox" id="set-toast" />
         </label>
-        <p class="row__hint">Also show an actionable in-page card (add to folder / open it).</p>
+        <p class="row__hint" data-i18n="popup_toast_hint">
+          Also show an actionable in-page card (add to folder / open it).
+        </p>
 
         <div class="row row--stack">
           <div class="row__top">
-            <span class="row__label">Suggestion threshold</span>
+            <span class="row__label" data-i18n="popup_threshold">Suggestion threshold</span>
             <span class="row__value" id="threshold-value"></span>
           </div>
           <input type="range" id="set-threshold" min="5" max="50" step="1" />
-          <p class="row__hint">Lower = more suggestions (looser). Higher = only strong matches.</p>
+          <p class="row__hint" data-i18n="popup_threshold_hint">
+            Lower = more suggestions (looser). Higher = only strong matches.
+          </p>
         </div>
 
         <div class="row row--stack mute" id="mute" hidden>
           <div class="row__top">
-            <span class="row__label">This site</span>
+            <span class="row__label" data-i18n="popup_this_site">This site</span>
             <span class="row__value" id="mute-host"></span>
           </div>
-          <button id="mute-btn" class="mute__btn" type="button">Don’t suggest here</button>
+          <button id="mute-btn" class="mute__btn" type="button"></button>
           <p class="row__hint" id="mute-hint"></p>
         </div>
       </section>
 
       <section class="pop__section">
-        <h2 class="pop__h2">Appearance</h2>
+        <h2 class="pop__h2" data-i18n="popup_appearance">Appearance</h2>
         <label class="row">
-          <span class="row__label">Theme</span>
+          <span class="row__label" data-i18n="theme_label">Theme</span>
           <select id="set-theme" class="row__select">
-            <option value="auto">Auto</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
+            <option value="auto" data-i18n="theme_auto">Auto</option>
+            <option value="light" data-i18n="theme_light">Light</option>
+            <option value="dark" data-i18n="theme_dark">Dark</option>
           </select>
         </label>
       </section>

@@ -99,7 +99,7 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 .control {
   display: flex;
@@ -272,7 +272,7 @@ body {
   font-weight: 700;
   font-size: 15px;
   padding: 2px;
-  text-align: left;
+  text-align: start;
   width: 100%;
 }
 .folder__open:hover .folder__name {
@@ -398,7 +398,8 @@ body {
   background: color-mix(in srgb, var(--accent) 14%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   border-radius: 999px;
-  padding: 1px 4px 1px 9px;
+  padding-block: 1px;
+  padding-inline: 9px 4px;
 }
 .tag__x {
   border: none;
@@ -495,7 +496,7 @@ body {
   color: var(--text-dim);
 }
 .hygiene-line .btn {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 /* Cleanup accordion — one section open at a time */
 .acc {
@@ -519,7 +520,7 @@ body {
   cursor: pointer;
   color: var(--text);
   font: inherit;
-  text-align: left;
+  text-align: start;
 }
 .acc__chev {
   color: var(--text-dim);
@@ -534,7 +535,7 @@ body {
   font-weight: 700;
 }
 .acc__summary {
-  margin-left: auto;
+  margin-inline-start: auto;
   font-size: 12px;
   color: var(--text-dim);
 }
@@ -582,13 +583,13 @@ body {
 .drawer {
   position: fixed;
   top: 0;
-  right: 0;
+  inset-inline-end: 0;
   height: 100%;
   width: 360px;
   max-width: 90vw;
   z-index: 30;
   background: var(--surface);
-  border-left: 1px solid var(--border);
+  border-inline-start: 1px solid var(--border);
   box-shadow: -8px 0 30px rgba(0, 0, 0, 0.3);
 }
 .drawer__inner {
@@ -736,7 +737,8 @@ body {
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 3px 4px 3px 10px;
+  padding-block: 3px;
+  padding-inline: 10px 4px;
 }
 .mute__x {
   border: none;
@@ -760,4 +762,34 @@ body {
   inset: 0;
   z-index: 20;
   background: rgba(6, 9, 13, 0.55);
+}
+
+/* --- RTL ------------------------------------------------------------------
+   Layout is direction-agnostic (logical properties above); these are the few
+   things that can't be expressed logically. Persian/Arabic glyphs already pick
+   up Vazirmatn via the unicode-range @font-face in lib/fonts.css. */
+
+/* The drawer slides in from the left, so its shadow falls the other way. */
+[dir='rtl'] .drawer {
+  box-shadow: 8px 0 30px rgba(0, 0, 0, 0.3);
+}
+
+/* A collapsed section points at the text: right-to-left, that's leftwards.
+   The open state (rotate(90deg) → pointing down) is already direction-neutral
+   and wins on specificity. */
+[dir='rtl'] .acc__chev {
+  transform: scaleX(-1);
+}
+
+/* Bookmark titles, folder names, URLs and domains are user data that can be in
+   any script — let each element take its direction from its own first strong
+   character rather than inheriting the UI's, so a Latin URL inside a Persian
+   page (or vice versa) doesn't get reordered. */
+.card__title,
+.card__url,
+.folder__name,
+.crumb,
+.dupes__label,
+.mute__item {
+  unicode-bidi: plaintext;
 }

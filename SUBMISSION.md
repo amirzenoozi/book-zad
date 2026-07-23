@@ -74,7 +74,11 @@ extension — never fetched from a CDN.
 
 **Category:** Productivity (Edge: "Productivity"; Firefox: "Bookmarks" + "Tabs").
 
-**Language:** English (primary). Listing also available: Persian/Farsi.
+**Language:** English (primary) + Persian/Farsi. The extension name and short
+description are localised in the package (`_locales/en` + `_locales/fa`), so
+Chrome shows the Persian name and description to Persian-locale users
+automatically — you can also paste the Persian copy into the store's own
+per-language listing fields.
 
 **Privacy policy URL:**
 ```

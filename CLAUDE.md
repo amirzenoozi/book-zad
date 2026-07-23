@@ -207,6 +207,31 @@ exists (best-effort background probe in the cleanup panel).
   `@font-face` via `browser.runtime.getURL`, so the fonts are declared in
   `web_accessible_resources`.
 
+### Localisation (decided)
+
+- **`_locales` + the `i18n` API**, not Chrome's page translation (which never
+  fires on `chrome-extension://` pages, nor inside the toast's shadow root).
+  Messages live in `public/_locales/<lang>/messages.json`; **en** is
+  `default_locale` and **fa** ships alongside it. The browser picks by UI
+  language and falls back to English.
+- The **manifest** is localised too (`__MSG_ext_name__`,
+  `__MSG_ext_description__`), which also localises the Chrome Web Store listing.
+  Keep each locale's `ext_description` **≤132 chars**.
+- `lib/i18n.ts` is the only entry point: `t()` for code, `data-i18n` /
+  `data-i18n-placeholder` / `data-i18n-title` attributes for markup (resolved by
+  `localizeDom()`), and `plural()` because the i18n API has no plural rules.
+  `t()` is typed against the key union WXT generates from `messages.json`, so a
+  bad key is a **compile error** — after editing messages, run `wxt prepare`.
+- **RTL**: `applyDirection()` stamps `<html lang|dir>` from the active locale
+  (`locale_dir` in each messages file). Layout uses **logical properties**
+  (`margin-inline-start`, `inset-inline-end`, `text-align: start`) rather than a
+  second stylesheet; only genuinely non-logical bits (drawer shadow, accordion
+  chevron) sit behind `[dir='rtl']`. User data (titles, folder names, URLs) gets
+  `unicode-bidi: plaintext` so each string takes direction from its own content.
+- Persian/Arabic glyphs render in **Vazirmatn** automatically via the
+  unicode-range `@font-face` in `lib/fonts.css` — no per-locale font switch
+  needed, and Latin keeps the system font.
+
 ### Still to decide (smaller)
 
 - Dwell-time tracking mechanism (content-script timers vs. tab focus events).
