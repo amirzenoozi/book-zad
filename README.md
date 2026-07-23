@@ -134,7 +134,7 @@ See [PRIVACY.md](./PRIVACY.md).
 ## Credits
 
 Flag icons on the landing site come from [Twemoji](https://github.com/twitter/twemoji)
-(graphics CC-BY 4.0). The Lion and Sun flag used for Persian is
-[this CC0 file](https://commons.wikimedia.org/wiki/File:Lion_and_Sun_flag_(emoji).svg)
-from Wikimedia Commons, drawn to match Twemoji's style. All of them are bundled in
-`docs/assets/flags/` rather than loaded from a CDN.
+(graphics CC-BY 4.0), bundled in `docs/assets/flags/` rather than loaded from a CDN.
+Note the flags are taken from the original `twitter/twemoji` repository, not the
+`jdecked` fork — they differ at `1f1ee-1f1f7`, where the original is the Lion and
+Sun flag used here for Persian (`lion-sun.svg`).
