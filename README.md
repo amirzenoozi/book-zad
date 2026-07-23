@@ -33,7 +33,8 @@ no accounts, no servers, nothing transmitted.
   (and an optional, actionable in-page **toast**) suggesting the folder you might
   file it in or revisit.
 - **English + Persian** — the interface follows your browser's UI language
-  (English fallback), with full RTL layout and the bundled Vazirmatn font.
+  (English fallback) or whatever you pick in settings, with full RTL layout and
+  the bundled Vazirmatn font.
 - **Muted sites** — sites the nudge never fires on. Mute the current site from
   the popup, add domains by hand, or toggle preset groups (search engines — on
   by default — mail, social). Muting a domain covers its subdomains.

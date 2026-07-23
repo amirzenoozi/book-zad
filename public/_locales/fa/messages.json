@@ -14,6 +14,8 @@
   "action_rename": { "message": "تغییر نام" },
   "action_save": { "message": "ذخیره" },
 
+  "language_label": { "message": "زبان" },
+  "language_auto": { "message": "خودکار (مرورگر)" },
   "theme_label": { "message": "پوسته" },
   "theme_auto": { "message": "خودکار" },
   "theme_light": { "message": "روشن" },

@@ -3,9 +3,9 @@ import { getIgnoredSites, isIgnored, addIgnoredSite, unmuteUrl, toHost } from '@
 import { getLastSaveFolder, setLastSaveFolder } from '@/lib/storage';
 import { loadTree, createBookmark, findByUrl } from '@/lib/bookmarks';
 import { applyTheme } from '@/lib/theme';
-import { t, applyDirection, localizeDom } from '@/lib/i18n';
+import { t, initI18n, applyDirection, localizeDom } from '@/lib/i18n';
 import { openManager } from '@/lib/manager';
-import type { Folder, Settings, Theme } from '@/lib/types';
+import type { Folder, Settings, Theme, UiLanguage } from '@/lib/types';
 import '@/lib/fonts.css';
 import './style.css';
 
@@ -20,9 +20,10 @@ let settings: Settings;
 init();
 
 async function init() {
+  settings = await getSettings();
+  await initI18n(settings.language);
   applyDirection();
   localizeDom();
-  settings = await getSettings();
   applyTheme(settings.theme);
 
   const nudge = $<HTMLInputElement>('#set-nudge');
@@ -30,6 +31,7 @@ async function init() {
   const threshold = $<HTMLInputElement>('#set-threshold');
   const thresholdValue = $<HTMLElement>('#threshold-value');
   const theme = $<HTMLSelectElement>('#set-theme');
+  const language = $<HTMLSelectElement>('#set-language');
 
   // Reflect current settings.
   nudge.checked = settings.nudgeEnabled;
@@ -37,6 +39,7 @@ async function init() {
   threshold.value = String(Math.round(settings.similarityThreshold * 100));
   thresholdValue.textContent = threshold.value + '%';
   theme.value = settings.theme;
+  language.value = settings.language;
 
   // Persist on change.
   nudge.addEventListener('change', async () => {
@@ -55,6 +58,11 @@ async function init() {
     const value = theme.value as Theme;
     applyTheme(value);
     settings = await setSettings({ theme: value });
+  });
+  // Every string on screen changes — reload rather than repaint piecemeal.
+  language.addEventListener('change', async () => {
+    await setSettings({ language: language.value as UiLanguage });
+    location.reload();
   });
 
   $('#open-manager').addEventListener('click', async () => {

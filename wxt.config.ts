@@ -40,10 +40,12 @@ export default defineConfig({
     // (TF-IDF); nothing is transmitted. See PRIVACY.md.
     host_permissions: ['<all_urls>'],
     // The in-page toast (shadow DOM on host pages) loads the bundled Vazirmatn
-    // font for Persian text, so it must be reachable from those pages.
+    // font for Persian text, and — when the user has picked a language rather
+    // than following the browser — the matching messages file. Both must be
+    // reachable from those pages. They contain no user data.
     web_accessible_resources: [
       {
-        resources: ['fonts/*.woff2'],
+        resources: ['fonts/*.woff2', '_locales/*/messages.json'],
         matches: ['<all_urls>'],
       },
     ],

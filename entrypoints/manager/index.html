@@ -82,6 +82,16 @@
         </div>
 
         <label class="setting">
+          <span class="setting__label" data-i18n="language_label">Language</span>
+          <select id="set-language" class="control__select">
+            <!-- Language names stay in their own language, never translated. -->
+            <option value="auto" data-i18n="language_auto">Automatic (browser)</option>
+            <option value="en">English</option>
+            <option value="fa">فارسی</option>
+          </select>
+        </label>
+
+        <label class="setting">
           <span class="setting__label" data-i18n="popup_nudge">Similarity nudge</span>
           <input type="checkbox" id="set-nudge" />
         </label>

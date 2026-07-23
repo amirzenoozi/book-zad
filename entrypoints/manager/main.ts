@@ -36,13 +36,14 @@ import { sendMessage } from '@/lib/messaging';
 import { applyTheme } from '@/lib/theme';
 import {
   t,
+  initI18n,
   plural,
   localeCode,
   applyDirection,
   localizeDom,
   type MessageKey,
 } from '@/lib/i18n';
-import type { Bookmark, BookmarkMeta, Folder, Settings, Theme } from '@/lib/types';
+import type { Bookmark, BookmarkMeta, Folder, Settings, Theme, UiLanguage } from '@/lib/types';
 import '@/lib/fonts.css';
 import './style.css';
 
@@ -91,9 +92,10 @@ const newFolderBtn = $<HTMLButtonElement>('#new-folder');
 init();
 
 async function init() {
+  settings = await getSettings();
+  await initI18n(settings.language);
   applyDirection();
   localizeDom();
-  settings = await getSettings();
   applyTheme(settings.theme);
   themeSelect.value = settings.theme;
 
@@ -1056,8 +1058,10 @@ function wireDrawer() {
   const toast = $<HTMLInputElement>('#set-toast');
   const threshold = $<HTMLInputElement>('#set-threshold');
   const thresholdValue = $<HTMLElement>('#threshold-value');
+  const language = $<HTMLSelectElement>('#set-language');
 
   const open = () => {
+    language.value = settings.language;
     nudge.checked = settings.nudgeEnabled;
     toast.checked = settings.toastEnabled;
     threshold.value = String(Math.round(settings.similarityThreshold * 100));
@@ -1074,6 +1078,11 @@ function wireDrawer() {
   $('#drawer-close').addEventListener('click', close);
   scrim.addEventListener('click', close);
 
+  // Every string on screen changes — reload rather than repaint piecemeal.
+  language.addEventListener('change', async () => {
+    await setSettings({ language: language.value as UiLanguage });
+    location.reload();
+  });
   nudge.addEventListener('change', async () => {
     settings = await setSettings({ nudgeEnabled: nudge.checked });
   });

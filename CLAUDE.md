@@ -217,6 +217,13 @@ exists (best-effort background probe in the cleanup panel).
 - The **manifest** is localised too (`__MSG_ext_name__`,
   `__MSG_ext_description__`), which also localises the Chrome Web Store listing.
   Keep each locale's `ext_description` **≤132 chars**.
+- **Manual override.** `browser.i18n` is locked to the browser's UI language and
+  can't be redirected, so a `language` setting (`auto | en | fa`) is honoured by
+  fetching the chosen `messages.json` and consulting it *before* the i18n API.
+  `auto` costs nothing — no fetch, the API stays in charge. Every context calls
+  `initI18n(settings.language)` before first paint, and changing the setting
+  reloads the page rather than repainting piecemeal. The locale files are in
+  `web_accessible_resources` because the toast's content script needs them.
 - `lib/i18n.ts` is the only entry point: `t()` for code, `data-i18n` /
   `data-i18n-placeholder` / `data-i18n-title` attributes for markup (resolved by
   `localizeDom()`), and `plural()` because the i18n API has no plural rules.

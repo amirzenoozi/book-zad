@@ -75,6 +75,15 @@
       <section class="pop__section">
         <h2 class="pop__h2" data-i18n="popup_appearance">Appearance</h2>
         <label class="row">
+          <span class="row__label" data-i18n="language_label">Language</span>
+          <select id="set-language" class="row__select">
+            <!-- Language names stay in their own language, never translated. -->
+            <option value="auto" data-i18n="language_auto">Automatic (browser)</option>
+            <option value="en">English</option>
+            <option value="fa">فارسی</option>
+          </select>
+        </label>
+        <label class="row">
           <span class="row__label" data-i18n="theme_label">Theme</span>
           <select id="set-theme" class="row__select">
             <option value="auto" data-i18n="theme_auto">Auto</option>

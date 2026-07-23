@@ -2,6 +2,7 @@ import { sendMessage } from '@/lib/messaging';
 import { getSettings } from '@/lib/settings';
 import { extractPageText, tokenize, termFrequencies } from '@/lib/text';
 import { getIgnoredSites, isIgnored, IGNORE_KEY } from '@/lib/ignore';
+import { initI18n } from '@/lib/i18n';
 import { showToast, hideToast } from '@/lib/toast';
 
 // Runs on every page. It (1) reads the page text and asks the background worker
@@ -47,6 +48,8 @@ export default defineContentScript({
     if (!muted && matches.length > 0 && settings.toastEnabled) {
       const top = matches[0];
       if (top) {
+        // Only now — a page that never nudges shouldn't pay for a locale fetch.
+        await initI18n(settings.language);
         showToast(top, {
           onAdd: async () => {
             const res = await sendMessage('addToFolder', {

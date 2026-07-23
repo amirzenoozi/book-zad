@@ -3,14 +3,59 @@
 // `default_locale` (en) for anything we don't ship. Code calls `t()`; markup
 // carries `data-i18n` attributes resolved by `localizeDom()` on load.
 
+import type { UiLanguage } from './types';
+
 /** A message name from `_locales`. WXT derives this union from messages.json
  *  when it generates types, so a typo in a key is a compile error. */
 export type MessageKey = Parameters<typeof browser.i18n.getMessage>[0];
 
+/** Literal paths — `runtime.getURL` is typed against the known public files, so
+ *  it won't accept a path built by string concatenation. */
+const LOCALE_FILES = {
+  en: '/_locales/en/messages.json',
+  fa: '/_locales/fa/messages.json',
+} as const;
+
+/**
+ * Messages for a manually chosen language. `browser.i18n` is fixed to the
+ * browser's UI language and can't be redirected, so an explicit choice is
+ * served from the bundled file instead. Null means "follow the browser".
+ */
+let overrides: Record<string, { message: string }> | null = null;
+
+/**
+ * Load the language the user picked. Call once, before first paint, in every
+ * context that renders UI. 'auto' costs nothing — it just leaves the i18n API
+ * in charge. A failed fetch falls back to the browser's own pick rather than
+ * leaving the UI blank.
+ */
+export async function initI18n(language: UiLanguage): Promise<void> {
+  overrides = null;
+  if (language === 'auto') return;
+  try {
+    const res = await fetch(browser.runtime.getURL(LOCALE_FILES[language]));
+    overrides = (await res.json()) as Record<string, { message: string }>;
+  } catch {
+    overrides = null;
+  }
+}
+
 /** Look up a message, substituting $1…$9. Falls back to the key itself so a
  *  missing string shows up as an obvious `some_key` rather than a blank. */
 export function t(key: MessageKey, subs?: string | string[]): string {
+  const override = overrides?.[key]?.message;
+  if (override !== undefined) return substitute(override, subs);
   return browser.i18n.getMessage(key, subs) || key;
+}
+
+/** What `browser.i18n.getMessage` does for us when we're not overriding: fill
+ *  $1…$9 from the substitution list, and unescape a literal $$. */
+function substitute(message: string, subs?: string | string[]): string {
+  if (subs === undefined) return message.replace(/\$\$/g, '$');
+  const list = Array.isArray(subs) ? subs : [subs];
+  return message.replace(/\$(\$|\d)/g, (whole, c: string) =>
+    c === '$' ? '$' : (list[Number(c) - 1] ?? whole),
+  );
 }
 
 /** Locale actually in use — the one whose messages.json got picked, which is

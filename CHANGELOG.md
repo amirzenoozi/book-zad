@@ -22,7 +22,7 @@
 - Optional in-page toast for a match that lets you add the current page to the suggested folder or open that folder.
 - Toolbar popup launcher with quick settings — nudge toggle, in-page toast toggle, suggestion threshold, and theme.
 - Dark, light and auto themes across the manager page, popup and toast.
-- English and Persian interface, picked automatically from the browser's UI language (falling back to English). The extension name and store description are localised too. Right-to-left locales flip the whole layout — the manager, the popup and the in-page card — and bookmark titles, folder names and URLs keep their own direction so a Latin address inside a Persian page still reads correctly.
+- English and Persian interface, picked automatically from the browser's UI language (falling back to English) or set by hand from a Language picker in the popup and the manager's settings. The extension name and store description are localised too. Right-to-left locales flip the whole layout — the manager, the popup and the in-page card — and bookmark titles, folder names and URLs keep their own direction so a Latin address inside a Persian page still reads correctly.
 - Persian and Arabic text renders in the bundled Vazirmatn font (scoped to that Unicode range, so Latin text keeps the system font); the font ships with the extension and is never fetched from a network.
 - Cross-browser builds for Chrome/Edge (MV3) and Firefox (MV2), a dependency-free icon generator, and CI plus tag-triggered publishing to all three stores.
 

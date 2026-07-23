@@ -14,6 +14,8 @@
   "action_rename": { "message": "Rename" },
   "action_save": { "message": "Save" },
 
+  "language_label": { "message": "Language" },
+  "language_auto": { "message": "Automatic (browser)" },
   "theme_label": { "message": "Theme" },
   "theme_auto": { "message": "Auto" },
   "theme_light": { "message": "Light" },

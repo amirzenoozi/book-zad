@@ -56,8 +56,13 @@ export const DEFAULT_META: BookmarkMeta = {
 
 export type Theme = 'light' | 'dark' | 'auto';
 
+/** UI language. 'auto' follows the browser's UI language (the i18n API's own
+ *  pick); anything else overrides it with a bundled locale. */
+export type UiLanguage = 'auto' | 'en' | 'fa';
+
 export interface Settings {
   theme: Theme;
+  language: UiLanguage;
   /** Show an in-page toast on a match (in addition to the toolbar badge). */
   toastEnabled: boolean;
   /** Cosine-similarity cutoff (0–1) for a page to count as matching a folder. */
@@ -68,6 +73,7 @@ export interface Settings {
 
 export const DEFAULT_SETTINGS: Settings = {
   theme: 'auto',
+  language: 'auto',
   toastEnabled: false,
   similarityThreshold: 0.18,
   nudgeEnabled: true,
