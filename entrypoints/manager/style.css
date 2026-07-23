@@ -494,9 +494,69 @@ body {
 .hygiene-line .btn {
   margin-left: auto;
 }
+/* Cleanup accordion — one section open at a time */
+.acc {
+  display: flex;
+  flex-direction: column;
+}
+.acc__item {
+  border-top: 1px solid var(--border);
+}
+.acc__item:first-child {
+  border-top: none;
+}
+.acc__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+}
+.acc__chev {
+  color: var(--text-dim);
+  font-size: 11px;
+  transition: transform 0.15s ease;
+}
+.acc__item.open .acc__chev {
+  transform: rotate(90deg);
+  color: var(--accent);
+}
+.acc__title {
+  font-weight: 700;
+}
+.acc__summary {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.acc__body {
+  display: none;
+  padding: 0 2px 14px;
+}
+.acc__item.open .acc__body {
+  display: block;
+}
+.acc__bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.acc__note {
+  font-size: 12px;
+  color: var(--text-dim);
+  padding: 2px 0 6px;
+}
+
 .dupes {
   list-style: none;
-  margin: 10px 0 0;
+  margin: 6px 0 0;
   padding: 0;
 }
 .dupes__item {

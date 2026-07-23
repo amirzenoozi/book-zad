@@ -43,11 +43,23 @@ export interface OpenManagerRequest {
   folderId: string;
 }
 
+/** Manager cleanup → background probes a URL to see whether it still resolves. */
+export interface CheckLinkRequest {
+  url: string;
+}
+
+export interface CheckLinkResult {
+  /** HTTP status, or 0 for a network/DNS failure. */
+  status: number;
+  dead: boolean;
+}
+
 interface ProtocolMap {
   analyzePage(data: AnalyzePageRequest): AnalyzePageResult;
   recordVisit(data: RecordVisitRequest): void;
   addToFolder(data: AddToFolderRequest): AddToFolderResult;
   openManagerAt(data: OpenManagerRequest): void;
+  checkLink(data: CheckLinkRequest): CheckLinkResult;
 }
 
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();

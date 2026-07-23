@@ -84,7 +84,31 @@ export default defineBackground(() => {
     await setLastFolder(data.folderId);
     await openManager();
   });
+
+  // Cleanup "dead link" scan → probe whether a URL still resolves. host
+  // permissions let the worker read cross-origin responses.
+  onMessage('checkLink', ({ data }) => probeLink(data.url));
 });
+
+/** Best-effort reachability probe. HEAD first (cheap), falling back to GET when
+ *  the server rejects HEAD. Only hard failures count as dead — 401/403/429 are
+ *  treated as reachable to avoid deleting valid but bot-protected links. */
+async function probeLink(url: string): Promise<{ status: number; dead: boolean }> {
+  const opts: RequestInit = { redirect: 'follow', signal: AbortSignal.timeout(8000) };
+  try {
+    let res = await fetch(url, { ...opts, method: 'HEAD' });
+    if (res.status === 405 || res.status === 501) {
+      res = await fetch(url, { ...opts, method: 'GET' });
+    }
+    return { status: res.status, dead: isDead(res.status) };
+  } catch {
+    return { status: 0, dead: true }; // network / DNS failure or timeout
+  }
+}
+
+function isDead(status: number): boolean {
+  return status === 0 || status === 404 || status === 410 || status >= 500;
+}
 
 // --- Similarity index (kept in worker memory, rebuilt lazily) ---------------
 

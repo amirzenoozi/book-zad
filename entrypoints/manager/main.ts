@@ -7,12 +7,23 @@ import {
   createFolder,
   renameNode,
   removeFolderTree,
+  normalizeUrl,
 } from '@/lib/bookmarks';
-import { getManyMeta, setMeta, deleteMeta, getLastFolder, setLastFolder } from '@/lib/storage';
+import {
+  getManyMeta,
+  setMeta,
+  deleteMeta,
+  getLastFolder,
+  setLastFolder,
+  getDeadCheck,
+  setDeadCheck,
+  type DeadCheck,
+} from '@/lib/storage';
 import { getSettings, setSettings } from '@/lib/settings';
 import { effectiveScore } from '@/lib/scoring';
 import { pickKeeper } from '@/lib/dedupe';
 import { buildBackup, isBackup, applyBackup } from '@/lib/backup';
+import { sendMessage } from '@/lib/messaging';
 import { applyTheme } from '@/lib/theme';
 import type { Bookmark, BookmarkMeta, Folder, Settings, Theme } from '@/lib/types';
 import '@/lib/fonts.css';
@@ -35,6 +46,12 @@ let settings: Settings;
 
 /** Folder currently being browsed; null = "Home" (top-level folders). */
 let currentFolderId: string | null = null;
+
+/** Which cleanup accordion section is open (one at a time), or null. */
+let openHygieneKey: string | null = null;
+
+/** Last persisted dead-link scan, loaded on reload so results survive reopening. */
+let lastDeadCheck: DeadCheck | null = null;
 
 const $ = <T extends HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
 
@@ -74,6 +91,7 @@ async function reload() {
   foldersById = new Map(folders.map((f) => [f.id, f]));
   // Metadata is keyed by node id — load it for folders too (folder notes).
   metas = await getManyMeta([...bookmarks.map((b) => b.id), ...folders.map((f) => f.id)]);
+  lastDeadCheck = await getDeadCheck();
 
   // If the folder we were viewing was deleted/moved away, fall back to Home.
   if (currentFolderId && !foldersById.has(currentFolderId)) currentFolderId = null;
@@ -507,47 +525,153 @@ function renderHygiene() {
   hygieneBody.replaceChildren();
 
   const dupes = findDuplicates(bookmarks);
+  const extras = dupes.reduce((n, g) => n + (g.length - 1), 0);
   const stale = bookmarks.filter((b) => {
     const m = meta(b.id);
     const ageDays = (now - b.dateAdded) / DAY;
     return b.dateAdded > 0 && ageDays > 180 && m.signals.visits === 0;
   });
 
-  const extras = dupes.reduce((n, g) => n + (g.length - 1), 0);
-
-  const dupeLine = hygieneLine(
-    `${dupes.length} duplicate URL group(s)`,
-    `${extras} redundant bookmark(s) can be removed`,
+  const acc = document.createElement('div');
+  acc.className = 'acc';
+  acc.append(
+    accSection('duplicates', 'Duplicates', dupes.length ? `${dupes.length} group(s) · ${extras} removable` : 'none found',
+      (body) => buildDupBody(body, dupes, extras)),
+    accSection('stale', 'Stale', stale.length ? `${stale.length} never opened` : 'none found',
+      (body) => buildStaleBody(body, stale)),
+    accSection('dead', 'Dead links', 'scan on demand', (body) => buildDeadBody(body)),
   );
-  if (dupes.length) {
-    dupeLine.append(
-      button(`Remove all ${extras} duplicates`, 'btn btn--primary', () => void handleDedupeAll(dupes)),
-    );
-  }
-  hygieneBody.append(
-    dupeLine,
-    hygieneLine(`${stale.length} stale bookmark(s)`, 'added >180 days ago, never opened since install'),
-  );
+  hygieneBody.append(acc);
+}
 
-  if (dupes.length) {
-    const list = document.createElement('ul');
-    list.className = 'dupes';
-    for (const group of dupes.slice(0, 30)) {
-      const li = document.createElement('li');
-      li.className = 'dupes__item';
-      const label = document.createElement('span');
-      label.className = 'dupes__label';
-      label.textContent = `${group.length}× ${prettyUrl(group[0]!.url)}`;
-      const keeper = keeperOf(group);
-      const clean = button('Keep best, delete rest', 'btn btn--ghost btn--sm', () =>
-        void handleDedupeGroup(group),
-      );
-      clean.title = `Keeps “${keeper.title}” (highest score / oldest), deletes ${group.length - 1}`;
-      li.append(label, clean);
-      list.append(li);
+/** One accordion section. Only one is open at a time — opening a section closes
+ *  its siblings — and the open one is remembered across re-renders. Bodies are
+ *  built eagerly so their content (e.g. a dead-link scan result) survives while
+ *  the section is collapsed. */
+function accSection(
+  key: string,
+  title: string,
+  summary: string,
+  build: (body: HTMLElement) => void,
+): HTMLElement {
+  const item = document.createElement('div');
+  item.className = 'acc__item';
+
+  const header = document.createElement('button');
+  header.type = 'button';
+  header.className = 'acc__header';
+  const chev = document.createElement('span');
+  chev.className = 'acc__chev';
+  chev.textContent = '▸';
+  const t = document.createElement('span');
+  t.className = 'acc__title';
+  t.textContent = title;
+  const s = document.createElement('span');
+  s.className = 'acc__summary';
+  s.textContent = summary;
+  header.append(chev, t, s);
+
+  const body = document.createElement('div');
+  body.className = 'acc__body';
+  build(body);
+
+  if (openHygieneKey === key) item.classList.add('open');
+
+  header.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    item.parentElement?.querySelectorAll('.acc__item.open').forEach((el) => el.classList.remove('open'));
+    if (isOpen) {
+      openHygieneKey = null;
+    } else {
+      item.classList.add('open');
+      openHygieneKey = key;
     }
-    hygieneBody.append(list);
+  });
+
+  item.append(header, body);
+  return item;
+}
+
+function buildDupBody(body: HTMLElement, dupes: Bookmark[][], extras: number) {
+  if (dupes.length === 0) {
+    body.append(accNote('No duplicate URLs ✓'));
+    return;
   }
+  const bar = document.createElement('div');
+  bar.className = 'acc__bar';
+  bar.append(button(`Remove all ${extras} duplicates`, 'btn btn--primary btn--sm', () => void handleDedupeAll(dupes)));
+  body.append(bar);
+
+  const list = document.createElement('ul');
+  list.className = 'dupes';
+  for (const group of dupes.slice(0, 50)) {
+    const li = document.createElement('li');
+    li.className = 'dupes__item';
+    const label = document.createElement('span');
+    label.className = 'dupes__label';
+    label.textContent = `${group.length}× ${prettyUrl(group[0]!.url)}`;
+    const keeper = keeperOf(group);
+    const clean = button('Keep best, delete rest', 'btn btn--ghost btn--sm', () => void handleDedupeGroup(group));
+    clean.title = `Keeps “${keeper.title}” (highest score / oldest), deletes ${group.length - 1}`;
+    li.append(label, clean);
+    list.append(li);
+  }
+  body.append(list);
+}
+
+function buildStaleBody(body: HTMLElement, stale: Bookmark[]) {
+  body.append(accNote('Added over 180 days ago and never opened since install.'));
+  if (stale.length === 0) {
+    body.append(accNote('Nothing stale ✓'));
+    return;
+  }
+  const list = document.createElement('ul');
+  list.className = 'dupes';
+  for (const b of stale.slice(0, 100)) {
+    const li = document.createElement('li');
+    li.className = 'dupes__item';
+    const label = document.createElement('span');
+    label.className = 'dupes__label';
+    label.textContent = `${b.title} — ${prettyUrl(b.url)}`;
+    const del = button('Delete', 'btn btn--danger btn--sm', async () => {
+      await removeBookmark(b.id);
+      await deleteMeta(b.id);
+      bookmarks = bookmarks.filter((x) => x.id !== b.id);
+      metas.delete(b.id);
+      li.remove();
+    });
+    li.append(label, del);
+    list.append(li);
+  }
+  body.append(list);
+}
+
+function buildDeadBody(body: HTMLElement) {
+  body.append(accNote('Checks every bookmark still resolves — best-effort, one network request each.'));
+  const bar = document.createElement('div');
+  bar.className = 'acc__bar';
+  const progress = document.createElement('span');
+  progress.className = 'hygiene-line__sub';
+  const results = document.createElement('div');
+  const scanBtn = button('Scan for dead links', 'btn btn--ghost btn--sm', () =>
+    void scanDeadLinks(scanBtn, progress, results),
+  );
+  bar.append(scanBtn, progress);
+  body.append(bar, results);
+
+  // Show the last persisted scan (matched to the current bookmarks by URL).
+  if (lastDeadCheck) {
+    const deadSet = new Set(lastDeadCheck.deadUrls.map(normalizeUrl));
+    const dead = bookmarks.filter((b) => deadSet.has(normalizeUrl(b.url)));
+    renderDeadResults(results, dead, lastDeadCheck.checkedAt);
+  }
+}
+
+function accNote(text: string): HTMLElement {
+  const el = document.createElement('div');
+  el.className = 'acc__note';
+  el.textContent = text;
+  return el;
 }
 
 /** The bookmark to keep from a duplicate group: highest score, then oldest. */
@@ -578,6 +702,89 @@ async function handleDedupeAll(groups: Bookmark[][]) {
   if (!confirm(`Remove ${total} duplicate bookmark(s) across ${groups.length} group(s)? One copy of each is kept.`))
     return;
   for (const group of groups) await removeAllBut(keeperOf(group), group);
+  await reload();
+}
+
+// --- Dead-link scan ---------------------------------------------------------
+
+let deadScanning = false;
+
+async function scanDeadLinks(btn: HTMLButtonElement, progressEl: HTMLElement, resultsEl: HTMLElement) {
+  if (deadScanning) return;
+  deadScanning = true;
+  btn.disabled = true;
+  resultsEl.replaceChildren();
+
+  const targets = [...bookmarks];
+  const dead: Bookmark[] = [];
+  let done = 0;
+  let idx = 0;
+
+  // A small worker pool — one network probe per bookmark, a few at a time.
+  const worker = async () => {
+    while (idx < targets.length) {
+      const b = targets[idx++]!;
+      try {
+        const r = await sendMessage('checkLink', { url: b.url });
+        if (r.dead) dead.push(b);
+      } catch {
+        /* ignore individual failures */
+      }
+      done++;
+      progressEl.textContent = `Checking ${done}/${targets.length}…`;
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(6, targets.length) }, worker));
+
+  // Persist so the result is there next time the manager opens.
+  lastDeadCheck = { checkedAt: Date.now(), deadUrls: dead.map((b) => b.url) };
+  await setDeadCheck(lastDeadCheck);
+
+  progressEl.textContent = `Checked ${targets.length}`;
+  btn.disabled = false;
+  deadScanning = false;
+  renderDeadResults(resultsEl, dead, lastDeadCheck.checkedAt);
+}
+
+function renderDeadResults(el: HTMLElement, dead: Bookmark[], checkedAt?: number) {
+  el.replaceChildren();
+  if (checkedAt) el.append(accNote(`Last checked ${new Date(checkedAt).toLocaleString()}.`));
+  if (dead.length === 0) {
+    el.append(accNote('No dead links found ✓'));
+    return;
+  }
+
+  const head = hygieneLine(`${dead.length} dead link(s)`, 'no longer resolve — 404 / gone / server error');
+  head.append(button(`Remove all ${dead.length}`, 'btn btn--danger btn--sm', () => void removeDeadLinks(dead)));
+  el.append(head);
+
+  const list = document.createElement('ul');
+  list.className = 'dupes';
+  for (const b of dead.slice(0, 100)) {
+    const li = document.createElement('li');
+    li.className = 'dupes__item';
+    const label = document.createElement('span');
+    label.className = 'dupes__label';
+    label.textContent = `${b.title} — ${prettyUrl(b.url)}`;
+    const del = button('Delete', 'btn btn--danger btn--sm', async () => {
+      await removeBookmark(b.id);
+      await deleteMeta(b.id);
+      bookmarks = bookmarks.filter((x) => x.id !== b.id);
+      metas.delete(b.id);
+      li.remove();
+    });
+    li.append(label, del);
+    list.append(li);
+  }
+  el.append(list);
+}
+
+async function removeDeadLinks(dead: Bookmark[]) {
+  if (!confirm(`Remove ${dead.length} dead bookmark(s)?`)) return;
+  for (const b of dead) {
+    await removeBookmark(b.id);
+    await deleteMeta(b.id);
+  }
   await reload();
 }
 
@@ -693,7 +900,10 @@ function wireBackup() {
     }
     const res = await applyBackup(data, bookmarks, folders);
     await reload();
-    alert(`Restored ${res.bookmarks} bookmark(s) and ${res.folders} folder(s) from the backup.`);
+    const parts = [`${res.updated} updated`];
+    if (res.created) parts.push(`${res.created} recreated`);
+    if (res.folders) parts.push(`${res.folders} folder note(s)`);
+    alert(`Restore complete — ${parts.join(', ')}.`);
   });
 }
 
