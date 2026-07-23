@@ -1,7 +1,7 @@
 {
   "name": "book-zad",
   "description": "A smarter bookmark manager: score, search, and de-clutter your bookmarks, with on-device similarity nudges while you browse.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "private": true,
   "author": "Amir Douzandeh (https://github.com/amirzenoozi)",

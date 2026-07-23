@@ -8,7 +8,7 @@ export default defineConfig({
   manifest: {
     name: 'BookZad — bookmarks, reimagined',
     description:
-      'Score, search and de-clutter your bookmarks. As you browse, BookZad nudges you when a page matches a folder you already keep — all on-device.',
+      'Score, search and de-clutter your bookmarks. On-device nudges suggest a folder when a page matches one you already keep.',
     icons: {
       16: 'icon/16.png',
       32: 'icon/32.png',
