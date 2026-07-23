@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BookZad · بوک‌زاد</title>
+<meta name="description" content="BookZad — a smarter bookmark manager. Choose your language.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .choose{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:32px 24px;gap:6px;
+    background:radial-gradient(760px 460px at 20% -10%,#d6f5ec 0,rgba(214,245,236,0) 60%),
+      radial-gradient(680px 480px at 100% 0%,#d7f2f6 0,rgba(215,242,246,0) 55%),
+      linear-gradient(180deg,#fff 0%,var(--soft) 100%)}
+  .choose .logo{width:92px;height:92px;border-radius:22px;filter:drop-shadow(0 14px 30px rgba(15,158,132,.20));margin-bottom:14px}
+  .choose h1{font-size:clamp(26px,4vw,38px);font-weight:800;color:var(--ink)}
+  .choose h1 .sep{color:var(--teal2);font-weight:700;margin:0 8px}
+  .choose .tag{color:var(--muted);font-size:17px;line-height:1.9;max-width:520px;margin-top:2px}
+  .choose .tag span{font-family:Vazirmatn,Tahoma,sans-serif}
+  .langs{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:26px}
+  .langbtn{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:210px;
+    padding:20px 26px;border-radius:16px;background:#fff;border:1px solid var(--line);
+    box-shadow:0 10px 26px rgba(12,40,34,.07);transition:transform .12s ease,box-shadow .12s ease}
+  .langbtn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(12,40,34,.12)}
+  .langbtn strong{font-size:22px;color:var(--ink);font-weight:800}
+  .langbtn span{color:var(--muted);font-size:14px;font-weight:600}
+  .langbtn.fa{font-family:Vazirmatn,Tahoma,sans-serif}
+  .foot{margin-top:30px;color:var(--muted);font-size:13px}
+  .foot a{color:var(--muted);font-weight:600}
+</style>
+</head>
+<body>
+  <main class="choose">
+    <img class="logo" src="assets/logo.png" alt="BookZad">
+    <h1>BookZad<span class="sep">·</span><span dir="rtl">بوک‌زاد</span></h1>
+    <p class="tag">
+      A smarter way to keep your bookmarks.<br>
+      <span dir="rtl">راهی هوشمندتر برای نگه‌داری نشانک‌ها.</span>
+    </p>
+    <nav class="langs">
+      <a class="langbtn" href="en/"><strong>English</strong><span>Continue in English</span></a>
+      <a class="langbtn fa" href="fa/" dir="rtl"><strong>فارسی</strong><span>ادامه به زبان فارسی</span></a>
+    </nav>
+    <p class="foot"><a href="https://github.com/amirzenoozi/book-zad" target="_blank" rel="noopener">GitHub</a></p>
+  </main>
+</body>
+</html>
