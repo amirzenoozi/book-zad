@@ -67,7 +67,7 @@ lib/
   i18n.ts              # t()/plural() + <html lang|dir> from the active locale
   fonts.css            # Vazirmatn @font-face (Persian/Arabic, unicode-range)
 public/_locales/       # 7 messages.json files (also localise the manifest)
-docs/                  # bilingual (en/fa) GitHub Pages landing site
+docs/                  # GitHub Pages landing site in all 7 languages
 mockups/               # store screenshots + promo tiles (render.sh)
 wxt.config.ts          # manifest: bookmarks/storage/tabs + <all_urls> + fonts
 ```
@@ -130,3 +130,8 @@ The release workflow verifies the tag matches `package.json` (`v0.2.0` ⇄
   compare it, on-device, against your bookmarks**. Nothing is sent anywhere.
 
 See [PRIVACY.md](./PRIVACY.md).
+
+## Credits
+
+Flag icons on the landing site come from [Twemoji](https://github.com/twitter/twemoji)
+(graphics CC-BY 4.0), bundled in `docs/assets/flags/` rather than loaded from a CDN.

@@ -30,7 +30,7 @@ entrypoints/            # WXT entrypoints — each becomes part of the manifest
 lib/                    # framework-agnostic logic, imported by entrypoints
 icon/                   # extension + toolbar icons (16/32/48/128 png, mono svg)
 public/                 # static assets copied verbatim into the build
-docs/                   # GitHub Pages landing + privacy page
+docs/                   # GitHub Pages landing + privacy, one dir per language
 .github/workflows/      # ci.yml + release.yml
 wxt.config.ts           # manifest: name, permissions, gecko id, data-collection
 package.json            # scripts (the "actions") + deps

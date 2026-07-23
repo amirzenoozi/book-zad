@@ -112,3 +112,53 @@ section{padding:64px 0}
 .legal p,.legal li{color:#2a3a38;font-size:16px}
 .legal ul{padding-inline-start:22px;margin:8px 0}
 .legal .back{display:inline-block;margin:30px 0;font-weight:700}
+
+/* ---- Language switcher (pure CSS <details>, no JS) ---------------------- */
+.langmenu{position:relative}
+.langmenu summary{display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;
+  padding:6px 12px;border:1px solid var(--line);border-radius:999px;
+  font-weight:700;font-size:14px;color:var(--teal);white-space:nowrap}
+.langmenu summary::-webkit-details-marker{display:none}
+.langmenu summary::after{content:'';width:0;height:0;margin-inline-start:2px;
+  border-inline:4px solid transparent;border-top:5px solid currentColor;opacity:.7}
+.langmenu summary:hover{background:var(--chip)}
+.langmenu[open] summary{background:var(--chip)}
+.langmenu img{border-radius:3px;display:block}
+.langmenu__list{position:absolute;top:calc(100% + 8px);inset-inline-end:0;z-index:30;
+  min-width:190px;padding:6px;background:#fff;border:1px solid var(--line);
+  border-radius:12px;box-shadow:0 16px 34px rgba(12,40,34,.14);
+  display:flex;flex-direction:column;gap:2px}
+.langmenu__list a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;
+  color:var(--ink);font-weight:600;font-size:15px}
+.langmenu__list a:hover{background:var(--chip);color:var(--teal)}
+/* Latin language names stay upright inside the RTL pages. */
+body.fa .langmenu__list a,body.fa .langmenu summary span{unicode-bidi:plaintext}
+
+/* Languages the extension ships in, under the store cards */
+.langnote{margin-top:18px;text-align:center;color:var(--muted);font-size:14px;font-weight:600}
+.langnote span{unicode-bidi:plaintext}
+
+/* ---- Chooser page ------------------------------------------------------ */
+.choose{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:32px 24px;gap:6px;
+  background:radial-gradient(760px 460px at 20% -10%,#d6f5ec 0,rgba(214,245,236,0) 60%),
+    radial-gradient(680px 480px at 100% 0%,#d7f2f6 0,rgba(215,242,246,0) 55%),
+    linear-gradient(180deg,#fff 0%,var(--soft) 100%)}
+.choose .logo{width:92px;height:92px;border-radius:22px;
+  filter:drop-shadow(0 14px 30px rgba(15,158,132,.20));margin-bottom:14px}
+.choose h1{font-size:clamp(26px,4vw,38px);font-weight:800;color:var(--ink)}
+.choose h1 .sep{color:var(--teal2);font-weight:700;margin:0 8px}
+.choose .tag{color:var(--muted);font-size:17px;line-height:1.9;max-width:520px;margin-top:2px}
+.choose .tag span{font-family:Vazirmatn,Tahoma,sans-serif}
+.langs{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:26px;max-width:740px}
+.langbtn{display:flex;flex-direction:column;align-items:center;gap:10px;width:158px;
+  padding:20px 14px;border-radius:16px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 10px 26px rgba(12,40,34,.07);transition:transform .12s ease,box-shadow .12s ease}
+.langbtn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(12,40,34,.12)}
+.langbtn .flag{width:44px;height:44px;border-radius:6px;box-shadow:0 3px 10px rgba(12,40,34,.16)}
+.langbtn strong{font-size:19px;color:var(--ink);font-weight:800}
+.langbtn.fa{font-family:Vazirmatn,Tahoma,sans-serif}
+.foot{margin-top:30px;color:var(--muted);font-size:13px}
+.foot a{color:var(--muted);font-weight:600}
+.foot .dotsep{margin:0 8px;opacity:.5}
+.foot .credit{font-size:12px;opacity:.85}
