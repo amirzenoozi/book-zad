@@ -47,8 +47,10 @@ export async function buildFolderIndex(): Promise<FolderIndex> {
   for (const b of bookmarks) {
     const meta = bmMeta.get(b.id);
     const titleUrlTf = termFrequencies(tokenize(`${b.title} ${b.url}`));
-    const noteTf = scaleTf(termFrequencies(tokenize(meta?.notes ?? '')), BOOKMARK_NOTE_WEIGHT);
-    const tf = mergeTf([titleUrlTf, noteTf, meta?.tokens ?? {}]);
+    // Notes and tags are hand-written labels — weight them above incidental words.
+    const labelText = `${meta?.notes ?? ''} ${(meta?.tags ?? []).join(' ')}`;
+    const labelTf = scaleTf(termFrequencies(tokenize(labelText)), BOOKMARK_NOTE_WEIGHT);
+    const tf = mergeTf([titleUrlTf, labelTf, meta?.tokens ?? {}]);
     docs.push(tf);
 
     const entry = ensureFolder(b.parentId ?? 'root', b.folderPath);
