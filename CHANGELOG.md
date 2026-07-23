@@ -24,6 +24,7 @@
 - Dark, light and auto themes across the manager page, popup and toast.
 - Interface in English, German, French, Italian, Dutch, Turkish and Persian, picked automatically from the browser's UI language (falling back to English) or set by hand from a Language picker in the popup and the manager's settings. The extension name and store description are localised too. Right-to-left locales flip the whole layout — the manager, the popup and the in-page card — and bookmark titles, folder names and URLs keep their own direction so a Latin address inside a Persian page still reads correctly.
 - Persian and Arabic text renders in the bundled Vazirmatn font (scoped to that Unicode range, so Latin text keeps the system font); the font ships with the extension and is never fetched from a network.
+- A project site with a landing page and privacy policy in each of the seven languages, opening on a chooser that shows a flag per language. It carries its own copy of the flag artwork and the Vazirmatn font, so the pages load nothing from a CDN either.
 - Cross-browser builds for Chrome/Edge (MV3) and Firefox (MV2), a dependency-free icon generator, and CI plus tag-triggered publishing to all three stores.
 
 ### Changed
@@ -35,4 +36,6 @@
 
 ### Fixed
 
+- Persian text in buttons, dropdowns and text fields now renders in Vazirmatn like the rest of the interface, instead of falling back to the system font.
+- Searching with no results no longer reports "This folder is empty" after you had been browsing a folder — it says no bookmarks match your search.
 - The toast's match percentage no longer overlaps the close button.
