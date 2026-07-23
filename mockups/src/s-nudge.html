@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="mock.css"></head>
+<body>
+<div class="stage">
+  <div class="mk">
+    <span class="badge"><span class="dot"></span>Similarity nudge</span>
+    <h1>It remembers what<br>you already <span class="ac">saved.</span></h1>
+    <p>As you read, BookZad compares the page against your folders — on-device — and offers to file it or revisit what's there.</p>
+  </div>
+
+  <div class="window" style="margin: 26px 64px 0; flex: 1;">
+    <div class="titlebar">
+      <div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+      <div class="addr"><span class="lock">🔒</span> rottentomatoes.com/m/dune_part_two</div>
+      <div class="tb-icon"><span class="mark"></span><span class="badge-count">1</span></div>
+    </div>
+
+    <!-- Faux light article page -->
+    <div style="position:relative; height:100%; background:#fbfbfd; color:#16181d; overflow:hidden;">
+      <div style="max-width:760px; margin:0 auto; padding:40px 40px 0;">
+        <div style="font:700 12px var(--mono); letter-spacing:1px; color:#c0392b; text-transform:uppercase;">Reviews</div>
+        <h2 style="font-size:34px; line-height:1.2; margin:10px 0 8px; letter-spacing:-0.5px;">Dune: Part Two — a staggering sci-fi epic</h2>
+        <div style="color:#6b7280; font-size:14px; margin-bottom:22px;">Film · 2h 46m · Tomatometer 92% · By the Reviews Desk</div>
+        <div style="height:200px; border-radius:14px; margin-bottom:22px;
+          background:linear-gradient(120deg,#2a3b6b,#7b4b8a 55%,#c07a3e); box-shadow:0 10px 30px rgba(0,0,0,0.15);"></div>
+        <p style="color:#33373f; font-size:15.5px; line-height:1.85; margin-bottom:14px;">
+          Denis Villeneuve returns to Arrakis with a film that is bigger, bolder and more assured than
+          its predecessor. The cast is uniformly excellent, the score thunders, and the desert has never
+          looked so alive — or so dangerous.</p>
+        <p style="color:#33373f; font-size:15.5px; line-height:1.85;">
+          It is the rare sequel that deepens everything the first film set up: the politics, the prophecy,
+          and the slow, terrible making of a leader. A cinema-first spectacle worth the wait.</p>
+      </div>
+
+      <!-- Toolbar → badge callout -->
+      <div style="position:absolute; top:14px; right:24px; display:flex; align-items:center; gap:8px; color:#8b97a5; font-size:12px;">
+      </div>
+
+      <!-- The nudge toast -->
+      <div class="toast" style="position:absolute; bottom:34px; right:30px;">
+        <span class="x">×</span>
+        <div class="th"><span class="d"></span><b>Looks familiar</b><span class="pct">82% match</span></div>
+        <div class="fp">Research / Movies &amp; Series</div>
+        <div class="sm">Dune · Oppenheimer · Blade Runner 2049</div>
+        <div class="acts"><span class="b pri">+ Add here</span><span class="b">Open folder</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

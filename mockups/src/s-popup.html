@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="mock.css"></head>
+<body>
+<div class="stage" style="flex-direction:row; align-items:center; gap:0;">
+  <!-- Left: message -->
+  <div style="flex:1; padding:0 20px 0 72px;">
+    <span class="badge"><span class="dot"></span>One click away</span>
+    <h1 style="font-size:46px; line-height:1.12; letter-spacing:-0.5px; font-weight:800; margin:20px 0 12px;">
+      Tune it in<br><span class="ac">a click.</span></h1>
+    <p style="font-size:19px; color:var(--dim); max-width:440px;">
+      The toolbar popup is a launcher and a control panel — open the manager, toggle the nudge,
+      and set exactly how eager the suggestions are.</p>
+    <div style="margin-top:26px; display:flex; flex-direction:column; gap:14px;">
+      <div style="display:flex; align-items:center; gap:12px; font-size:15px; color:#c3ccd6;">
+        <span style="color:var(--accent); font-size:18px;">◆</span> Open the full manager page</div>
+      <div style="display:flex; align-items:center; gap:12px; font-size:15px; color:#c3ccd6;">
+        <span style="color:var(--accent); font-size:18px;">◆</span> Similarity nudge &amp; in-page toast toggles</div>
+      <div style="display:flex; align-items:center; gap:12px; font-size:15px; color:#c3ccd6;">
+        <span style="color:var(--accent); font-size:18px;">◆</span> Suggestion threshold &amp; light / dark / auto</div>
+    </div>
+  </div>
+
+  <!-- Right: popup card under a toolbar -->
+  <div style="flex:0 0 560px; height:100%; position:relative; display:flex; align-items:center; justify-content:center;">
+    <!-- toolbar hint -->
+    <div style="position:absolute; top:96px; right:120px; display:flex; align-items:center; gap:10px;">
+      <div class="tb-icon" style="width:30px; height:30px; border-radius:8px;">
+        <span class="mark" style="width:15px;height:18px;"></span><span class="badge-count">1</span></div>
+    </div>
+    <svg width="60" height="120" style="position:absolute; top:120px; right:150px; opacity:.5;" viewBox="0 0 60 120">
+      <path d="M40 8 C 40 60, 20 70, 24 108" fill="none" stroke="#46bea0" stroke-width="2" stroke-dasharray="4 5"/>
+      <path d="M18 100 L24 110 L31 101" fill="none" stroke="#46bea0" stroke-width="2"/>
+    </svg>
+
+    <div class="popup" style="margin-top:70px;">
+      <div class="head"><span class="mark"></span><b>BookZad</b></div>
+      <div class="cta">Open manager</div>
+      <div class="sec">
+        <h4>Suggestions</h4>
+        <div class="row"><span class="lab">Similarity nudge</span><span class="sw"></span></div>
+        <div class="hint">Badge the icon when a page resembles a folder you keep.</div>
+        <div class="row"><span class="lab">In-page toast</span><span class="sw"></span></div>
+        <div class="hint">Also show an actionable in-page card.</div>
+        <div style="margin-top:14px;">
+          <div class="row" style="margin-top:0;"><span class="lab">Suggestion threshold</span><span class="stag">18%</span></div>
+          <div class="rangebar"><i></i><b></b></div>
+        </div>
+      </div>
+      <div class="sec">
+        <h4>Appearance</h4>
+        <div class="row"><span class="lab">Theme</span><span class="selrow">Dark</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>
