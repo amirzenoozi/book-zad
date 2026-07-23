@@ -11,6 +11,8 @@ import {
 import { getManyMeta, setMeta, deleteMeta, getLastFolder, setLastFolder } from '@/lib/storage';
 import { getSettings, setSettings } from '@/lib/settings';
 import { effectiveScore } from '@/lib/scoring';
+import { pickKeeper } from '@/lib/dedupe';
+import { buildBackup, isBackup, applyBackup } from '@/lib/backup';
 import { applyTheme } from '@/lib/theme';
 import type { Bookmark, BookmarkMeta, Folder, Settings, Theme } from '@/lib/types';
 import '@/lib/fonts.css';
@@ -60,6 +62,7 @@ async function init() {
   wireControls();
   wireDrawer();
   wireFolderBar();
+  wireBackup();
   await reload();
 }
 
@@ -345,6 +348,8 @@ function renderBookmarkCard(b: Bookmark, showPath: boolean): HTMLElement {
   usage.textContent = usageLabel(m);
   card.append(usage);
 
+  card.append(tagsEditor(b, m));
+
   // Bottom block (notes → move → actions) — same shape as the folder card, and
   // pinned to the bottom via CSS so it aligns across cards despite the rating.
   const notes = document.createElement('textarea');
@@ -364,6 +369,56 @@ function renderBookmarkCard(b: Bookmark, showPath: boolean): HTMLElement {
   card.append(footer);
 
   return card;
+}
+
+/** Tag chips with a small inline input. Tags are searchable and (via notes-like
+ *  tokens) part of the bookmark's own words. Rebuilds itself in place so typing
+ *  doesn't trigger a full re-render. */
+function tagsEditor(b: Bookmark, m: BookmarkMeta): HTMLElement {
+  const wrap = document.createElement('div');
+  wrap.className = 'tags';
+
+  const rebuild = () => {
+    wrap.replaceChildren();
+    for (const tag of m.tags) {
+      const chip = document.createElement('span');
+      chip.className = 'tag';
+      chip.textContent = tag;
+      const x = document.createElement('button');
+      x.type = 'button';
+      x.className = 'tag__x';
+      x.textContent = '×';
+      x.title = 'Remove tag';
+      x.addEventListener('click', async () => {
+        m.tags = m.tags.filter((t) => t !== tag);
+        await setMeta(b.id, { tags: m.tags });
+        rebuild();
+      });
+      chip.append(x);
+      wrap.append(chip);
+    }
+
+    const input = document.createElement('input');
+    input.className = 'tag__input';
+    input.placeholder = m.tags.length ? '+ tag' : 'add tags…';
+    input.addEventListener('keydown', async (e) => {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      const value = input.value.trim().toLowerCase();
+      if (value && !m.tags.includes(value)) {
+        m.tags = [...m.tags, value];
+        await setMeta(b.id, { tags: m.tags });
+        rebuild();
+        wrap.querySelector<HTMLInputElement>('.tag__input')?.focus();
+      } else {
+        input.value = '';
+      }
+    });
+    wrap.append(input);
+  };
+
+  rebuild();
+  return wrap;
 }
 
 /** A "move to folder" dropdown, pre-selected to the bookmark's current folder. */
@@ -497,11 +552,7 @@ function renderHygiene() {
 
 /** The bookmark to keep from a duplicate group: highest score, then oldest. */
 function keeperOf(group: Bookmark[]): Bookmark {
-  return [...group].sort((a, b) => {
-    const s = effectiveScore(meta(b.id), now) - effectiveScore(meta(a.id), now);
-    if (s !== 0) return s;
-    return a.dateAdded - b.dateAdded; // older first
-  })[0]!;
+  return pickKeeper(group, (b) => effectiveScore(meta(b.id), now));
 }
 
 async function removeAllBut(keeper: Bookmark, group: Bookmark[]): Promise<number> {
@@ -607,6 +658,43 @@ function wireControls() {
 
 function wireFolderBar() {
   newFolderBtn.addEventListener('click', () => void handleNewFolder());
+}
+
+function wireBackup() {
+  const fileInput = $<HTMLInputElement>('#import-file');
+
+  $('#export-backup').addEventListener('click', () => {
+    const data = buildBackup(bookmarks, folders, metas, new Date().toISOString());
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `book-zad-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  $('#import-backup').addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files?.[0];
+    fileInput.value = ''; // allow re-importing the same file later
+    if (!file) return;
+
+    let data: unknown;
+    try {
+      data = JSON.parse(await file.text());
+    } catch {
+      alert('That file isn’t valid JSON.');
+      return;
+    }
+    if (!isBackup(data)) {
+      alert('That file isn’t a BookZad backup.');
+      return;
+    }
+    const res = await applyBackup(data, bookmarks, folders);
+    await reload();
+    alert(`Restored ${res.bookmarks} bookmark(s) and ${res.folders} folder(s) from the backup.`);
+  });
 }
 
 function wireDrawer() {

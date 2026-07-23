@@ -11,6 +11,8 @@
 - Sort bookmarks by score, most recently added, most visited, or title.
 - Automatic per-bookmark scoring from local usage signals (visit count, recency, dwell time), with a manual star rating that overrides it.
 - Per-bookmark notes, included in search.
+- Tags on bookmarks, edited as chips on each card; tags are searchable and feed the similarity engine alongside notes.
+- Export and import of your notes, tags and scores as a JSON file — this metadata lives only on your device (separate from native bookmarks), and restore matches entries by URL and folder path so it survives reinstalls.
 - Folder notes, and both folder and per-bookmark notes now feed the similarity engine as weighted comparison sources — so labelling a folder (e.g. "movies films series reviews") makes matching pages suggest it. The suggestion index refreshes as soon as a note is edited.
 - Cleanup panel that finds duplicate URLs and stale bookmarks, with one-click "keep best, delete the rest" per duplicate group and a remove-all-duplicates action.
 - Similarity nudge: as you browse, the page text is compared on-device (TF-IDF) against your saved folders, badging the toolbar icon on a match.

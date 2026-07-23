@@ -88,6 +88,19 @@
           <span class="setting__value" id="threshold-value"></span>
         </label>
         <p class="setting__hint">Lower = more nudges (looser matches). Higher = only strong matches.</p>
+
+        <section class="drawer__section">
+          <h3 class="drawer__h3">Backup</h3>
+          <p class="setting__hint">
+            Your notes, tags and scores live only on this device — they aren't part of the native
+            bookmarks. Export them to a file, or restore from one (matched by URL).
+          </p>
+          <div class="drawer__actions">
+            <button id="export-backup" class="btn" type="button">Export…</button>
+            <button id="import-backup" class="btn" type="button">Import…</button>
+          </div>
+          <input id="import-file" type="file" accept="application/json,.json" hidden />
+        </section>
       </div>
     </aside>
     <div class="scrim" id="scrim" hidden></div>
