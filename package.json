@@ -16,6 +16,8 @@
     "zip:edge": "wxt zip -b edge",
     "package": "wxt zip && wxt zip -b firefox && wxt zip -b edge",
     "compile": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "gen:icons": "node scripts/gen-icons.mjs",
     "submit:chrome": "wxt submit --chrome-zip .output/*-chrome.zip",
     "submit:firefox": "wxt submit --firefox-zip .output/*-firefox.zip --firefox-sources-zip .output/*-sources.zip",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "typescript": "^6.0.3",
+    "vitest": "^4.1.10",
     "wxt": "^0.20.26"
   },
   "dependencies": {
