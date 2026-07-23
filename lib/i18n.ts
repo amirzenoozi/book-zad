@@ -14,6 +14,11 @@ export type MessageKey = Parameters<typeof browser.i18n.getMessage>[0];
 const LOCALE_FILES = {
   en: '/_locales/en/messages.json',
   fa: '/_locales/fa/messages.json',
+  de: '/_locales/de/messages.json',
+  fr: '/_locales/fr/messages.json',
+  it: '/_locales/it/messages.json',
+  nl: '/_locales/nl/messages.json',
+  tr: '/_locales/tr/messages.json',
 } as const;
 
 /**

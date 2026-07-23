@@ -37,6 +37,16 @@
   box-sizing: border-box;
 }
 
+/* Form controls don't inherit the page font. Without this, Persian/Arabic text
+   in buttons, inputs and selects falls back to the system UI font instead of
+   Vazirmatn (which body declares first). */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 body {
   margin: 0;
   background: var(--bg);

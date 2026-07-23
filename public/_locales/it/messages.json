@@ -1,0 +1,436 @@
+{
+  "locale_code": {
+    "message": "it",
+    "description": "BCP-47 code of this locale, stamped on <html lang>."
+  },
+  "locale_dir": {
+    "message": "ltr",
+    "description": "Writing direction of this locale: ltr or rtl."
+  },
+  "ext_name": {
+    "message": "BookZad — i segnalibri, ripensati"
+  },
+  "ext_description": {
+    "message": "Valuta, cerca e riordina i tuoi segnalibri. I suggerimenti sul dispositivo propongono la cartella giusta."
+  },
+  "app_name": {
+    "message": "BookZad"
+  },
+  "action_add": {
+    "message": "Aggiungi"
+  },
+  "action_close": {
+    "message": "Chiudi"
+  },
+  "action_delete": {
+    "message": "Elimina"
+  },
+  "action_rename": {
+    "message": "Rinomina"
+  },
+  "action_save": {
+    "message": "Salva"
+  },
+  "language_label": {
+    "message": "Lingua"
+  },
+  "language_auto": {
+    "message": "Automatica (browser)"
+  },
+  "theme_label": {
+    "message": "Tema"
+  },
+  "theme_auto": {
+    "message": "Automatico"
+  },
+  "theme_light": {
+    "message": "Chiaro"
+  },
+  "theme_dark": {
+    "message": "Scuro"
+  },
+  "popup_save_heading": {
+    "message": "Salva questa pagina"
+  },
+  "popup_saved": {
+    "message": "Salvato"
+  },
+  "popup_save_ok": {
+    "message": "Salvato in «$1» ✓",
+    "description": "$1 = folder path"
+  },
+  "popup_save_error": {
+    "message": "Impossibile salvare questa pagina."
+  },
+  "popup_already_saved": {
+    "message": "Già salvato in «$1»",
+    "description": "$1 = folder path"
+  },
+  "popup_folder_generic": {
+    "message": "una cartella"
+  },
+  "popup_folder_word": {
+    "message": "cartella"
+  },
+  "popup_open_manager": {
+    "message": "Apri la gestione"
+  },
+  "popup_suggestions": {
+    "message": "Suggerimenti"
+  },
+  "popup_nudge": {
+    "message": "Avviso di somiglianza"
+  },
+  "popup_nudge_hint": {
+    "message": "Segna l’icona quando una pagina somiglia a una cartella che tieni."
+  },
+  "popup_toast": {
+    "message": "Scheda nella pagina"
+  },
+  "popup_toast_hint": {
+    "message": "Mostra anche una scheda nella pagina (aggiungi alla cartella / aprila)."
+  },
+  "popup_threshold": {
+    "message": "Soglia dei suggerimenti"
+  },
+  "popup_threshold_hint": {
+    "message": "Più bassa = più suggerimenti (permissiva). Più alta = solo forti."
+  },
+  "popup_this_site": {
+    "message": "Questo sito"
+  },
+  "popup_mute": {
+    "message": "Non suggerire qui"
+  },
+  "popup_unmute": {
+    "message": "Suggerisci di nuovo qui"
+  },
+  "popup_mute_hint": {
+    "message": "Non avvisarmi mai su questo sito — comodo per i motori di ricerca."
+  },
+  "popup_muted_hint": {
+    "message": "Silenziato. L’elenco completo è in «Siti silenziati» nella gestione."
+  },
+  "popup_appearance": {
+    "message": "Aspetto"
+  },
+  "search_placeholder": {
+    "message": "Cerca fra titoli, URL, note ed etichette…"
+  },
+  "sort_label": {
+    "message": "Ordina"
+  },
+  "sort_score": {
+    "message": "Punteggio"
+  },
+  "sort_recent": {
+    "message": "Aggiunti di recente"
+  },
+  "sort_visited": {
+    "message": "Più visitati"
+  },
+  "sort_title": {
+    "message": "Titolo A–Z"
+  },
+  "settings": {
+    "message": "Impostazioni"
+  },
+  "new_folder": {
+    "message": "+ Nuova cartella"
+  },
+  "home": {
+    "message": "Inizio"
+  },
+  "stat_bookmarks": {
+    "message": "segnalibri"
+  },
+  "stat_folders": {
+    "message": "cartelle"
+  },
+  "stat_shown": {
+    "message": "mostrati"
+  },
+  "empty_search": {
+    "message": "Nessun segnalibro corrisponde alla ricerca."
+  },
+  "empty_folder": {
+    "message": "Questa cartella è vuota."
+  },
+  "folder_note_placeholder": {
+    "message": "Nota della cartella — descrivila per affinare i suggerimenti…"
+  },
+  "move_folder_to": {
+    "message": "Sposta la cartella in…"
+  },
+  "move_to_folder": {
+    "message": "Sposta in una cartella"
+  },
+  "note_placeholder": {
+    "message": "Aggiungi una nota — serve anche ai suggerimenti…"
+  },
+  "remove_tag": {
+    "message": "Rimuovi etichetta"
+  },
+  "tag_add_more": {
+    "message": "+ etichetta"
+  },
+  "tag_add_first": {
+    "message": "aggiungi etichette…"
+  },
+  "set_score_to": {
+    "message": "Imposta il punteggio a $1",
+    "description": "$1 = score 0-100"
+  },
+  "score_manual": {
+    "message": "manuale · $1",
+    "description": "$1 = score"
+  },
+  "score_auto": {
+    "message": "automatico · $1",
+    "description": "$1 = score"
+  },
+  "usage_never": {
+    "message": "mai aperto"
+  },
+  "usage_visits": {
+    "message": "$1 visita/e · ultima $2",
+    "description": "$1 = count, $2 = date"
+  },
+  "count_bookmarks_one": {
+    "message": "$1 segnalibro"
+  },
+  "count_bookmarks_other": {
+    "message": "$1 segnalibri"
+  },
+  "count_folders_one": {
+    "message": ", $1 cartella"
+  },
+  "count_folders_other": {
+    "message": ", $1 cartelle"
+  },
+  "cleanup": {
+    "message": "Pulizia"
+  },
+  "acc_duplicates": {
+    "message": "Duplicati"
+  },
+  "acc_stale": {
+    "message": "Dimenticati"
+  },
+  "acc_dead": {
+    "message": "Link morti"
+  },
+  "acc_none_found": {
+    "message": "nessun risultato"
+  },
+  "dupes_summary": {
+    "message": "$1 gruppo/i · $2 rimovibili"
+  },
+  "stale_summary": {
+    "message": "$1 mai aperti"
+  },
+  "dead_summary": {
+    "message": "analisi su richiesta"
+  },
+  "dupes_none": {
+    "message": "Nessun URL duplicato ✓"
+  },
+  "dupes_remove_all": {
+    "message": "Rimuovi tutti i $1 duplicati"
+  },
+  "dupes_group_label": {
+    "message": "$1× $2",
+    "description": "$1 = copies, $2 = url"
+  },
+  "dupes_keep_best": {
+    "message": "Tieni il migliore, elimina il resto"
+  },
+  "dupes_keep_title": {
+    "message": "Tiene «$1» (punteggio più alto / più vecchio) ed elimina $2",
+    "description": "$1 = title, $2 = number deleted"
+  },
+  "stale_note": {
+    "message": "Aggiunti oltre 180 giorni fa e mai aperti dall’installazione."
+  },
+  "stale_none": {
+    "message": "Niente di dimenticato ✓"
+  },
+  "dead_note": {
+    "message": "Controlla che ogni segnalibro risponda ancora — al meglio possibile, una richiesta per link."
+  },
+  "dead_scan": {
+    "message": "Cerca link morti"
+  },
+  "dead_scanning": {
+    "message": "Controllo $1/$2…"
+  },
+  "dead_checked": {
+    "message": "$1 controllati"
+  },
+  "dead_last_checked": {
+    "message": "Ultimo controllo $1.",
+    "description": "$1 = date and time"
+  },
+  "dead_none": {
+    "message": "Nessun link morto trovato ✓"
+  },
+  "dead_count": {
+    "message": "$1 link morti"
+  },
+  "dead_sub": {
+    "message": "non rispondono più — 404 / rimosso / errore del server"
+  },
+  "dead_remove_all": {
+    "message": "Rimuovi tutti i $1"
+  },
+  "confirm_dedupe_group": {
+    "message": "Tenere «$1» ed eliminare $2 duplicato/i?"
+  },
+  "confirm_dedupe_all": {
+    "message": "Rimuovere $1 segnalibri duplicati in $2 gruppo/i? Di ognuno resta una copia."
+  },
+  "confirm_delete_dead": {
+    "message": "Rimuovere $1 segnalibro/i morto/i?"
+  },
+  "confirm_delete_bookmark": {
+    "message": "Eliminare «$1»? Questo rimuove il segnalibro dal browser."
+  },
+  "confirm_delete_folder": {
+    "message": "Eliminare la cartella «$1» e tutto il contenuto ($2 segnalibri, $3 sottocartelle)?"
+  },
+  "confirm_delete_folder_empty": {
+    "message": "Eliminare la cartella vuota «$1»?"
+  },
+  "prompt_rename_folder": {
+    "message": "Rinomina la cartella"
+  },
+  "prompt_new_folder": {
+    "message": "Nome della nuova cartella"
+  },
+  "alert_no_top_folder": {
+    "message": "Nessuna cartella di primo livello. Apri prima una cartella."
+  },
+  "suggestions": {
+    "message": "Suggerimenti"
+  },
+  "muted_sites": {
+    "message": "Siti silenziati"
+  },
+  "muted_count": {
+    "message": "$1 sito/i"
+  },
+  "muted_none": {
+    "message": "nessuno silenziato"
+  },
+  "muted_note": {
+    "message": "Siti che non ricevono mai un suggerimento — comodo per i motori di ricerca e le pagine che attraversi soltanto. Attiva o disattiva un gruppo, aggiungi un dominio a mano, oppure silenzia il sito su cui sei dalla barra degli strumenti. Silenziare un dominio copre anche i suoi sottodomini."
+  },
+  "muted_empty": {
+    "message": "Nessun sito silenziato — i suggerimenti possono comparire ovunque."
+  },
+  "muted_add_placeholder": {
+    "message": "example.com"
+  },
+  "muted_invalid": {
+    "message": "Inserisci un dominio come example.com"
+  },
+  "muted_unmute_site": {
+    "message": "Riattiva $1",
+    "description": "$1 = domain"
+  },
+  "preset_mute_all": {
+    "message": "Silenzia tutti i $1 — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_unmute_all": {
+    "message": "Riattiva tutti i $1 — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_search": {
+    "message": "Motori di ricerca"
+  },
+  "preset_search_hint": {
+    "message": "Silenziati per impostazione predefinita — da qui cerchi, non collezioni."
+  },
+  "preset_mail": {
+    "message": "Posta e messaggistica"
+  },
+  "preset_mail_hint": {
+    "message": "Caselle e chat che tieni aperte tutto il giorno."
+  },
+  "preset_social": {
+    "message": "Social"
+  },
+  "preset_social_hint": {
+    "message": "Feed infiniti — silenziali, o lasciali attivi se archivi i post."
+  },
+  "settings_nudge_hint": {
+    "message": "Segna l’icona quando la pagina che leggi somiglia a una cartella che tieni."
+  },
+  "settings_toast_hint": {
+    "message": "Mostra anche una piccola scheda nella pagina. Disattivato di default."
+  },
+  "settings_sensitivity": {
+    "message": "Sensibilità delle corrispondenze"
+  },
+  "settings_sensitivity_hint": {
+    "message": "Più bassa = più avvisi (permissiva). Più alta = solo forti."
+  },
+  "backup": {
+    "message": "Backup"
+  },
+  "backup_hint": {
+    "message": "Note, etichette e punteggi esistono solo su questo dispositivo — non fanno parte dei segnalibri del browser. Esportali in un file, o ripristinali da uno (abbinati per URL)."
+  },
+  "backup_export": {
+    "message": "Esporta…"
+  },
+  "backup_import": {
+    "message": "Importa…"
+  },
+  "backup_invalid_json": {
+    "message": "Questo file non è un JSON valido."
+  },
+  "backup_invalid": {
+    "message": "Questo file non è un backup di BookZad."
+  },
+  "backup_restored": {
+    "message": "Ripristino completato — $1.",
+    "description": "$1 = summary list"
+  },
+  "backup_updated": {
+    "message": "$1 aggiornati"
+  },
+  "backup_created": {
+    "message": "$1 ricreati"
+  },
+  "backup_folders": {
+    "message": "$1 note di cartella"
+  },
+  "toast_title": {
+    "message": "Sembra familiare"
+  },
+  "toast_match": {
+    "message": "$1% di somiglianza"
+  },
+  "toast_add": {
+    "message": "+ Aggiungi a $1",
+    "description": "$1 = folder name"
+  },
+  "toast_open": {
+    "message": "Apri la cartella"
+  },
+  "toast_adding": {
+    "message": "Aggiunta…"
+  },
+  "toast_added": {
+    "message": "✓ Aggiunto a $1",
+    "description": "$1 = folder name"
+  },
+  "toast_retry": {
+    "message": "Riprova"
+  },
+  "toast_dismiss": {
+    "message": "Chiudi"
+  }
+}

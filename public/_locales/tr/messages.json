@@ -1,0 +1,436 @@
+{
+  "locale_code": {
+    "message": "tr",
+    "description": "BCP-47 code of this locale, stamped on <html lang>."
+  },
+  "locale_dir": {
+    "message": "ltr",
+    "description": "Writing direction of this locale: ltr or rtl."
+  },
+  "ext_name": {
+    "message": "BookZad — yer imleri, yeniden"
+  },
+  "ext_description": {
+    "message": "Yer imlerinizi puanlayın, arayın ve derleyip toplayın. Cihazdaki öneriler uygun klasörü gösterir."
+  },
+  "app_name": {
+    "message": "BookZad"
+  },
+  "action_add": {
+    "message": "Ekle"
+  },
+  "action_close": {
+    "message": "Kapat"
+  },
+  "action_delete": {
+    "message": "Sil"
+  },
+  "action_rename": {
+    "message": "Yeniden adlandır"
+  },
+  "action_save": {
+    "message": "Kaydet"
+  },
+  "language_label": {
+    "message": "Dil"
+  },
+  "language_auto": {
+    "message": "Otomatik (tarayıcı)"
+  },
+  "theme_label": {
+    "message": "Tema"
+  },
+  "theme_auto": {
+    "message": "Otomatik"
+  },
+  "theme_light": {
+    "message": "Açık"
+  },
+  "theme_dark": {
+    "message": "Koyu"
+  },
+  "popup_save_heading": {
+    "message": "Bu sayfayı kaydet"
+  },
+  "popup_saved": {
+    "message": "Kaydedildi"
+  },
+  "popup_save_ok": {
+    "message": "“$1” klasörüne kaydedildi ✓",
+    "description": "$1 = folder path"
+  },
+  "popup_save_error": {
+    "message": "Bu sayfa kaydedilemedi."
+  },
+  "popup_already_saved": {
+    "message": "Zaten “$1” içinde kayıtlı",
+    "description": "$1 = folder path"
+  },
+  "popup_folder_generic": {
+    "message": "bir klasör"
+  },
+  "popup_folder_word": {
+    "message": "klasör"
+  },
+  "popup_open_manager": {
+    "message": "Yöneticiyi aç"
+  },
+  "popup_suggestions": {
+    "message": "Öneriler"
+  },
+  "popup_nudge": {
+    "message": "Benzerlik uyarısı"
+  },
+  "popup_nudge_hint": {
+    "message": "Bir sayfa tuttuğunuz klasöre benzediğinde simgeyi işaretle."
+  },
+  "popup_toast": {
+    "message": "Sayfa içi kart"
+  },
+  "popup_toast_hint": {
+    "message": "Ayrıca sayfada bir kart göster (klasöre ekle / klasörü aç)."
+  },
+  "popup_threshold": {
+    "message": "Öneri eşiği"
+  },
+  "popup_threshold_hint": {
+    "message": "Düşük = daha çok öneri (esnek). Yüksek = yalnızca güçlü eşleşmeler."
+  },
+  "popup_this_site": {
+    "message": "Bu site"
+  },
+  "popup_mute": {
+    "message": "Burada önerme"
+  },
+  "popup_unmute": {
+    "message": "Burada yeniden öner"
+  },
+  "popup_mute_hint": {
+    "message": "Bu sitede beni hiç uyarma — arama motorları için ideal."
+  },
+  "popup_muted_hint": {
+    "message": "Susturuldu. Tam liste yöneticideki “Susturulan siteler” bölümünde."
+  },
+  "popup_appearance": {
+    "message": "Görünüm"
+  },
+  "search_placeholder": {
+    "message": "Başlık, adres, not ve etiketlerde ara…"
+  },
+  "sort_label": {
+    "message": "Sırala"
+  },
+  "sort_score": {
+    "message": "Puan"
+  },
+  "sort_recent": {
+    "message": "Son eklenenler"
+  },
+  "sort_visited": {
+    "message": "En çok ziyaret edilen"
+  },
+  "sort_title": {
+    "message": "Başlık A–Z"
+  },
+  "settings": {
+    "message": "Ayarlar"
+  },
+  "new_folder": {
+    "message": "+ Yeni klasör"
+  },
+  "home": {
+    "message": "Başlangıç"
+  },
+  "stat_bookmarks": {
+    "message": "yer imi"
+  },
+  "stat_folders": {
+    "message": "klasör"
+  },
+  "stat_shown": {
+    "message": "gösterilen"
+  },
+  "empty_search": {
+    "message": "Aramanızla eşleşen yer imi yok."
+  },
+  "empty_folder": {
+    "message": "Bu klasör boş."
+  },
+  "folder_note_placeholder": {
+    "message": "Klasör notu — önerileri keskinleştirmek için açıklayın…"
+  },
+  "move_folder_to": {
+    "message": "Klasörü şuraya taşı…"
+  },
+  "move_to_folder": {
+    "message": "Klasöre taşı"
+  },
+  "note_placeholder": {
+    "message": "Not ekleyin — öneriler için de kullanılır…"
+  },
+  "remove_tag": {
+    "message": "Etiketi kaldır"
+  },
+  "tag_add_more": {
+    "message": "+ etiket"
+  },
+  "tag_add_first": {
+    "message": "etiket ekle…"
+  },
+  "set_score_to": {
+    "message": "Puanı $1 yap",
+    "description": "$1 = score 0-100"
+  },
+  "score_manual": {
+    "message": "elle · $1",
+    "description": "$1 = score"
+  },
+  "score_auto": {
+    "message": "otomatik · $1",
+    "description": "$1 = score"
+  },
+  "usage_never": {
+    "message": "henüz açılmadı"
+  },
+  "usage_visits": {
+    "message": "$1 ziyaret · son $2",
+    "description": "$1 = count, $2 = date"
+  },
+  "count_bookmarks_one": {
+    "message": "$1 yer imi"
+  },
+  "count_bookmarks_other": {
+    "message": "$1 yer imi"
+  },
+  "count_folders_one": {
+    "message": ", $1 klasör"
+  },
+  "count_folders_other": {
+    "message": ", $1 klasör"
+  },
+  "cleanup": {
+    "message": "Temizlik"
+  },
+  "acc_duplicates": {
+    "message": "Yinelenenler"
+  },
+  "acc_stale": {
+    "message": "Unutulmuş"
+  },
+  "acc_dead": {
+    "message": "Ölü bağlantılar"
+  },
+  "acc_none_found": {
+    "message": "bulunamadı"
+  },
+  "dupes_summary": {
+    "message": "$1 grup · $2 kaldırılabilir"
+  },
+  "stale_summary": {
+    "message": "$1 hiç açılmadı"
+  },
+  "dead_summary": {
+    "message": "istek üzerine tarama"
+  },
+  "dupes_none": {
+    "message": "Yinelenen adres yok ✓"
+  },
+  "dupes_remove_all": {
+    "message": "$1 yinelenenin tümünü kaldır"
+  },
+  "dupes_group_label": {
+    "message": "$1× $2",
+    "description": "$1 = copies, $2 = url"
+  },
+  "dupes_keep_best": {
+    "message": "En iyisini tut, kalanı sil"
+  },
+  "dupes_keep_title": {
+    "message": "“$1” tutulur (en yüksek puan / en eski), $2 tanesi silinir",
+    "description": "$1 = title, $2 = number deleted"
+  },
+  "stale_note": {
+    "message": "180 günden önce eklendi ve kurulumdan bu yana hiç açılmadı."
+  },
+  "stale_none": {
+    "message": "Unutulmuş bir şey yok ✓"
+  },
+  "dead_note": {
+    "message": "Her yer iminin hâlâ açılıp açılmadığını denetler — elden geldiğince, bağlantı başına bir istek."
+  },
+  "dead_scan": {
+    "message": "Ölü bağlantıları tara"
+  },
+  "dead_scanning": {
+    "message": "Denetleniyor $1/$2…"
+  },
+  "dead_checked": {
+    "message": "$1 denetlendi"
+  },
+  "dead_last_checked": {
+    "message": "Son denetim $1.",
+    "description": "$1 = date and time"
+  },
+  "dead_none": {
+    "message": "Ölü bağlantı bulunamadı ✓"
+  },
+  "dead_count": {
+    "message": "$1 ölü bağlantı"
+  },
+  "dead_sub": {
+    "message": "artık açılmıyor — 404 / kaldırılmış / sunucu hatası"
+  },
+  "dead_remove_all": {
+    "message": "$1 tanesinin tümünü kaldır"
+  },
+  "confirm_dedupe_group": {
+    "message": "“$1” tutulup $2 yinelenen silinsin mi?"
+  },
+  "confirm_dedupe_all": {
+    "message": "$2 grupta $1 yinelenen yer imi kaldırılsın mı? Her birinden bir kopya kalır."
+  },
+  "confirm_delete_dead": {
+    "message": "$1 ölü yer imi kaldırılsın mı?"
+  },
+  "confirm_delete_bookmark": {
+    "message": "“$1” silinsin mi? Bu, tarayıcıdaki yer imini kaldırır."
+  },
+  "confirm_delete_folder": {
+    "message": "“$1” klasörü ve içindeki her şey silinsin mi ($2 yer imi, $3 alt klasör)?"
+  },
+  "confirm_delete_folder_empty": {
+    "message": "Boş “$1” klasörü silinsin mi?"
+  },
+  "prompt_rename_folder": {
+    "message": "Klasörü yeniden adlandır"
+  },
+  "prompt_new_folder": {
+    "message": "Yeni klasörün adı"
+  },
+  "alert_no_top_folder": {
+    "message": "Oluşturulacak üst düzey klasör yok. Önce bir klasör açın."
+  },
+  "suggestions": {
+    "message": "Öneriler"
+  },
+  "muted_sites": {
+    "message": "Susturulan siteler"
+  },
+  "muted_count": {
+    "message": "$1 site"
+  },
+  "muted_none": {
+    "message": "susturulan yok"
+  },
+  "muted_note": {
+    "message": "Hiç öneri almayan siteler — arama motorları ve yalnızca içinden geçtiğiniz sayfalar için ideal. Bir grubu açıp kapatın, elle alan adı ekleyin ya da bulunduğunuz siteyi araç çubuğundan susturun. Bir alan adını susturmak alt alan adlarını da kapsar."
+  },
+  "muted_empty": {
+    "message": "Susturulan site yok — öneriler her yerde çıkabilir."
+  },
+  "muted_add_placeholder": {
+    "message": "example.com"
+  },
+  "muted_invalid": {
+    "message": "example.com gibi bir alan adı girin"
+  },
+  "muted_unmute_site": {
+    "message": "$1 susturmasını kaldır",
+    "description": "$1 = domain"
+  },
+  "preset_mute_all": {
+    "message": "$1 tanesinin tümünü sustur — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_unmute_all": {
+    "message": "$1 tanesinin susturmasını kaldır — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_search": {
+    "message": "Arama motorları"
+  },
+  "preset_search_hint": {
+    "message": "Varsayılan olarak susturulur — buradan ararsınız, bunları biriktirmezsiniz."
+  },
+  "preset_mail": {
+    "message": "E-posta ve mesajlaşma"
+  },
+  "preset_mail_hint": {
+    "message": "Gün boyu açık tuttuğunuz gelen kutuları ve sohbetler."
+  },
+  "preset_social": {
+    "message": "Sosyal akışlar"
+  },
+  "preset_social_hint": {
+    "message": "Bitmeyen akışlar — susturun ya da gönderi biriktiriyorsanız açık bırakın."
+  },
+  "settings_nudge_hint": {
+    "message": "Okuduğunuz sayfa tuttuğunuz klasöre benzediğinde simgeyi işaretle."
+  },
+  "settings_toast_hint": {
+    "message": "Ayrıca sayfada küçük bir kart göster. Varsayılan olarak kapalı."
+  },
+  "settings_sensitivity": {
+    "message": "Eşleşme duyarlılığı"
+  },
+  "settings_sensitivity_hint": {
+    "message": "Düşük = daha çok uyarı (esnek). Yüksek = yalnızca güçlü eşleşmeler."
+  },
+  "backup": {
+    "message": "Yedek"
+  },
+  "backup_hint": {
+    "message": "Notlarınız, etiketleriniz ve puanlarınız yalnızca bu cihazda durur — tarayıcının yer imlerinin parçası değildir. Bir dosyaya aktarın ya da dosyadan geri yükleyin (adrese göre eşleştirilir)."
+  },
+  "backup_export": {
+    "message": "Dışa aktar…"
+  },
+  "backup_import": {
+    "message": "İçe aktar…"
+  },
+  "backup_invalid_json": {
+    "message": "Bu dosya geçerli bir JSON değil."
+  },
+  "backup_invalid": {
+    "message": "Bu dosya bir BookZad yedeği değil."
+  },
+  "backup_restored": {
+    "message": "Geri yükleme tamamlandı — $1.",
+    "description": "$1 = summary list"
+  },
+  "backup_updated": {
+    "message": "$1 güncellendi"
+  },
+  "backup_created": {
+    "message": "$1 yeniden oluşturuldu"
+  },
+  "backup_folders": {
+    "message": "$1 klasör notu"
+  },
+  "toast_title": {
+    "message": "Tanıdık geldi"
+  },
+  "toast_match": {
+    "message": "%$1 benzerlik"
+  },
+  "toast_add": {
+    "message": "+ $1 klasörüne ekle",
+    "description": "$1 = folder name"
+  },
+  "toast_open": {
+    "message": "Klasörü aç"
+  },
+  "toast_adding": {
+    "message": "Ekleniyor…"
+  },
+  "toast_added": {
+    "message": "✓ $1 klasörüne eklendi",
+    "description": "$1 = folder name"
+  },
+  "toast_retry": {
+    "message": "Yeniden dene"
+  },
+  "toast_dismiss": {
+    "message": "Kapat"
+  }
+}

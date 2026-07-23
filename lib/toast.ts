@@ -37,6 +37,7 @@ export function showToast(match: FolderMatch, actions: ToastActions): void {
     <style>
       ${fontFace()}
       :host { all: initial; }
+      button { font-family: inherit; }
       .card {
         position: fixed; bottom: 20px; inset-inline-end: 20px; width: 330px; z-index: 2147483647;
         font: 13px/1.45 "Vazirmatn", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -60,7 +61,7 @@ export function showToast(match: FolderMatch, actions: ToastActions): void {
       }
       .title { font-weight: 600; letter-spacing: 0.2px; }
       .pct { margin-inline-start: auto; font-size: 11px; opacity: 0.7;
-             font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+             font-family: "Vazirmatn", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
       .path { font-weight: 600; margin: 2px 0 6px; }
       .samples { opacity: 0.75; font-size: 12px; margin-bottom: 12px; }
       .actions { display: flex; gap: 8px; }

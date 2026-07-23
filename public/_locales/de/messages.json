@@ -1,0 +1,436 @@
+{
+  "locale_code": {
+    "message": "de",
+    "description": "BCP-47 code of this locale, stamped on <html lang>."
+  },
+  "locale_dir": {
+    "message": "ltr",
+    "description": "Writing direction of this locale: ltr or rtl."
+  },
+  "ext_name": {
+    "message": "BookZad — Lesezeichen, neu gedacht"
+  },
+  "ext_description": {
+    "message": "Bewerte, durchsuche und entrümple deine Lesezeichen. Hinweise auf dem Gerät schlagen den passenden Ordner vor."
+  },
+  "app_name": {
+    "message": "BookZad"
+  },
+  "action_add": {
+    "message": "Hinzufügen"
+  },
+  "action_close": {
+    "message": "Schließen"
+  },
+  "action_delete": {
+    "message": "Löschen"
+  },
+  "action_rename": {
+    "message": "Umbenennen"
+  },
+  "action_save": {
+    "message": "Speichern"
+  },
+  "language_label": {
+    "message": "Sprache"
+  },
+  "language_auto": {
+    "message": "Automatisch (Browser)"
+  },
+  "theme_label": {
+    "message": "Design"
+  },
+  "theme_auto": {
+    "message": "Automatisch"
+  },
+  "theme_light": {
+    "message": "Hell"
+  },
+  "theme_dark": {
+    "message": "Dunkel"
+  },
+  "popup_save_heading": {
+    "message": "Diese Seite speichern"
+  },
+  "popup_saved": {
+    "message": "Gespeichert"
+  },
+  "popup_save_ok": {
+    "message": "In „$1“ gespeichert ✓",
+    "description": "$1 = folder path"
+  },
+  "popup_save_error": {
+    "message": "Diese Seite konnte nicht gespeichert werden."
+  },
+  "popup_already_saved": {
+    "message": "Bereits in „$1“ gespeichert",
+    "description": "$1 = folder path"
+  },
+  "popup_folder_generic": {
+    "message": "einem Ordner"
+  },
+  "popup_folder_word": {
+    "message": "Ordner"
+  },
+  "popup_open_manager": {
+    "message": "Verwaltung öffnen"
+  },
+  "popup_suggestions": {
+    "message": "Vorschläge"
+  },
+  "popup_nudge": {
+    "message": "Ähnlichkeitshinweis"
+  },
+  "popup_nudge_hint": {
+    "message": "Das Symbol markieren, wenn eine Seite einem deiner Ordner ähnelt."
+  },
+  "popup_toast": {
+    "message": "Hinweis auf der Seite"
+  },
+  "popup_toast_hint": {
+    "message": "Zusätzlich eine Karte auf der Seite zeigen (zum Ordner hinzufügen / öffnen)."
+  },
+  "popup_threshold": {
+    "message": "Schwelle für Vorschläge"
+  },
+  "popup_threshold_hint": {
+    "message": "Niedriger = mehr Vorschläge (lockerer). Höher = nur starke Treffer."
+  },
+  "popup_this_site": {
+    "message": "Diese Website"
+  },
+  "popup_mute": {
+    "message": "Hier nichts vorschlagen"
+  },
+  "popup_unmute": {
+    "message": "Hier wieder vorschlagen"
+  },
+  "popup_mute_hint": {
+    "message": "Auf dieser Website nie hinweisen — praktisch für Suchmaschinen."
+  },
+  "popup_muted_hint": {
+    "message": "Stummgeschaltet. Die ganze Liste steht unter „Stumme Websites“ in der Verwaltung."
+  },
+  "popup_appearance": {
+    "message": "Darstellung"
+  },
+  "search_placeholder": {
+    "message": "Titel, URL, Notizen, Schlagwörter durchsuchen…"
+  },
+  "sort_label": {
+    "message": "Sortieren"
+  },
+  "sort_score": {
+    "message": "Bewertung"
+  },
+  "sort_recent": {
+    "message": "Zuletzt hinzugefügt"
+  },
+  "sort_visited": {
+    "message": "Meist besucht"
+  },
+  "sort_title": {
+    "message": "Titel A–Z"
+  },
+  "settings": {
+    "message": "Einstellungen"
+  },
+  "new_folder": {
+    "message": "+ Neuer Ordner"
+  },
+  "home": {
+    "message": "Start"
+  },
+  "stat_bookmarks": {
+    "message": "Lesezeichen"
+  },
+  "stat_folders": {
+    "message": "Ordner"
+  },
+  "stat_shown": {
+    "message": "angezeigt"
+  },
+  "empty_search": {
+    "message": "Keine Lesezeichen passen zu deiner Suche."
+  },
+  "empty_folder": {
+    "message": "Dieser Ordner ist leer."
+  },
+  "folder_note_placeholder": {
+    "message": "Ordnernotiz — beschreibe ihn für bessere Vorschläge…"
+  },
+  "move_folder_to": {
+    "message": "Ordner verschieben nach…"
+  },
+  "move_to_folder": {
+    "message": "In Ordner verschieben"
+  },
+  "note_placeholder": {
+    "message": "Notiz hinzufügen — wird auch für Vorschläge genutzt…"
+  },
+  "remove_tag": {
+    "message": "Schlagwort entfernen"
+  },
+  "tag_add_more": {
+    "message": "+ Schlagwort"
+  },
+  "tag_add_first": {
+    "message": "Schlagwörter hinzufügen…"
+  },
+  "set_score_to": {
+    "message": "Bewertung auf $1 setzen",
+    "description": "$1 = score 0-100"
+  },
+  "score_manual": {
+    "message": "manuell · $1",
+    "description": "$1 = score"
+  },
+  "score_auto": {
+    "message": "automatisch · $1",
+    "description": "$1 = score"
+  },
+  "usage_never": {
+    "message": "noch nicht geöffnet"
+  },
+  "usage_visits": {
+    "message": "$1 Besuch(e) · zuletzt $2",
+    "description": "$1 = count, $2 = date"
+  },
+  "count_bookmarks_one": {
+    "message": "$1 Lesezeichen"
+  },
+  "count_bookmarks_other": {
+    "message": "$1 Lesezeichen"
+  },
+  "count_folders_one": {
+    "message": ", $1 Ordner"
+  },
+  "count_folders_other": {
+    "message": ", $1 Ordner"
+  },
+  "cleanup": {
+    "message": "Aufräumen"
+  },
+  "acc_duplicates": {
+    "message": "Duplikate"
+  },
+  "acc_stale": {
+    "message": "Veraltet"
+  },
+  "acc_dead": {
+    "message": "Tote Links"
+  },
+  "acc_none_found": {
+    "message": "nichts gefunden"
+  },
+  "dupes_summary": {
+    "message": "$1 Gruppe(n) · $2 entfernbar"
+  },
+  "stale_summary": {
+    "message": "$1 nie geöffnet"
+  },
+  "dead_summary": {
+    "message": "auf Anfrage prüfen"
+  },
+  "dupes_none": {
+    "message": "Keine doppelten URLs ✓"
+  },
+  "dupes_remove_all": {
+    "message": "Alle $1 Duplikate entfernen"
+  },
+  "dupes_group_label": {
+    "message": "$1× $2",
+    "description": "$1 = copies, $2 = url"
+  },
+  "dupes_keep_best": {
+    "message": "Bestes behalten, Rest löschen"
+  },
+  "dupes_keep_title": {
+    "message": "Behält „$1“ (beste Bewertung / ältestes) und löscht $2",
+    "description": "$1 = title, $2 = number deleted"
+  },
+  "stale_note": {
+    "message": "Vor über 180 Tagen hinzugefügt und seit der Installation nie geöffnet."
+  },
+  "stale_none": {
+    "message": "Nichts Veraltetes ✓"
+  },
+  "dead_note": {
+    "message": "Prüft, ob jedes Lesezeichen noch erreichbar ist — nach bestem Bemühen, eine Anfrage pro Link."
+  },
+  "dead_scan": {
+    "message": "Nach toten Links suchen"
+  },
+  "dead_scanning": {
+    "message": "Prüfe $1/$2…"
+  },
+  "dead_checked": {
+    "message": "$1 geprüft"
+  },
+  "dead_last_checked": {
+    "message": "Zuletzt geprüft $1.",
+    "description": "$1 = date and time"
+  },
+  "dead_none": {
+    "message": "Keine toten Links gefunden ✓"
+  },
+  "dead_count": {
+    "message": "$1 tote(r) Link(s)"
+  },
+  "dead_sub": {
+    "message": "nicht mehr erreichbar — 404 / entfernt / Serverfehler"
+  },
+  "dead_remove_all": {
+    "message": "Alle $1 entfernen"
+  },
+  "confirm_dedupe_group": {
+    "message": "„$1“ behalten und $2 Duplikat(e) löschen?"
+  },
+  "confirm_dedupe_all": {
+    "message": "$1 doppelte Lesezeichen in $2 Gruppe(n) entfernen? Von jedem bleibt eine Kopie."
+  },
+  "confirm_delete_dead": {
+    "message": "$1 tote(s) Lesezeichen entfernen?"
+  },
+  "confirm_delete_bookmark": {
+    "message": "„$1“ löschen? Das entfernt das Lesezeichen im Browser."
+  },
+  "confirm_delete_folder": {
+    "message": "Ordner „$1“ und den gesamten Inhalt löschen ($2 Lesezeichen, $3 Unterordner)?"
+  },
+  "confirm_delete_folder_empty": {
+    "message": "Leeren Ordner „$1“ löschen?"
+  },
+  "prompt_rename_folder": {
+    "message": "Ordner umbenennen"
+  },
+  "prompt_new_folder": {
+    "message": "Name des neuen Ordners"
+  },
+  "alert_no_top_folder": {
+    "message": "Kein übergeordneter Ordner vorhanden. Öffne zuerst einen Ordner."
+  },
+  "suggestions": {
+    "message": "Vorschläge"
+  },
+  "muted_sites": {
+    "message": "Stumme Websites"
+  },
+  "muted_count": {
+    "message": "$1 Website(s)"
+  },
+  "muted_none": {
+    "message": "keine stumm"
+  },
+  "muted_note": {
+    "message": "Websites, die nie einen Vorschlag erhalten — praktisch für Suchmaschinen und Seiten, die du nur durchquerst. Schalte eine Gruppe stumm oder wieder ein, füge eine Domain von Hand hinzu, oder schalte die aktuelle Website über die Symbolleiste stumm. Eine stumme Domain umfasst auch ihre Subdomains."
+  },
+  "muted_empty": {
+    "message": "Keine stummen Websites — Vorschläge können überall erscheinen."
+  },
+  "muted_add_placeholder": {
+    "message": "example.com"
+  },
+  "muted_invalid": {
+    "message": "Gib eine Domain wie example.com ein"
+  },
+  "muted_unmute_site": {
+    "message": "$1 wieder einschalten",
+    "description": "$1 = domain"
+  },
+  "preset_mute_all": {
+    "message": "Alle $1 stummschalten — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_unmute_all": {
+    "message": "Alle $1 wieder einschalten — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_search": {
+    "message": "Suchmaschinen"
+  },
+  "preset_search_hint": {
+    "message": "Standardmäßig stumm — von hier suchst du, hier sammelst du nicht."
+  },
+  "preset_mail": {
+    "message": "E-Mail & Messenger"
+  },
+  "preset_mail_hint": {
+    "message": "Postfächer und Chats, die den ganzen Tag offen sind."
+  },
+  "preset_social": {
+    "message": "Soziale Netzwerke"
+  },
+  "preset_social_hint": {
+    "message": "Endlose Feeds — stummschalten, oder an lassen, wenn du Beiträge sammelst."
+  },
+  "settings_nudge_hint": {
+    "message": "Das Symbol markieren, wenn die gelesene Seite einem deiner Ordner ähnelt."
+  },
+  "settings_toast_hint": {
+    "message": "Zusätzlich eine kleine Karte auf der Seite zeigen. Standardmäßig aus."
+  },
+  "settings_sensitivity": {
+    "message": "Trefferempfindlichkeit"
+  },
+  "settings_sensitivity_hint": {
+    "message": "Niedriger = mehr Hinweise (lockerer). Höher = nur starke Treffer."
+  },
+  "backup": {
+    "message": "Sicherung"
+  },
+  "backup_hint": {
+    "message": "Deine Notizen, Schlagwörter und Bewertungen liegen nur auf diesem Gerät — sie gehören nicht zu den Browser-Lesezeichen. Exportiere sie in eine Datei oder stelle sie daraus wieder her (nach URL zugeordnet)."
+  },
+  "backup_export": {
+    "message": "Exportieren…"
+  },
+  "backup_import": {
+    "message": "Importieren…"
+  },
+  "backup_invalid_json": {
+    "message": "Diese Datei ist kein gültiges JSON."
+  },
+  "backup_invalid": {
+    "message": "Diese Datei ist keine BookZad-Sicherung."
+  },
+  "backup_restored": {
+    "message": "Wiederherstellung abgeschlossen — $1.",
+    "description": "$1 = summary list"
+  },
+  "backup_updated": {
+    "message": "$1 aktualisiert"
+  },
+  "backup_created": {
+    "message": "$1 neu angelegt"
+  },
+  "backup_folders": {
+    "message": "$1 Ordnernotiz(en)"
+  },
+  "toast_title": {
+    "message": "Kommt bekannt vor"
+  },
+  "toast_match": {
+    "message": "$1 % Übereinstimmung"
+  },
+  "toast_add": {
+    "message": "+ Zu $1 hinzufügen",
+    "description": "$1 = folder name"
+  },
+  "toast_open": {
+    "message": "Ordner öffnen"
+  },
+  "toast_adding": {
+    "message": "Wird hinzugefügt…"
+  },
+  "toast_added": {
+    "message": "✓ Zu $1 hinzugefügt",
+    "description": "$1 = folder name"
+  },
+  "toast_retry": {
+    "message": "Erneut versuchen"
+  },
+  "toast_dismiss": {
+    "message": "Schließen"
+  }
+}

@@ -1,0 +1,436 @@
+{
+  "locale_code": {
+    "message": "nl",
+    "description": "BCP-47 code of this locale, stamped on <html lang>."
+  },
+  "locale_dir": {
+    "message": "ltr",
+    "description": "Writing direction of this locale: ltr or rtl."
+  },
+  "ext_name": {
+    "message": "BookZad — bladwijzers, opnieuw bedacht"
+  },
+  "ext_description": {
+    "message": "Beoordeel, doorzoek en ruim je bladwijzers op. Lokale tips stellen een map voor als een pagina op je mappen lijkt."
+  },
+  "app_name": {
+    "message": "BookZad"
+  },
+  "action_add": {
+    "message": "Toevoegen"
+  },
+  "action_close": {
+    "message": "Sluiten"
+  },
+  "action_delete": {
+    "message": "Verwijderen"
+  },
+  "action_rename": {
+    "message": "Hernoemen"
+  },
+  "action_save": {
+    "message": "Opslaan"
+  },
+  "language_label": {
+    "message": "Taal"
+  },
+  "language_auto": {
+    "message": "Automatisch (browser)"
+  },
+  "theme_label": {
+    "message": "Thema"
+  },
+  "theme_auto": {
+    "message": "Automatisch"
+  },
+  "theme_light": {
+    "message": "Licht"
+  },
+  "theme_dark": {
+    "message": "Donker"
+  },
+  "popup_save_heading": {
+    "message": "Deze pagina opslaan"
+  },
+  "popup_saved": {
+    "message": "Opgeslagen"
+  },
+  "popup_save_ok": {
+    "message": "Opgeslagen in ‘$1’ ✓",
+    "description": "$1 = folder path"
+  },
+  "popup_save_error": {
+    "message": "Deze pagina kon niet worden opgeslagen."
+  },
+  "popup_already_saved": {
+    "message": "Al opgeslagen in ‘$1’",
+    "description": "$1 = folder path"
+  },
+  "popup_folder_generic": {
+    "message": "een map"
+  },
+  "popup_folder_word": {
+    "message": "map"
+  },
+  "popup_open_manager": {
+    "message": "Beheer openen"
+  },
+  "popup_suggestions": {
+    "message": "Suggesties"
+  },
+  "popup_nudge": {
+    "message": "Gelijkenis-tip"
+  },
+  "popup_nudge_hint": {
+    "message": "Markeer het icoon als een pagina lijkt op een map die je bewaart."
+  },
+  "popup_toast": {
+    "message": "Kaart op de pagina"
+  },
+  "popup_toast_hint": {
+    "message": "Toon ook een kaart op de pagina (aan map toevoegen / openen)."
+  },
+  "popup_threshold": {
+    "message": "Drempel voor suggesties"
+  },
+  "popup_threshold_hint": {
+    "message": "Lager = meer suggesties (losser). Hoger = alleen sterke treffers."
+  },
+  "popup_this_site": {
+    "message": "Deze site"
+  },
+  "popup_mute": {
+    "message": "Hier niets voorstellen"
+  },
+  "popup_unmute": {
+    "message": "Hier weer voorstellen"
+  },
+  "popup_mute_hint": {
+    "message": "Nooit tippen op deze site — handig voor zoekmachines."
+  },
+  "popup_muted_hint": {
+    "message": "Gedempt. De volledige lijst staat onder ‘Gedempte sites’ in het beheer."
+  },
+  "popup_appearance": {
+    "message": "Weergave"
+  },
+  "search_placeholder": {
+    "message": "Zoek in titel, URL, notities, labels…"
+  },
+  "sort_label": {
+    "message": "Sorteren"
+  },
+  "sort_score": {
+    "message": "Score"
+  },
+  "sort_recent": {
+    "message": "Onlangs toegevoegd"
+  },
+  "sort_visited": {
+    "message": "Meest bezocht"
+  },
+  "sort_title": {
+    "message": "Titel A–Z"
+  },
+  "settings": {
+    "message": "Instellingen"
+  },
+  "new_folder": {
+    "message": "+ Nieuwe map"
+  },
+  "home": {
+    "message": "Start"
+  },
+  "stat_bookmarks": {
+    "message": "bladwijzers"
+  },
+  "stat_folders": {
+    "message": "mappen"
+  },
+  "stat_shown": {
+    "message": "getoond"
+  },
+  "empty_search": {
+    "message": "Geen bladwijzers komen overeen met je zoekopdracht."
+  },
+  "empty_folder": {
+    "message": "Deze map is leeg."
+  },
+  "folder_note_placeholder": {
+    "message": "Mapnotitie — beschrijf de map voor betere suggesties…"
+  },
+  "move_folder_to": {
+    "message": "Map verplaatsen naar…"
+  },
+  "move_to_folder": {
+    "message": "Naar map verplaatsen"
+  },
+  "note_placeholder": {
+    "message": "Notitie toevoegen — wordt ook voor suggesties gebruikt…"
+  },
+  "remove_tag": {
+    "message": "Label verwijderen"
+  },
+  "tag_add_more": {
+    "message": "+ label"
+  },
+  "tag_add_first": {
+    "message": "labels toevoegen…"
+  },
+  "set_score_to": {
+    "message": "Score op $1 zetten",
+    "description": "$1 = score 0-100"
+  },
+  "score_manual": {
+    "message": "handmatig · $1",
+    "description": "$1 = score"
+  },
+  "score_auto": {
+    "message": "automatisch · $1",
+    "description": "$1 = score"
+  },
+  "usage_never": {
+    "message": "nog niet geopend"
+  },
+  "usage_visits": {
+    "message": "$1 bezoek(en) · laatst $2",
+    "description": "$1 = count, $2 = date"
+  },
+  "count_bookmarks_one": {
+    "message": "$1 bladwijzer"
+  },
+  "count_bookmarks_other": {
+    "message": "$1 bladwijzers"
+  },
+  "count_folders_one": {
+    "message": ", $1 map"
+  },
+  "count_folders_other": {
+    "message": ", $1 mappen"
+  },
+  "cleanup": {
+    "message": "Opruimen"
+  },
+  "acc_duplicates": {
+    "message": "Duplicaten"
+  },
+  "acc_stale": {
+    "message": "Vergeten"
+  },
+  "acc_dead": {
+    "message": "Dode links"
+  },
+  "acc_none_found": {
+    "message": "niets gevonden"
+  },
+  "dupes_summary": {
+    "message": "$1 groep(en) · $2 te verwijderen"
+  },
+  "stale_summary": {
+    "message": "$1 nooit geopend"
+  },
+  "dead_summary": {
+    "message": "scan op verzoek"
+  },
+  "dupes_none": {
+    "message": "Geen dubbele URL’s ✓"
+  },
+  "dupes_remove_all": {
+    "message": "Alle $1 duplicaten verwijderen"
+  },
+  "dupes_group_label": {
+    "message": "$1× $2",
+    "description": "$1 = copies, $2 = url"
+  },
+  "dupes_keep_best": {
+    "message": "Beste houden, rest verwijderen"
+  },
+  "dupes_keep_title": {
+    "message": "Houdt ‘$1’ (hoogste score / oudste) en verwijdert $2",
+    "description": "$1 = title, $2 = number deleted"
+  },
+  "stale_note": {
+    "message": "Meer dan 180 dagen geleden toegevoegd en sinds de installatie nooit geopend."
+  },
+  "stale_none": {
+    "message": "Niets vergeten ✓"
+  },
+  "dead_note": {
+    "message": "Controleert of elke bladwijzer nog werkt — naar beste vermogen, één verzoek per link."
+  },
+  "dead_scan": {
+    "message": "Zoek naar dode links"
+  },
+  "dead_scanning": {
+    "message": "Controleren $1/$2…"
+  },
+  "dead_checked": {
+    "message": "$1 gecontroleerd"
+  },
+  "dead_last_checked": {
+    "message": "Laatst gecontroleerd $1.",
+    "description": "$1 = date and time"
+  },
+  "dead_none": {
+    "message": "Geen dode links gevonden ✓"
+  },
+  "dead_count": {
+    "message": "$1 dode link(s)"
+  },
+  "dead_sub": {
+    "message": "werken niet meer — 404 / verdwenen / serverfout"
+  },
+  "dead_remove_all": {
+    "message": "Alle $1 verwijderen"
+  },
+  "confirm_dedupe_group": {
+    "message": "‘$1’ houden en $2 duplica(a)t(en) verwijderen?"
+  },
+  "confirm_dedupe_all": {
+    "message": "$1 dubbele bladwijzer(s) in $2 groep(en) verwijderen? Van elk blijft één kopie over."
+  },
+  "confirm_delete_dead": {
+    "message": "$1 dode bladwijzer(s) verwijderen?"
+  },
+  "confirm_delete_bookmark": {
+    "message": "‘$1’ verwijderen? Dit verwijdert de bladwijzer uit de browser."
+  },
+  "confirm_delete_folder": {
+    "message": "Map ‘$1’ en alles erin verwijderen ($2 bladwijzer(s), $3 submap(pen))?"
+  },
+  "confirm_delete_folder_empty": {
+    "message": "Lege map ‘$1’ verwijderen?"
+  },
+  "prompt_rename_folder": {
+    "message": "Map hernoemen"
+  },
+  "prompt_new_folder": {
+    "message": "Naam van de nieuwe map"
+  },
+  "alert_no_top_folder": {
+    "message": "Geen map op het hoogste niveau. Open eerst een map."
+  },
+  "suggestions": {
+    "message": "Suggesties"
+  },
+  "muted_sites": {
+    "message": "Gedempte sites"
+  },
+  "muted_count": {
+    "message": "$1 site(s)"
+  },
+  "muted_none": {
+    "message": "niets gedempt"
+  },
+  "muted_note": {
+    "message": "Sites die nooit een suggestie krijgen — handig voor zoekmachines en pagina’s waar je alleen doorheen komt. Zet een groep aan of uit, voeg zelf een domein toe, of demp de site waarop je bent via de werkbalk. Een gedempt domein geldt ook voor zijn subdomeinen."
+  },
+  "muted_empty": {
+    "message": "Geen gedempte sites — suggesties kunnen overal verschijnen."
+  },
+  "muted_add_placeholder": {
+    "message": "example.com"
+  },
+  "muted_invalid": {
+    "message": "Voer een domein in zoals example.com"
+  },
+  "muted_unmute_site": {
+    "message": "$1 weer inschakelen",
+    "description": "$1 = domain"
+  },
+  "preset_mute_all": {
+    "message": "Alle $1 dempen — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_unmute_all": {
+    "message": "Alle $1 weer inschakelen — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_search": {
+    "message": "Zoekmachines"
+  },
+  "preset_search_hint": {
+    "message": "Standaard gedempt — hiervandaan zoek je, je bewaart ze niet."
+  },
+  "preset_mail": {
+    "message": "E-mail en chat"
+  },
+  "preset_mail_hint": {
+    "message": "Postvakken en chatapps die je de hele dag open hebt."
+  },
+  "preset_social": {
+    "message": "Sociale feeds"
+  },
+  "preset_social_hint": {
+    "message": "Eindeloze feeds — demp ze, of laat ze aan als je berichten bewaart."
+  },
+  "settings_nudge_hint": {
+    "message": "Markeer het icoon als de pagina die je leest lijkt op een map die je bewaart."
+  },
+  "settings_toast_hint": {
+    "message": "Toon ook een kleine kaart op de pagina. Standaard uit."
+  },
+  "settings_sensitivity": {
+    "message": "Gevoeligheid voor treffers"
+  },
+  "settings_sensitivity_hint": {
+    "message": "Lager = meer tips (losser). Hoger = alleen sterke treffers."
+  },
+  "backup": {
+    "message": "Back-up"
+  },
+  "backup_hint": {
+    "message": "Je notities, labels en scores staan alleen op dit apparaat — ze horen niet bij de bladwijzers van de browser. Exporteer ze naar een bestand, of herstel ze eruit (gekoppeld op URL)."
+  },
+  "backup_export": {
+    "message": "Exporteren…"
+  },
+  "backup_import": {
+    "message": "Importeren…"
+  },
+  "backup_invalid_json": {
+    "message": "Dit bestand is geen geldige JSON."
+  },
+  "backup_invalid": {
+    "message": "Dit bestand is geen BookZad-back-up."
+  },
+  "backup_restored": {
+    "message": "Herstel voltooid — $1.",
+    "description": "$1 = summary list"
+  },
+  "backup_updated": {
+    "message": "$1 bijgewerkt"
+  },
+  "backup_created": {
+    "message": "$1 opnieuw aangemaakt"
+  },
+  "backup_folders": {
+    "message": "$1 mapnotitie(s)"
+  },
+  "toast_title": {
+    "message": "Komt bekend voor"
+  },
+  "toast_match": {
+    "message": "$1% overeenkomst"
+  },
+  "toast_add": {
+    "message": "+ Toevoegen aan $1",
+    "description": "$1 = folder name"
+  },
+  "toast_open": {
+    "message": "Map openen"
+  },
+  "toast_adding": {
+    "message": "Toevoegen…"
+  },
+  "toast_added": {
+    "message": "✓ Toegevoegd aan $1",
+    "description": "$1 = folder name"
+  },
+  "toast_retry": {
+    "message": "Opnieuw proberen"
+  },
+  "toast_dismiss": {
+    "message": "Sluiten"
+  }
+}

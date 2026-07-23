@@ -212,13 +212,18 @@ exists (best-effort background probe in the cleanup panel).
 - **`_locales` + the `i18n` API**, not Chrome's page translation (which never
   fires on `chrome-extension://` pages, nor inside the toast's shadow root).
   Messages live in `public/_locales/<lang>/messages.json`; **en** is
-  `default_locale` and **fa** ships alongside it. The browser picks by UI
-  language and falls back to English.
+  `default_locale`, with **de, fr, it, nl, tr, fa** alongside it. The browser
+  picks by UI language and falls back to English. Adding a language = one
+  messages.json + an entry in `UiLanguage`, `LOCALE_FILES` and the two pickers.
+- Form controls (`button`, `input`, `select`, `textarea`) **don't inherit the
+  page font** — each stylesheet resets `font-family: inherit` for them, or
+  non-Latin text in buttons falls back to the system UI font instead of
+  Vazirmatn.
 - The **manifest** is localised too (`__MSG_ext_name__`,
   `__MSG_ext_description__`), which also localises the Chrome Web Store listing.
   Keep each locale's `ext_description` **≤132 chars**.
 - **Manual override.** `browser.i18n` is locked to the browser's UI language and
-  can't be redirected, so a `language` setting (`auto | en | fa`) is honoured by
+  can't be redirected, so a `language` setting (`auto` or a locale code) is honoured by
   fetching the chosen `messages.json` and consulting it *before* the i18n API.
   `auto` costs nothing — no fetch, the API stays in charge. Every context calls
   `initI18n(settings.language)` before first paint, and changing the setting

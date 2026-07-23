@@ -32,8 +32,9 @@ no accounts, no servers, nothing transmitted.
   your saved folders (local TF-IDF) and, on a match, shows a **toolbar badge**
   (and an optional, actionable in-page **toast**) suggesting the folder you might
   file it in or revisit.
-- **English + Persian** — the interface follows your browser's UI language
-  (English fallback) or whatever you pick in settings, with full RTL layout and
+- **Seven languages** — English, Deutsch, Français, Italiano, Nederlands,
+  Türkçe and فارسی. The interface follows your browser's UI language (English
+  fallback) or whatever you pick in settings; Persian gets full RTL layout and
   the bundled Vazirmatn font.
 - **Muted sites** — sites the nudge never fires on. Mute the current site from
   the popup, add domains by hand, or toggle preset groups (search engines — on
@@ -65,7 +66,7 @@ lib/
   messaging.ts         # typed content ⇄ background protocol
   i18n.ts              # t()/plural() + <html lang|dir> from the active locale
   fonts.css            # Vazirmatn @font-face (Persian/Arabic, unicode-range)
-public/_locales/       # en + fa messages.json (also localise the manifest)
+public/_locales/       # 7 messages.json files (also localise the manifest)
 docs/                  # bilingual (en/fa) GitHub Pages landing site
 mockups/               # store screenshots + promo tiles (render.sh)
 wxt.config.ts          # manifest: bookmarks/storage/tabs + <all_urls> + fonts

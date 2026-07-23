@@ -58,7 +58,7 @@ export type Theme = 'light' | 'dark' | 'auto';
 
 /** UI language. 'auto' follows the browser's UI language (the i18n API's own
  *  pick); anything else overrides it with a bundled locale. */
-export type UiLanguage = 'auto' | 'en' | 'fa';
+export type UiLanguage = 'auto' | 'en' | 'fa' | 'de' | 'fr' | 'it' | 'nl' | 'tr';
 
 export interface Settings {
   theme: Theme;

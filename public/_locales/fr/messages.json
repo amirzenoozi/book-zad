@@ -1,0 +1,436 @@
+{
+  "locale_code": {
+    "message": "fr",
+    "description": "BCP-47 code of this locale, stamped on <html lang>."
+  },
+  "locale_dir": {
+    "message": "ltr",
+    "description": "Writing direction of this locale: ltr or rtl."
+  },
+  "ext_name": {
+    "message": "BookZad — les favoris, repensés"
+  },
+  "ext_description": {
+    "message": "Notez, cherchez et rangez vos favoris. Des suggestions locales proposent un dossier quand une page ressemble aux vôtres."
+  },
+  "app_name": {
+    "message": "BookZad"
+  },
+  "action_add": {
+    "message": "Ajouter"
+  },
+  "action_close": {
+    "message": "Fermer"
+  },
+  "action_delete": {
+    "message": "Supprimer"
+  },
+  "action_rename": {
+    "message": "Renommer"
+  },
+  "action_save": {
+    "message": "Enregistrer"
+  },
+  "language_label": {
+    "message": "Langue"
+  },
+  "language_auto": {
+    "message": "Automatique (navigateur)"
+  },
+  "theme_label": {
+    "message": "Thème"
+  },
+  "theme_auto": {
+    "message": "Automatique"
+  },
+  "theme_light": {
+    "message": "Clair"
+  },
+  "theme_dark": {
+    "message": "Sombre"
+  },
+  "popup_save_heading": {
+    "message": "Enregistrer cette page"
+  },
+  "popup_saved": {
+    "message": "Enregistré"
+  },
+  "popup_save_ok": {
+    "message": "Enregistré dans « $1 » ✓",
+    "description": "$1 = folder path"
+  },
+  "popup_save_error": {
+    "message": "Impossible d’enregistrer cette page."
+  },
+  "popup_already_saved": {
+    "message": "Déjà enregistré dans « $1 »",
+    "description": "$1 = folder path"
+  },
+  "popup_folder_generic": {
+    "message": "un dossier"
+  },
+  "popup_folder_word": {
+    "message": "dossier"
+  },
+  "popup_open_manager": {
+    "message": "Ouvrir le gestionnaire"
+  },
+  "popup_suggestions": {
+    "message": "Suggestions"
+  },
+  "popup_nudge": {
+    "message": "Rappel de similarité"
+  },
+  "popup_nudge_hint": {
+    "message": "Marquer l’icône quand une page ressemble à un dossier que vous gardez."
+  },
+  "popup_toast": {
+    "message": "Carte dans la page"
+  },
+  "popup_toast_hint": {
+    "message": "Afficher aussi une carte dans la page (ajouter au dossier / l’ouvrir)."
+  },
+  "popup_threshold": {
+    "message": "Seuil de suggestion"
+  },
+  "popup_threshold_hint": {
+    "message": "Plus bas = plus de suggestions (souple). Plus haut = seulement les fortes."
+  },
+  "popup_this_site": {
+    "message": "Ce site"
+  },
+  "popup_mute": {
+    "message": "Ne rien suggérer ici"
+  },
+  "popup_unmute": {
+    "message": "Suggérer ici à nouveau"
+  },
+  "popup_mute_hint": {
+    "message": "Ne jamais me signaler sur ce site — pratique pour les moteurs de recherche."
+  },
+  "popup_muted_hint": {
+    "message": "Silencieux. La liste complète est dans « Sites silencieux » du gestionnaire."
+  },
+  "popup_appearance": {
+    "message": "Apparence"
+  },
+  "search_placeholder": {
+    "message": "Rechercher un titre, une URL, des notes, des étiquettes…"
+  },
+  "sort_label": {
+    "message": "Trier"
+  },
+  "sort_score": {
+    "message": "Note"
+  },
+  "sort_recent": {
+    "message": "Ajoutés récemment"
+  },
+  "sort_visited": {
+    "message": "Les plus visités"
+  },
+  "sort_title": {
+    "message": "Titre A–Z"
+  },
+  "settings": {
+    "message": "Paramètres"
+  },
+  "new_folder": {
+    "message": "+ Nouveau dossier"
+  },
+  "home": {
+    "message": "Accueil"
+  },
+  "stat_bookmarks": {
+    "message": "favoris"
+  },
+  "stat_folders": {
+    "message": "dossiers"
+  },
+  "stat_shown": {
+    "message": "affichés"
+  },
+  "empty_search": {
+    "message": "Aucun favori ne correspond à votre recherche."
+  },
+  "empty_folder": {
+    "message": "Ce dossier est vide."
+  },
+  "folder_note_placeholder": {
+    "message": "Note de dossier — décrivez-le pour affiner les suggestions…"
+  },
+  "move_folder_to": {
+    "message": "Déplacer le dossier vers…"
+  },
+  "move_to_folder": {
+    "message": "Déplacer vers un dossier"
+  },
+  "note_placeholder": {
+    "message": "Ajouter une note — sert aussi aux suggestions…"
+  },
+  "remove_tag": {
+    "message": "Retirer l’étiquette"
+  },
+  "tag_add_more": {
+    "message": "+ étiquette"
+  },
+  "tag_add_first": {
+    "message": "ajouter des étiquettes…"
+  },
+  "set_score_to": {
+    "message": "Mettre la note à $1",
+    "description": "$1 = score 0-100"
+  },
+  "score_manual": {
+    "message": "manuel · $1",
+    "description": "$1 = score"
+  },
+  "score_auto": {
+    "message": "auto · $1",
+    "description": "$1 = score"
+  },
+  "usage_never": {
+    "message": "jamais ouvert"
+  },
+  "usage_visits": {
+    "message": "$1 visite(s) · dernière $2",
+    "description": "$1 = count, $2 = date"
+  },
+  "count_bookmarks_one": {
+    "message": "$1 favori"
+  },
+  "count_bookmarks_other": {
+    "message": "$1 favoris"
+  },
+  "count_folders_one": {
+    "message": ", $1 dossier"
+  },
+  "count_folders_other": {
+    "message": ", $1 dossiers"
+  },
+  "cleanup": {
+    "message": "Nettoyage"
+  },
+  "acc_duplicates": {
+    "message": "Doublons"
+  },
+  "acc_stale": {
+    "message": "Oubliés"
+  },
+  "acc_dead": {
+    "message": "Liens morts"
+  },
+  "acc_none_found": {
+    "message": "rien trouvé"
+  },
+  "dupes_summary": {
+    "message": "$1 groupe(s) · $2 à retirer"
+  },
+  "stale_summary": {
+    "message": "$1 jamais ouvert(s)"
+  },
+  "dead_summary": {
+    "message": "analyse à la demande"
+  },
+  "dupes_none": {
+    "message": "Aucune URL en double ✓"
+  },
+  "dupes_remove_all": {
+    "message": "Retirer les $1 doublons"
+  },
+  "dupes_group_label": {
+    "message": "$1× $2",
+    "description": "$1 = copies, $2 = url"
+  },
+  "dupes_keep_best": {
+    "message": "Garder le meilleur, supprimer le reste"
+  },
+  "dupes_keep_title": {
+    "message": "Garde « $1 » (meilleure note / plus ancien) et supprime $2",
+    "description": "$1 = title, $2 = number deleted"
+  },
+  "stale_note": {
+    "message": "Ajoutés il y a plus de 180 jours et jamais ouverts depuis l’installation."
+  },
+  "stale_none": {
+    "message": "Rien d’oublié ✓"
+  },
+  "dead_note": {
+    "message": "Vérifie que chaque favori répond encore — au mieux, une requête réseau par lien."
+  },
+  "dead_scan": {
+    "message": "Chercher les liens morts"
+  },
+  "dead_scanning": {
+    "message": "Vérification $1/$2…"
+  },
+  "dead_checked": {
+    "message": "$1 vérifié(s)"
+  },
+  "dead_last_checked": {
+    "message": "Dernière vérification $1.",
+    "description": "$1 = date and time"
+  },
+  "dead_none": {
+    "message": "Aucun lien mort trouvé ✓"
+  },
+  "dead_count": {
+    "message": "$1 lien(s) mort(s)"
+  },
+  "dead_sub": {
+    "message": "ne répondent plus — 404 / supprimé / erreur serveur"
+  },
+  "dead_remove_all": {
+    "message": "Retirer les $1"
+  },
+  "confirm_dedupe_group": {
+    "message": "Garder « $1 » et supprimer $2 doublon(s) ?"
+  },
+  "confirm_dedupe_all": {
+    "message": "Retirer $1 favori(s) en double dans $2 groupe(s) ? Une copie de chacun est conservée."
+  },
+  "confirm_delete_dead": {
+    "message": "Retirer $1 favori(s) mort(s) ?"
+  },
+  "confirm_delete_bookmark": {
+    "message": "Supprimer « $1 » ? Cela retire le favori du navigateur."
+  },
+  "confirm_delete_folder": {
+    "message": "Supprimer le dossier « $1 » et tout son contenu ($2 favori(s), $3 sous-dossier(s)) ?"
+  },
+  "confirm_delete_folder_empty": {
+    "message": "Supprimer le dossier vide « $1 » ?"
+  },
+  "prompt_rename_folder": {
+    "message": "Renommer le dossier"
+  },
+  "prompt_new_folder": {
+    "message": "Nom du nouveau dossier"
+  },
+  "alert_no_top_folder": {
+    "message": "Aucun dossier de premier niveau. Ouvrez d’abord un dossier."
+  },
+  "suggestions": {
+    "message": "Suggestions"
+  },
+  "muted_sites": {
+    "message": "Sites silencieux"
+  },
+  "muted_count": {
+    "message": "$1 site(s)"
+  },
+  "muted_none": {
+    "message": "aucun site silencieux"
+  },
+  "muted_note": {
+    "message": "Les sites qui ne reçoivent jamais de suggestion — pratique pour les moteurs de recherche et les pages que vous ne faites que traverser. Activez ou désactivez un groupe, ajoutez un domaine à la main, ou rendez le site actuel silencieux depuis la barre d’outils. Un domaine silencieux couvre aussi ses sous-domaines."
+  },
+  "muted_empty": {
+    "message": "Aucun site silencieux — les suggestions peuvent apparaître partout."
+  },
+  "muted_add_placeholder": {
+    "message": "example.com"
+  },
+  "muted_invalid": {
+    "message": "Saisissez un domaine comme example.com"
+  },
+  "muted_unmute_site": {
+    "message": "Réactiver $1",
+    "description": "$1 = domain"
+  },
+  "preset_mute_all": {
+    "message": "Rendre les $1 silencieux — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_unmute_all": {
+    "message": "Réactiver les $1 — $2",
+    "description": "$1 = count, $2 = group hint"
+  },
+  "preset_search": {
+    "message": "Moteurs de recherche"
+  },
+  "preset_search_hint": {
+    "message": "Silencieux par défaut — vous y cherchez, vous ne les collectionnez pas."
+  },
+  "preset_mail": {
+    "message": "Messagerie et chat"
+  },
+  "preset_mail_hint": {
+    "message": "Boîtes de réception et messageries ouvertes toute la journée."
+  },
+  "preset_social": {
+    "message": "Réseaux sociaux"
+  },
+  "preset_social_hint": {
+    "message": "Fils sans fin — rendez-les silencieux, ou gardez-les si vous classez des publications."
+  },
+  "settings_nudge_hint": {
+    "message": "Marquer l’icône quand la page lue ressemble à un dossier que vous gardez."
+  },
+  "settings_toast_hint": {
+    "message": "Afficher aussi une petite carte dans la page. Désactivé par défaut."
+  },
+  "settings_sensitivity": {
+    "message": "Sensibilité des correspondances"
+  },
+  "settings_sensitivity_hint": {
+    "message": "Plus bas = plus de rappels (souple). Plus haut = seulement les fortes."
+  },
+  "backup": {
+    "message": "Sauvegarde"
+  },
+  "backup_hint": {
+    "message": "Vos notes, étiquettes et notes de score n’existent que sur cet appareil — elles ne font pas partie des favoris du navigateur. Exportez-les dans un fichier, ou restaurez-les depuis un fichier (rapprochement par URL)."
+  },
+  "backup_export": {
+    "message": "Exporter…"
+  },
+  "backup_import": {
+    "message": "Importer…"
+  },
+  "backup_invalid_json": {
+    "message": "Ce fichier n’est pas un JSON valide."
+  },
+  "backup_invalid": {
+    "message": "Ce fichier n’est pas une sauvegarde BookZad."
+  },
+  "backup_restored": {
+    "message": "Restauration terminée — $1.",
+    "description": "$1 = summary list"
+  },
+  "backup_updated": {
+    "message": "$1 mis à jour"
+  },
+  "backup_created": {
+    "message": "$1 recréé(s)"
+  },
+  "backup_folders": {
+    "message": "$1 note(s) de dossier"
+  },
+  "toast_title": {
+    "message": "Cela vous dit quelque chose"
+  },
+  "toast_match": {
+    "message": "$1 % de similarité"
+  },
+  "toast_add": {
+    "message": "+ Ajouter à $1",
+    "description": "$1 = folder name"
+  },
+  "toast_open": {
+    "message": "Ouvrir le dossier"
+  },
+  "toast_adding": {
+    "message": "Ajout…"
+  },
+  "toast_added": {
+    "message": "✓ Ajouté à $1",
+    "description": "$1 = folder name"
+  },
+  "toast_retry": {
+    "message": "Réessayer"
+  },
+  "toast_dismiss": {
+    "message": "Fermer"
+  }
+}
