@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BookZad</title>
+  </head>
+  <body>
+    <main class="pop">
+      <header class="pop__head">
+        <span class="pop__mark"></span>
+        <h1 class="pop__name">BookZad</h1>
+      </header>
+
+      <button id="open-manager" class="pop__cta" type="button">Open manager</button>
+
+      <section class="pop__section">
+        <h2 class="pop__h2">Suggestions</h2>
+
+        <label class="row">
+          <span class="row__label">Similarity nudge</span>
+          <input type="checkbox" id="set-nudge" />
+        </label>
+        <p class="row__hint">Badge the toolbar icon when a page resembles a folder you keep.</p>
+
+        <label class="row">
+          <span class="row__label">In-page toast</span>
+          <input type="checkbox" id="set-toast" />
+        </label>
+        <p class="row__hint">Also show an actionable in-page card (add to folder / open it).</p>
+
+        <div class="row row--stack">
+          <div class="row__top">
+            <span class="row__label">Suggestion threshold</span>
+            <span class="row__value" id="threshold-value"></span>
+          </div>
+          <input type="range" id="set-threshold" min="5" max="50" step="1" />
+          <p class="row__hint">Lower = more suggestions (looser). Higher = only strong matches.</p>
+        </div>
+      </section>
+
+      <section class="pop__section">
+        <h2 class="pop__h2">Appearance</h2>
+        <label class="row">
+          <span class="row__label">Theme</span>
+          <select id="set-theme" class="row__select">
+            <option value="auto">Auto</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </section>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
