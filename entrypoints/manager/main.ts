@@ -20,6 +20,15 @@ import {
   type DeadCheck,
 } from '@/lib/storage';
 import { getSettings, setSettings } from '@/lib/settings';
+import {
+  getIgnoredSites,
+  addIgnoredSite,
+  removeIgnoredSite,
+  addPresetSites,
+  removePresetSites,
+  toHost,
+  PRESETS,
+} from '@/lib/ignore';
 import { effectiveScore } from '@/lib/scoring';
 import { pickKeeper } from '@/lib/dedupe';
 import { buildBackup, isBackup, applyBackup } from '@/lib/backup';
@@ -47,8 +56,12 @@ let settings: Settings;
 /** Folder currently being browsed; null = "Home" (top-level folders). */
 let currentFolderId: string | null = null;
 
-/** Which cleanup accordion section is open (one at a time), or null. */
-let openHygieneKey: string | null = null;
+/** Which accordion section is open per group ("hygiene", "muted") — one at a
+ *  time within a group, remembered across re-renders. */
+const openAcc = new Map<string, string | null>();
+
+/** Sites the similarity nudge stays quiet on (shared with the toolbar popup). */
+let mutedSites: string[] = [];
 
 /** Last persisted dead-link scan, loaded on reload so results survive reopening. */
 let lastDeadCheck: DeadCheck | null = null;
@@ -62,6 +75,7 @@ const grid = $<HTMLDivElement>('#grid');
 const emptyMsg = $<HTMLParagraphElement>('#empty');
 const statsEl = $<HTMLElement>('#stats');
 const hygieneBody = $<HTMLDivElement>('#hygiene-body');
+const mutedBody = $<HTMLDivElement>('#muted-body');
 const folderbar = $<HTMLDivElement>('#folderbar');
 const crumbsEl = $<HTMLElement>('#crumbs');
 const newFolderBtn = $<HTMLButtonElement>('#new-folder');
@@ -92,12 +106,14 @@ async function reload() {
   // Metadata is keyed by node id — load it for folders too (folder notes).
   metas = await getManyMeta([...bookmarks.map((b) => b.id), ...folders.map((f) => f.id)]);
   lastDeadCheck = await getDeadCheck();
+  mutedSites = await getIgnoredSites();
 
   // If the folder we were viewing was deleted/moved away, fall back to Home.
   if (currentFolderId && !foldersById.has(currentFolderId)) currentFolderId = null;
 
   render();
   renderHygiene();
+  renderMuted();
 }
 
 // --- Tree helpers -----------------------------------------------------------
@@ -535,11 +551,11 @@ function renderHygiene() {
   const acc = document.createElement('div');
   acc.className = 'acc';
   acc.append(
-    accSection('duplicates', 'Duplicates', dupes.length ? `${dupes.length} group(s) · ${extras} removable` : 'none found',
+    accSection('hygiene', 'duplicates', 'Duplicates', dupes.length ? `${dupes.length} group(s) · ${extras} removable` : 'none found',
       (body) => buildDupBody(body, dupes, extras)),
-    accSection('stale', 'Stale', stale.length ? `${stale.length} never opened` : 'none found',
+    accSection('hygiene', 'stale', 'Stale', stale.length ? `${stale.length} never opened` : 'none found',
       (body) => buildStaleBody(body, stale)),
-    accSection('dead', 'Dead links', 'scan on demand', (body) => buildDeadBody(body)),
+    accSection('hygiene', 'dead', 'Dead links', 'scan on demand', (body) => buildDeadBody(body)),
   );
   hygieneBody.append(acc);
 }
@@ -549,6 +565,7 @@ function renderHygiene() {
  *  built eagerly so their content (e.g. a dead-link scan result) survives while
  *  the section is collapsed. */
 function accSection(
+  group: string,
   key: string,
   title: string,
   summary: string,
@@ -575,16 +592,16 @@ function accSection(
   body.className = 'acc__body';
   build(body);
 
-  if (openHygieneKey === key) item.classList.add('open');
+  if (openAcc.get(group) === key) item.classList.add('open');
 
   header.addEventListener('click', () => {
     const isOpen = item.classList.contains('open');
     item.parentElement?.querySelectorAll('.acc__item.open').forEach((el) => el.classList.remove('open'));
     if (isOpen) {
-      openHygieneKey = null;
+      openAcc.set(group, null);
     } else {
       item.classList.add('open');
-      openHygieneKey = key;
+      openAcc.set(group, key);
     }
   });
 
@@ -799,6 +816,115 @@ function hygieneLine(main: string, sub: string): HTMLElement {
   b.textContent = sub;
   el.append(a, b);
   return el;
+}
+
+// --- Muted-sites panel ------------------------------------------------------
+
+/** Sites the similarity nudge never fires on. Same collapsible treatment as the
+ *  cleanup panel, and the same sync-storage list the toolbar popup's "Don't
+ *  suggest here" writes to — so the two views always agree. */
+function renderMuted() {
+  mutedBody.replaceChildren();
+  const acc = document.createElement('div');
+  acc.className = 'acc';
+  acc.append(
+    accSection(
+      'muted',
+      'sites',
+      'Muted sites',
+      mutedSites.length ? `${mutedSites.length} site(s)` : 'none muted',
+      buildMutedBody,
+    ),
+  );
+  mutedBody.append(acc);
+}
+
+function buildMutedBody(body: HTMLElement) {
+  body.append(
+    accNote(
+      'Sites that never get a suggestion — handy for search engines and pages you only ' +
+        'pass through. Toggle a group to mute or unmute it, add a domain by hand, or mute ' +
+        'the site you’re on from the toolbar popup. Muting a domain covers its subdomains too.',
+    ),
+  );
+
+  // One toggle per preset bundle: it reads as "on" once every site in it is
+  // muted, and clicking again unmutes the whole group. A partly-muted group
+  // reads as off, so the first click tops it up.
+  const presets = document.createElement('div');
+  presets.className = 'mute__presets';
+  for (const preset of PRESETS) {
+    const applied = preset.sites.every((s) => mutedSites.includes(s));
+    const b = button(
+      `${applied ? '✓' : '+'} ${preset.label}`,
+      `mute__preset${applied ? ' mute__preset--on' : ''}`,
+      () =>
+        void mutate(applied ? removePresetSites(preset.sites) : addPresetSites(preset.sites)),
+    );
+    b.setAttribute('aria-pressed', String(applied));
+    b.title = applied
+      ? `Unmute all ${preset.sites.length} — ${preset.hint}`
+      : `Mute all ${preset.sites.length} — ${preset.hint}`;
+    presets.append(b);
+  }
+
+  const form = document.createElement('form');
+  form.className = 'mute__add';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'mute__input';
+  input.placeholder = 'example.com';
+  input.autocomplete = 'off';
+  input.spellcheck = false;
+  const add = document.createElement('button');
+  add.type = 'submit';
+  add.className = 'btn';
+  add.textContent = 'Add';
+  form.append(input, add);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const host = toHost(input.value);
+    if (!host) {
+      input.setCustomValidity('Enter a domain like example.com');
+      input.reportValidity();
+      return;
+    }
+    input.value = '';
+    void mutate(addIgnoredSite(host), true);
+  });
+  input.addEventListener('input', () => input.setCustomValidity(''));
+
+  const list = document.createElement('ul');
+  list.className = 'mute__list';
+  if (mutedSites.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'mute__empty';
+    li.textContent = 'No muted sites — suggestions can appear anywhere.';
+    list.append(li);
+  } else {
+    for (const site of mutedSites) {
+      const li = document.createElement('li');
+      li.className = 'mute__item';
+      const name = document.createElement('span');
+      name.textContent = site;
+      const x = button('×', 'mute__x', () => void mutate(removeIgnoredSite(site)));
+      x.title = `Unmute ${site}`;
+      x.setAttribute('aria-label', x.title);
+      li.append(name, x);
+      list.append(li);
+    }
+  }
+
+  body.append(presets, form, list);
+}
+
+/** Apply a change to the list, then repaint the section (which refreshes the
+ *  header count too). `refocus` puts the cursor back for adding another domain. */
+async function mutate(change: Promise<string[]>, refocus = false) {
+  mutedSites = await change;
+  renderMuted();
+  if (refocus) mutedBody.querySelector<HTMLInputElement>('.mute__input')?.focus();
 }
 
 // --- Actions ----------------------------------------------------------------

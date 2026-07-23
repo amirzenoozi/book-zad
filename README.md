@@ -32,6 +32,9 @@ no accounts, no servers, nothing transmitted.
   your saved folders (local TF-IDF) and, on a match, shows a **toolbar badge**
   (and an optional, actionable in-page **toast**) suggesting the folder you might
   file it in or revisit.
+- **Muted sites** — sites the nudge never fires on. Mute the current site from
+  the popup, add domains by hand, or toggle preset groups (search engines — on
+  by default — mail, social). Muting a domain covers its subdomains.
 
 ## Architecture
 
@@ -48,6 +51,7 @@ lib/
   backup.ts            # full export / import of bookmarks + metadata
   dedupe.ts            # which duplicate to keep (pure, tested)
   settings.ts          # theme, toast, nudge, threshold (storage.sync)
+  ignore.ts            # muted sites + preset groups (pure host matching, tested)
   text.ts              # tokenise + page-text extraction
   tfidf.ts             # TF-IDF + cosine similarity (dependency-free)
   similarity.ts        # build the per-folder index (title+url+notes+tags); match

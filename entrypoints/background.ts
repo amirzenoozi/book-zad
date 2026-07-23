@@ -1,6 +1,7 @@
 import { onMessage } from '@/lib/messaging';
 import { buildFolderIndex, matchPage, type FolderIndex } from '@/lib/similarity';
 import { getSettings } from '@/lib/settings';
+import { getIgnoredSites, isIgnored, seedDefaultIgnores, IGNORE_KEY } from '@/lib/ignore';
 import { findByUrl, createBookmark } from '@/lib/bookmarks';
 import { getMeta, setMeta, deleteMeta, setLastFolder } from '@/lib/storage';
 import { openManager } from '@/lib/manager';
@@ -18,6 +19,10 @@ export default defineBackground(() => {
   // Warm the index now, and invalidate it whenever the bookmark tree changes so
   // the next query rebuilds from fresh data. Clean up metadata on removal.
   void ensureIndex();
+
+  // Mute the search engines out of the box (once — see seedDefaultIgnores).
+  browser.runtime.onInstalled.addListener(() => void seedDefaultIgnores());
+
   browser.bookmarks.onCreated.addListener(invalidateIndex);
   browser.bookmarks.onChanged.addListener(invalidateIndex);
   browser.bookmarks.onMoved.addListener(invalidateIndex);
@@ -33,12 +38,23 @@ export default defineBackground(() => {
     if (area === 'local' && Object.keys(changes).some((k) => k.startsWith('meta:'))) {
       invalidateIndex();
     }
+    // Muting a site takes effect immediately — pull any badge already showing
+    // on its open tabs (the content script pulls its own toast).
+    if (area === 'sync' && changes[IGNORE_KEY]) {
+      void clearBadgesForIgnored();
+    }
   });
 
   onMessage('analyzePage', async ({ data, sender }) => {
     const settings = await getSettings();
     const tabId = sender.tab?.id;
     if (!settings.nudgeEnabled) {
+      if (tabId !== undefined) await setBadge(tabId, 0);
+      return { matches: [] };
+    }
+
+    // A muted site never gets a suggestion, however well it matches.
+    if (isIgnored(data.url, await getIgnoredSites())) {
       if (tabId !== undefined) await setBadge(tabId, 0);
       return { matches: [] };
     }
@@ -108,6 +124,18 @@ async function probeLink(url: string): Promise<{ status: number; dead: boolean }
 
 function isDead(status: number): boolean {
   return status === 0 || status === 404 || status === 410 || status >= 500;
+}
+
+/** Clear the toolbar badge on every open tab whose site is now muted. */
+async function clearBadgesForIgnored(): Promise<void> {
+  const list = await getIgnoredSites();
+  if (list.length === 0) return;
+  const tabs = await browser.tabs.query({});
+  for (const tab of tabs) {
+    if (tab.id !== undefined && tab.url && isIgnored(tab.url, list)) {
+      await setBadge(tab.id, 0);
+    }
+  }
 }
 
 // --- Similarity index (kept in worker memory, rebuilt lazily) ---------------

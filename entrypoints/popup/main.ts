@@ -1,4 +1,5 @@
 import { getSettings, setSettings } from '@/lib/settings';
+import { getIgnoredSites, isIgnored, addIgnoredSite, unmuteUrl, toHost } from '@/lib/ignore';
 import { getLastSaveFolder, setLastSaveFolder } from '@/lib/storage';
 import { loadTree, createBookmark, findByUrl } from '@/lib/bookmarks';
 import { applyTheme } from '@/lib/theme';
@@ -58,19 +59,20 @@ async function init() {
     window.close();
   });
 
-  await wireQuickAdd();
+  const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+  const tab = tabs[0];
+  const url = tab?.url ?? '';
+  // Not a real web page (about:, file:, the store…) — leave both blocks hidden.
+  if (!/^https?:\/\//.test(url)) return;
+
+  await wireQuickAdd(url, tab?.title ?? '');
+  await wireMute(url);
 }
 
 /** "Save this page" — fills the current tab's title/url, a folder picker and a
  *  duplicate check, then creates a native bookmark in the chosen folder. */
-async function wireQuickAdd() {
+async function wireQuickAdd(url: string, title: string) {
   const section = $('#save');
-  const tabs = await browser.tabs.query({ active: true, currentWindow: true });
-  const tab = tabs[0];
-  const url = tab?.url ?? '';
-  const title = tab?.title ?? '';
-  if (!/^https?:\/\//.test(url)) return; // not a savable page — keep section hidden
-
   const host = hostOf(url);
   const mono = $('#save-mono');
   mono.textContent = (host[0] ?? '•').toUpperCase();
@@ -115,6 +117,39 @@ async function wireQuickAdd() {
   });
 
   section.hidden = false;
+}
+
+/** "Don't suggest here" — mute the current site so the nudge stays quiet on it.
+ *  Muting also pulls any card already showing on the page: the content script
+ *  watches the same list. Unmuting drops parent domains too, so the button
+ *  always undoes what it just did. */
+async function wireMute(url: string) {
+  const host = toHost(url);
+  if (!host) return;
+
+  const btn = $<HTMLButtonElement>('#mute-btn');
+  const hint = $('#mute-hint');
+  $('#mute-host').textContent = host;
+
+  let sites = await getIgnoredSites();
+  const paint = () => {
+    const muted = isIgnored(url, sites);
+    btn.textContent = muted ? 'Suggest here again' : 'Don’t suggest here';
+    btn.classList.toggle('mute__btn--on', muted);
+    hint.textContent = muted
+      ? 'Muted. Manage the full list under “Muted sites” in the manager.'
+      : 'Never nudge me on this site — handy for search engines.';
+  };
+  paint();
+
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    sites = isIgnored(url, sites) ? await unmuteUrl(url) : await addIgnoredSite(url);
+    paint();
+    btn.disabled = false;
+  });
+
+  $('#mute').hidden = false;
 }
 
 function setStatus(el: HTMLElement, text: string, kind: 'ok' | 'dup') {

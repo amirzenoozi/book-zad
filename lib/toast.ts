@@ -14,6 +14,12 @@ export interface ToastActions {
   onOpen: () => void;
 }
 
+/** Pull the toast off the page, if one is showing. Used when the site gets
+ *  muted while the user is still on it. */
+export function hideToast(): void {
+  document.getElementById(HOST_ID)?.remove();
+}
+
 export function showToast(match: FolderMatch, actions: ToastActions): void {
   if (document.getElementById(HOST_ID)) return; // already showing
   if (!document.body) return;

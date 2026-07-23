@@ -53,6 +53,15 @@
           <input type="range" id="set-threshold" min="5" max="50" step="1" />
           <p class="row__hint">Lower = more suggestions (looser). Higher = only strong matches.</p>
         </div>
+
+        <div class="row row--stack mute" id="mute" hidden>
+          <div class="row__top">
+            <span class="row__label">This site</span>
+            <span class="row__value" id="mute-host"></span>
+          </div>
+          <button id="mute-btn" class="mute__btn" type="button">Don’t suggest here</button>
+          <p class="row__hint" id="mute-hint"></p>
+        </div>
       </section>
 
       <section class="pop__section">

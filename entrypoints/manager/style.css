@@ -461,11 +461,14 @@ body {
 
 /* Cleanup panel */
 .panel {
-  margin: 12px 24px 48px;
+  margin: 12px 24px 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px 18px;
+}
+.panel:last-of-type {
+  margin-bottom: 48px;
 }
 .panel__title {
   margin: 0 0 12px;
@@ -589,7 +592,11 @@ body {
   box-shadow: -8px 0 30px rgba(0, 0, 0, 0.3);
 }
 .drawer__inner {
+  height: 100%;
   padding: 20px;
+  /* The drawer is viewport-tall — scroll its contents, not the page behind it. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .drawer__head {
   display: flex;
@@ -655,6 +662,99 @@ body {
 .drawer__actions .btn {
   flex: 1;
 }
+/* Muted sites */
+.mute__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.mute__preset {
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 11px;
+  cursor: pointer;
+}
+.mute__preset:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.mute__preset--on {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+/* An "on" group unmutes on click — say so on hover. */
+.mute__preset--on:hover {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+  border-color: color-mix(in srgb, var(--danger) 35%, transparent);
+}
+.mute__add {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.mute__input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  padding: 7px 10px;
+}
+.mute__input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.mute__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  /* A long list scrolls in place instead of pushing the page around. */
+  max-height: 190px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.mute__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 4px 3px 10px;
+}
+.mute__x {
+  border: none;
+  background: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 4px;
+}
+.mute__x:hover {
+  color: var(--danger);
+}
+.mute__empty {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
 .scrim {
   position: fixed;
   inset: 0;

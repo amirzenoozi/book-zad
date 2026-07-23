@@ -1,7 +1,8 @@
 import { sendMessage } from '@/lib/messaging';
 import { getSettings } from '@/lib/settings';
 import { extractPageText, tokenize, termFrequencies } from '@/lib/text';
-import { showToast } from '@/lib/toast';
+import { getIgnoredSites, isIgnored, IGNORE_KEY } from '@/lib/ignore';
+import { showToast, hideToast } from '@/lib/toast';
 
 // Runs on every page. It (1) reads the page text and asks the background worker
 // whether it resembles a saved folder — driving the toolbar badge and, if the
@@ -25,13 +26,25 @@ export default defineContentScript({
     const settings = await getSettings();
     if (!settings.nudgeEnabled) return;
 
+    // The site can be muted from the popup while this page is still open, so
+    // track the list rather than only checking it once. `muted` is re-read
+    // after the analysis too, in case it flipped while we were waiting.
+    let muted = isIgnored(location.href, await getIgnoredSites());
+    browser.storage.onChanged.addListener((changes, area) => {
+      if (area !== 'sync' || !changes[IGNORE_KEY]) return;
+      const list = (changes[IGNORE_KEY].newValue as string[] | undefined) ?? [];
+      muted = isIgnored(location.href, list);
+      if (muted) hideToast();
+    });
+    if (muted) return;
+
     const { matches } = await sendMessage('analyzePage', {
       url: location.href,
       title: document.title,
       text,
     });
 
-    if (matches.length > 0 && settings.toastEnabled) {
+    if (!muted && matches.length > 0 && settings.toastEnabled) {
       const top = matches[0];
       if (top) {
         showToast(top, {

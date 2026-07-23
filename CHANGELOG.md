@@ -18,6 +18,7 @@
 - Dead-link detection in cleanup — an on-demand scan that flags bookmarks that no longer resolve (404 / gone / server errors), with per-link and bulk removal. The last scan is remembered between sessions.
 - Quick-add the current page from the toolbar popup, with a folder picker and a duplicate check.
 - Similarity nudge: as you browse, the page text is compared on-device (TF-IDF) against your saved folders, badging the toolbar icon on a match.
+- Muted sites — a managed list of sites the nudge stays quiet on, in its own collapsible panel under Cleanup. Mute the site you're on with one button in the toolbar popup (the badge and any in-page card disappear immediately), add domains by hand, or toggle whole preset groups — Search engines, Mail & messaging, Social feeds. Search engines are muted out of the box, and muting a domain covers its subdomains.
 - Optional in-page toast for a match that lets you add the current page to the suggested folder or open that folder.
 - Toolbar popup launcher with quick settings — nudge toggle, in-page toast toggle, suggestion threshold, and theme.
 - Dark, light and auto themes across the manager page, popup and toast.
