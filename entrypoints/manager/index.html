@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BookZad</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand__mark"></span>
+        <h1 class="brand__name">BookZad</h1>
+      </div>
+
+      <div class="search">
+        <input
+          id="search"
+          class="search__input"
+          type="search"
+          placeholder="Search title, url, notes, tags…"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="controls">
+        <label class="control">
+          <span class="control__label">Sort</span>
+          <select id="sort" class="control__select">
+            <option value="score">Score</option>
+            <option value="recent">Recently added</option>
+            <option value="visited">Most visited</option>
+            <option value="title">Title A–Z</option>
+          </select>
+        </label>
+        <label class="control">
+          <span class="control__label">Theme</span>
+          <select id="theme" class="control__select">
+            <option value="auto">Auto</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+        <button id="settings-btn" class="btn btn--ghost" type="button">Settings</button>
+      </div>
+    </header>
+
+    <section class="stats" id="stats"></section>
+
+    <div class="folderbar" id="folderbar">
+      <nav class="crumbs" id="crumbs" aria-label="Folder path"></nav>
+      <button id="new-folder" class="btn btn--ghost" type="button" hidden>+ New folder</button>
+    </div>
+
+    <main class="grid" id="grid" aria-live="polite"></main>
+    <p class="empty" id="empty" hidden>No bookmarks match your search.</p>
+
+    <!-- Hygiene -->
+    <section class="panel" id="hygiene">
+      <h2 class="panel__title">Cleanup</h2>
+      <div class="panel__body" id="hygiene-body"></div>
+    </section>
+
+    <!-- Settings drawer -->
+    <aside class="drawer" id="drawer" hidden>
+      <div class="drawer__inner">
+        <div class="drawer__head">
+          <h2>Settings</h2>
+          <button id="drawer-close" class="btn btn--ghost" type="button">Close</button>
+        </div>
+
+        <label class="setting">
+          <span class="setting__label">Similarity nudge</span>
+          <input type="checkbox" id="set-nudge" />
+        </label>
+        <p class="setting__hint">
+          Show a toolbar badge when the page you're reading resembles a folder you keep.
+        </p>
+
+        <label class="setting">
+          <span class="setting__label">In-page toast</span>
+          <input type="checkbox" id="set-toast" />
+        </label>
+        <p class="setting__hint">Also pop a small in-page toast on a match. Off by default.</p>
+
+        <label class="setting setting--stack">
+          <span class="setting__label">Match sensitivity</span>
+          <input type="range" id="set-threshold" min="5" max="50" step="1" />
+          <span class="setting__value" id="threshold-value"></span>
+        </label>
+        <p class="setting__hint">Lower = more nudges (looser matches). Higher = only strong matches.</p>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim" hidden></div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
