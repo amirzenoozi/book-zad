@@ -10,40 +10,56 @@ no accounts, no servers, nothing transmitted.
 
 ## Features
 
-- **Full manager page** — opens from the toolbar button; a card dashboard of all
-  your bookmarks.
+- **Full manager page** — a card dashboard of all your bookmarks, opened from the
+  toolbar popup.
+- **Toolbar popup** — a launcher + quick settings, and **quick-add**: save the
+  current page into a folder in one click (with a duplicate check).
+- **Folders** — breadcrumb navigation; create/rename/delete folders; move a
+  bookmark *or a whole folder* anywhere.
 - **Scoring & ranking** — every bookmark gets a score from how you actually use
   it (visits, recency, dwell time, tracked locally), which you can override with
   a manual star rating. Sort by score, recency, visits or title.
 - **Powerful search** — instant filter across title, url, notes and tags.
-- **Notes** — annotate any bookmark; notes are searchable.
-- **Cleanup** — spot duplicate URLs and stale bookmarks (added long ago, never
-  opened since install).
+- **Notes & tags** — annotate and tag any bookmark; both are searchable and feed
+  the suggestions.
+- **Cleanup** — an accordion of **duplicates**, **stale** bookmarks, and
+  **dead-link** detection (a best-effort on-demand scan, remembered between
+  sessions); remove per-item or in bulk.
+- **Backup** — export a JSON file of *all* your bookmarks plus their notes, tags
+  and scores, and import it back — matched by URL and folder path, recreating any
+  missing bookmarks so it works even on a fresh browser.
 - **Similarity nudge** — as you browse, BookZad compares the page text against
   your saved folders (local TF-IDF) and, on a match, shows a **toolbar badge**
-  (and an optional in-page **toast**) suggesting the folder you might file it in
-  or revisit.
+  (and an optional, actionable in-page **toast**) suggesting the folder you might
+  file it in or revisit.
 
 ## Architecture
 
 ```
 entrypoints/
-  background.ts        # opens the manager, keeps the folder similarity index
-                       #   warm, answers "is this page familiar?", records usage
+  background.ts        # keeps the folder similarity index warm, answers "is this
+                       #   page familiar?", records usage, probes dead links
   content/index.ts     # reads page text → asks background; tracks dwell time
+  popup/               # toolbar popup: quick-add + settings (index.html+main.ts+css)
   manager/             # the full manager page (index.html + main.ts + style.css)
 lib/
-  bookmarks.ts         # flatten the native tree; duplicates; url normalisation
-  storage.ts           # per-bookmark metadata (notes/tags/score/signals/tokens)
+  bookmarks.ts         # flatten the native tree; move/create; duplicates; url norm.
+  storage.ts           # per-node metadata + UI state (last folder, dead-link scan)
+  backup.ts            # full export / import of bookmarks + metadata
+  dedupe.ts            # which duplicate to keep (pure, tested)
   settings.ts          # theme, toast, nudge, threshold (storage.sync)
   text.ts              # tokenise + page-text extraction
   tfidf.ts             # TF-IDF + cosine similarity (dependency-free)
-  similarity.ts        # build the per-folder index; match a page
+  similarity.ts        # build the per-folder index (title+url+notes+tags); match
   scoring.ts           # usage signals → 0–100 score
   theme.ts             # light/dark/auto via data-theme
   toast.ts             # the in-page nudge (shadow DOM, self-contained)
+  manager.ts           # open/focus the manager tab
   messaging.ts         # typed content ⇄ background protocol
-wxt.config.ts          # manifest: bookmarks/storage/tabs + <all_urls> content script
+  fonts.css            # Vazirmatn @font-face (Persian/Arabic, unicode-range)
+docs/                  # bilingual (en/fa) GitHub Pages landing site
+mockups/               # store screenshots + promo tiles (render.sh)
+wxt.config.ts          # manifest: bookmarks/storage/tabs + <all_urls> + fonts
 ```
 
 The native bookmarks API only stores title/url/folder, so BookZad keeps its
@@ -58,6 +74,7 @@ npm run gen:icons      # generate public/icon/*.png (bookmark glyph)
 npm run dev            # Chrome with HMR (opens a dev browser)
 npm run dev:firefox    # Firefox with HMR
 npm run compile        # type-check (tsc --noEmit)
+npm test               # unit tests (Vitest) for the core logic
 ```
 
 ## Build & package for the stores

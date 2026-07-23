@@ -117,10 +117,11 @@ place. Plus per-bookmark score (auto + manual stars), searchable notes, a
 cleanup panel (duplicates + stale, with one-click "keep best, delete rest"
 dedupe per group or across all groups), and a settings drawer.
 
-Not yet done / rough edges: no automated tests; dead-link detection not built
-(only duplicates + stale in cleanup); favicons are monogram tiles (deliberate —
-avoids external requests); Firefox MV2 `browserAction` shim added but untested
-in a live Firefox profile.
+Not yet done / rough edges: favicons are monogram tiles (deliberate — avoids
+external requests); Firefox MV2 `browserAction` shim added but untested in a
+live Firefox profile; the whole extension has not yet been exercised in a live
+browser (only type-checked, unit-tested and built). Dead-link detection now
+exists (best-effort background probe in the cleanup panel).
 
 ## Project scope
 

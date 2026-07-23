@@ -21,4 +21,8 @@ render "$SRC/s-popup.html" 1280 800  "$DIR/banner-popup.png"
 render "$SRC/p-dark.html"   600 1031 "$DIR/popup-dark.png"
 render "$SRC/p-light.html"  600 1031 "$DIR/popup-light.png"
 
+# Chrome Web Store promo tiles
+render "$SRC/promo-small.html"   440 280  "$DIR/promo-small.png"
+render "$SRC/promo-marquee.html" 1400 560 "$DIR/promo-marquee.png"
+
 echo "Rendered store screenshots to $DIR"
