@@ -1,5 +1,21 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Muted sites — a managed list of sites the nudge stays quiet on, in its own collapsible panel under Cleanup. Mute the site you're on with one button in the toolbar popup (the badge and any in-page card disappear immediately), add domains by hand, or toggle whole preset groups — Search engines, Mail & messaging, Social feeds. Search engines are muted out of the box, and muting a domain covers its subdomains.
+- Interface in English, German, French, Italian, Dutch, Turkish and Persian, picked automatically from the browser's UI language (falling back to English) or set by hand from a Language picker in the popup and the manager's settings. The extension name and store description are localised too. Right-to-left locales flip the whole layout — the manager, the popup and the in-page card — and bookmark titles, folder names and URLs keep their own direction so a Latin address inside a Persian page still reads correctly.
+
+### Changed
+
+- The project site now covers all seven languages instead of English and Persian only, and opens on a chooser showing a flag per language. It carries its own copy of the flag artwork and the Vazirmatn font, so the pages load nothing from a CDN either.
+
+### Fixed
+
+- Persian text in buttons, dropdowns and text fields now renders in Vazirmatn like the rest of the interface, instead of falling back to the system font.
+- Searching with no results no longer reports "This folder is empty" after you had been browsing a folder — it says no bookmarks match your search.
+
 ## [1.0.0] - 2026-07-23
 
 ### Added
@@ -18,13 +34,10 @@
 - Dead-link detection in cleanup — an on-demand scan that flags bookmarks that no longer resolve (404 / gone / server errors), with per-link and bulk removal. The last scan is remembered between sessions.
 - Quick-add the current page from the toolbar popup, with a folder picker and a duplicate check.
 - Similarity nudge: as you browse, the page text is compared on-device (TF-IDF) against your saved folders, badging the toolbar icon on a match.
-- Muted sites — a managed list of sites the nudge stays quiet on, in its own collapsible panel under Cleanup. Mute the site you're on with one button in the toolbar popup (the badge and any in-page card disappear immediately), add domains by hand, or toggle whole preset groups — Search engines, Mail & messaging, Social feeds. Search engines are muted out of the box, and muting a domain covers its subdomains.
 - Optional in-page toast for a match that lets you add the current page to the suggested folder or open that folder.
 - Toolbar popup launcher with quick settings — nudge toggle, in-page toast toggle, suggestion threshold, and theme.
 - Dark, light and auto themes across the manager page, popup and toast.
-- Interface in English, German, French, Italian, Dutch, Turkish and Persian, picked automatically from the browser's UI language (falling back to English) or set by hand from a Language picker in the popup and the manager's settings. The extension name and store description are localised too. Right-to-left locales flip the whole layout — the manager, the popup and the in-page card — and bookmark titles, folder names and URLs keep their own direction so a Latin address inside a Persian page still reads correctly.
 - Persian and Arabic text renders in the bundled Vazirmatn font (scoped to that Unicode range, so Latin text keeps the system font); the font ships with the extension and is never fetched from a network.
-- A project site with a landing page and privacy policy in each of the seven languages, opening on a chooser that shows a flag per language. It carries its own copy of the flag artwork and the Vazirmatn font, so the pages load nothing from a CDN either.
 - Cross-browser builds for Chrome/Edge (MV3) and Firefox (MV2), a dependency-free icon generator, and CI plus tag-triggered publishing to all three stores.
 
 ### Changed
@@ -36,6 +49,4 @@
 
 ### Fixed
 
-- Persian text in buttons, dropdowns and text fields now renders in Vazirmatn like the rest of the interface, instead of falling back to the system font.
-- Searching with no results no longer reports "This folder is empty" after you had been browsing a folder — it says no bookmarks match your search.
 - The toast's match percentage no longer overlaps the close button.
