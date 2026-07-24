@@ -40,6 +40,25 @@ no accounts, no servers, nothing transmitted.
   the popup, add domains by hand, or toggle preset groups (search engines — on
   by default — mail, social). Muting a domain covers its subdomains.
 
+## Supported languages
+
+<table align="center">
+<tr>
+<td align="center"><img src="docs/assets/flags/gb.svg" width="40" alt=""><br>English</td>
+<td align="center"><img src="docs/assets/flags/de.svg" width="40" alt=""><br>Deutsch</td>
+<td align="center"><img src="docs/assets/flags/fr.svg" width="40" alt=""><br>Français</td>
+<td align="center"><img src="docs/assets/flags/it.svg" width="40" alt=""><br>Italiano</td>
+<td align="center"><img src="docs/assets/flags/nl.svg" width="40" alt=""><br>Nederlands</td>
+<td align="center"><img src="docs/assets/flags/tr.svg" width="40" alt=""><br>Türkçe</td>
+<td align="center"><img src="docs/assets/flags/lion-sun.svg" width="40" alt=""><br>فارسی</td>
+</tr>
+</table>
+
+The interface follows your browser's UI language (English fallback) or whatever
+you pick in settings; Persian gets full RTL layout and the bundled Vazirmatn
+font. Flags are the bundled [Twemoji](https://github.com/twitter/twemoji)
+artwork (Persian uses the Lion and Sun).
+
 ## Architecture
 
 ```
